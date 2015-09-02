@@ -185,6 +185,28 @@ android {
             if ( System.getenv("KEYSTORE") ) {
                 signingConfig signingConfigs.release
             }
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    // def formattedDate = new Date().format('yyyyMMdd-HHmmss')
+                    def newName = output.outputFile.name
+                    newName = newName.replace("app-", "BVApp1-")
+                    // newName = newName.replace("-debug", "-debug-" + formattedDate)
+                    // newName = newName.replace("-release", "-release-" + formattedDate)
+                    output.outputFile = new File(output.outputFile.parent, newName)
+                }
+            }
+        }
+        debug {
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    // def formattedDate = new Date().format('yyyyMMdd-HHmmss')
+                    def newName = output.outputFile.name
+                    newName = newName.replace("app-", "BVApp1-")
+                    // newName = newName.replace("-debug", "-debug-" + formattedDate)
+                    // newName = newName.replace("-release", "-release-" + formattedDate)
+                    output.outputFile = new File(output.outputFile.parent, newName)
+                }
+            }
         }
     }
 }
