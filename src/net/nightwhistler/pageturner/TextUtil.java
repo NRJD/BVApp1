@@ -29,7 +29,7 @@ import static jedi.functional.FunctionalPrimitives.select;
 
 public class TextUtil {
 
-    private static final Pattern PUNCTUATION = Pattern.compile("\\.( ?\\.)*[\"'”’]?|[\\?!] ?[\"'”’]?|, ?[\"'”’]|”");
+    private static final Pattern PUNCTUATION = Pattern.compile("\\.( ?\\.)*[\"'\\u0094’]?|[\\?!] ?[\"'\\u0094’]?|, ?[\"'\\u0094’]|\\u0094");
 
     /*
     These are titles like Mr. Mrs., etc that will often cause incorrect

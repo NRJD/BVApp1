@@ -73,11 +73,11 @@ public class TextUtilTest {
 
     @Test
     public void testQuotedUnicode() {
-        String input = "“aabbcc.”";
+        String input = "\\u0093aabbcc.\\u0094";
 
         assertThat
 
-                (TextUtil.splitOnPunctuation(input), equalTo(asList("“aabbcc.”")));
+                (TextUtil.splitOnPunctuation(input), equalTo(asList("\\u0093aabbcc.\\u0094")));
     }
 
     @Test
@@ -102,11 +102,11 @@ public class TextUtilTest {
 
     @Test
     public void testExtraQuotes() {
-        String input = "“It’s a start,” Arkady said. “But there are aspects of that treaty you haven’t mentioned.” ‘";
+        String input = "\\u0093It’s a start,\\u0094 Arkady said. \\u0093But there are aspects of that treaty you haven’t mentioned.\\u0094 ‘";
 
         assertThat
                 (TextUtil.splitOnPunctuation(input), equalTo(
-                        asList("“It’s a start,”", " Arkady said.", " “But there are aspects of that treaty you haven’t mentioned.”",
+                        asList("\\u0093It’s a start,\\u0094", " Arkady said.", " \\u0093But there are aspects of that treaty you haven’t mentioned.\\u0094",
                                 " ‘")
                 ));
 
