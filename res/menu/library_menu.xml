@@ -27,6 +27,7 @@
           android:icon="@drawable/file"
            />
 
+    <!-- TODO: 04/Sep/2015: Satya: This needs to be converted to download books feature on the menu options. -->
     <item
         android:id="@+id/scan_books"
         android:icon="@drawable/book_add"

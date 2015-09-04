@@ -30,6 +30,8 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import com.google.inject.Inject;
+import com.nrjd.app.AppConstants;
+
 import jedi.functional.FunctionalPrimitives;
 import jedi.option.Option;
 import net.nightwhistler.htmlspanner.FontFamily;
@@ -862,7 +864,7 @@ public class Configuration {
 	public Option<File> getLibraryFolder() {
 
         Option<File> libraryFolder = getStorageBase().map(
-                baseFolder -> new File(baseFolder.getAbsolutePath() + "/PageTurner/Books") );
+                baseFolder -> new File(baseFolder.getAbsolutePath() + AppConstants.BOOKS_PATH) );
 
         //If the library-folder on external storage exists, return it
         if ( ! isEmpty(select(libraryFolder, File::exists))) {

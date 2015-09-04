@@ -24,6 +24,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.google.inject.Inject;
+import com.nrjd.app.AppConstants;
+
 import roboguice.inject.ContextSingleton;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class LibraryDatabaseHelper extends SQLiteOpenHelper {
 
 	public enum Order { ASC , DESC }
 	
-	private static final String DB_NAME = "PageTurnerLibrary";
+	private static final String DB_NAME = AppConstants.DB_NAME;
 	private static final int VERSION = 4;
 
 	private static String getCreateTableString() {

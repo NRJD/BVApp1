@@ -5,7 +5,7 @@
     <string name="app_name" translatable="false">BVApp1</string>
     
     <string name="title">Title</string>
-    <string name="app_desc">PageTurner is a syncing e-book reader that allows you to sync your reading progress over multiple devices.</string>
+    <string name="app_desc">Bhakti Vriksha application.</string>
     <string name="browse">Browse…</string>
     <string name="open_file">Open ePub file</string>
     <string name="open_library">My Books</string>
@@ -15,8 +15,8 @@
     <string name="prefs">Settings</string>
     <string name="show_toc">Show TOC</string>
     <string name="rolling_blind">Auto-scroll</string>
-    <string name="about">About PageTurner</string>
-    <string name="about_gpl">PageTurner is free software under the GPL v3.</string>
+    <string name="about">About BVApp1</string>
+    <string name="about_gpl">BVApp1 is free software under the GPL v3.</string>
     <string name="error_open_bk">Error opening book: %s</string>
     <string name="dictionary_lookup">Look up in Dictionary</string>
     <string name="wikipedia_lookup">Search on Wikipedia</string>

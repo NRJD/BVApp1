@@ -406,6 +406,7 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
         onMenuPress( menu, R.id.shelves_view ).thenDo( toggleListener );
         onMenuPress( menu, R.id.list_view ).thenDo( toggleListener );
 
+        // TODO: 04/Sep/2015: Satya: This needs to be converted to download books feature on the menu options.
         onMenuPress( menu, R.id.scan_books ).thenDo( this::showImportDialog );
         onMenuPress( menu, R.id.about ).thenDo( dialogFactory.buildAboutDialog()::show );
 
@@ -1155,8 +1156,9 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 
                 if (filter == null && sel == Configuration.LibrarySelection.LAST_ADDED && r.getSize() == 0 && !askedUserToImport) {
                     askedUserToImport = true;
-                    buildImportQuestionDialog();
-                    importQuestion.show();
+                    // TODO: Commented on 02/Sep/2015: Satya: This needs to be converted to download books feature when application started.
+                    // buildImportQuestionDialog();
+                    // importQuestion.show();
                 }
             }, () -> Toast.makeText(context, R.string.library_failed, Toast.LENGTH_SHORT).show());
 
