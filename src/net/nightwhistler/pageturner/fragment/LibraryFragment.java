@@ -43,6 +43,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 import com.google.inject.Inject;
+import com.nrjd.app.NetDownloadTask;
+
 import jedi.functional.FunctionalPrimitives;
 import jedi.option.Option;
 import net.nightwhistler.htmlspanner.HtmlSpanner;
@@ -364,8 +366,8 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		getActivity().startActivityIfNeeded(intent, 99);		
 	}
 		
-	private void startImport(File startFolder, boolean copy) {		
-		ImportTask importTask = new ImportTask(context, libraryService, this, config, copy, false);
+	private void startImport(File startFolder, boolean copy) {
+		NetDownloadTask importTask = new NetDownloadTask(context, libraryService, this, config, copy, false);
 		importDialog.setOnCancelListener(importTask);
 		importDialog.show();		
 				
@@ -1157,8 +1159,8 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
                 if (filter == null && sel == Configuration.LibrarySelection.LAST_ADDED && r.getSize() == 0 && !askedUserToImport) {
                     askedUserToImport = true;
                     // TODO: Commented on 02/Sep/2015: Satya: This needs to be converted to download books feature when application started.
-                    // buildImportQuestionDialog();
-                    // importQuestion.show();
+                     buildImportQuestionDialog();
+                     importQuestion.show();
                 }
             }, () -> Toast.makeText(context, R.string.library_failed, Toast.LENGTH_SHORT).show());
 

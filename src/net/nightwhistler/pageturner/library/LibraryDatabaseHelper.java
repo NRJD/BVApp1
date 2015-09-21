@@ -49,7 +49,7 @@ public class LibraryDatabaseHelper extends SQLiteOpenHelper {
 
 	public enum Order { ASC , DESC }
 	
-	private static final String DB_NAME = AppConstants.DB_NAME;
+	private static final String DB_NAME = AppConstants.BOOKS_DB_NAME;
 	private static final int VERSION = 4;
 
 	private static String getCreateTableString() {

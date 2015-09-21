@@ -24,6 +24,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.nrjd.app.AppConstants;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 @Singleton
 public class BookmarkDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "PageTurnerBookmarks";
+    private static final String DB_NAME =  AppConstants.BOOKMARKS_DB_NAME;
     private static final String TABLE_NAME = "bookmarks";
     private static final int VERSION = 1;
 
