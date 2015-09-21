@@ -15,7 +15,7 @@
     <string name="prefs">Settings</string>
     <string name="show_toc">Show TOC</string>
     <string name="rolling_blind">Auto-scroll</string>
-    <string name="about">About BVApp1</string>
+    <string name="about">About BVApp1 application.</string>
     <string name="about_gpl">BVApp1 is free software under the GPL v3.</string>
     <string name="error_open_bk">Error opening book: %s</string>
     <string name="dictionary_lookup">Look up in Dictionary</string>
