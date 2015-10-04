@@ -1,16 +1,20 @@
 /*
- * Copyright (C) 2013 ISKCON New Rajapur Jagannatha Dham.
+ * Copyright (C) 2015 ISKCON New Rajapur Jagannatha Dham.
  *
  * This file is part of Bhakthi Vriksha application.
  */
-
-package com.nrjd.app;
+package org.nrjd.bv.app.util;
 
 import java.util.List;
 
+
 public class StringUtils {
-    public static boolean isNullOrEmpty(String str) {
-        return ((str == null) || str.trim().equals(""));
+    public static boolean isNullOrEmpty(String string) {
+        return ((string == null) || string.trim().equals(""));
+    }
+
+    public static boolean isNotNullOrEmpty(String string) {
+        return (!isNullOrEmpty(string));
     }
 
     public static String toString(List<String> stringValues, String delimiter, boolean appendIndex) {

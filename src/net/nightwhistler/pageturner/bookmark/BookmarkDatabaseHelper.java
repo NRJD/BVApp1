@@ -24,7 +24,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.nrjd.app.AppConstants;
+import org.nrjd.bv.app.AppConstants;
 
 import java.util.List;
 import java.util.ArrayList;

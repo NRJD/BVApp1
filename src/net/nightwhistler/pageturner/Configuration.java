@@ -30,9 +30,8 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import com.google.inject.Inject;
-import com.nrjd.app.AppConstants;
+import org.nrjd.bv.app.AppConstants;
 
-import jedi.functional.FunctionalPrimitives;
 import jedi.option.Option;
 import net.nightwhistler.htmlspanner.FontFamily;
 import net.nightwhistler.pageturner.activity.PageTurnerActivity;
@@ -55,9 +54,7 @@ import static jedi.functional.FunctionalPrimitives.isEmpty;
 import static jedi.functional.FunctionalPrimitives.select;
 import static jedi.option.Options.none;
 import static jedi.option.Options.option;
-import static jedi.option.Options.some;
 import static net.nightwhistler.pageturner.CustomOPDSSite.fromJSON;
-import static net.nightwhistler.pageturner.PlatformUtil.isAtLeast;
 
 /**
  * Application configuration class which provides a friendly API to the various

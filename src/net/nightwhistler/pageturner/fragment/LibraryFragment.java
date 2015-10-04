@@ -43,9 +43,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 import com.google.inject.Inject;
-import com.nrjd.app.NetDownloadTask;
+import org.nrjd.bv.app.NetDownloadTask;
 
-import jedi.functional.FunctionalPrimitives;
 import jedi.option.Option;
 import net.nightwhistler.htmlspanner.HtmlSpanner;
 import net.nightwhistler.pageturner.Configuration;
@@ -127,6 +126,8 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 	private ProgressDialog importDialog;	
 	
 	private AlertDialog importQuestion;
+	// BVApp-Comment: 21/Sep/2015: Added download question dialog.
+	private AlertDialog downloadQuestion;
 	
 	private boolean askedUserToImport;
 	private boolean oldKeepScreenOn;
@@ -192,8 +193,17 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		this.importDialog = new ProgressDialog(context);
 		
 		this.importDialog.setOwnerActivity(getActivity());
-		importDialog.setTitle(R.string.importing_books);
-		importDialog.setMessage(getString(R.string.scanning_epub));
+		// BVApp-Comment: 21/Sep/2015: Changed import progress dialog messages to indicate download books activity.
+		//// importDialog.setTitle(R.string.importing_books);
+		//// importDialog.setMessage(getString(R.string.scanning_epub));
+		importDialog.setTitle(R.string.downloading_books);
+		importDialog.setMessage(getString(R.string.started_downloading_books));
+		// BVApp-Comment: 21/Sep/2015: Added progress bar capability to import progress dialog.
+		importDialog.setIndeterminate(false);
+		importDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		// TODO: BVApp-Comment: 21/Sep/2015: Add Cancel capability.
+		// importDialog.setCancelable(true);
+		// importDialog.setOnCancelListener(this);
 		registerForContextMenu(this.listView);	
 
         this.listView.setOnItemClickListener( this::onItemClick );
@@ -367,6 +377,8 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 	}
 		
 	private void startImport(File startFolder, boolean copy) {
+		// BVApp-Comment: 21/Sep/2015: Downloading the books instead of scanning and importing the books from a local directory.
+		//// ImportTask importTask = new ImportTask(context, libraryService, this, config, copy, false);
 		NetDownloadTask importTask = new NetDownloadTask(context, libraryService, this, config, copy, false);
 		importDialog.setOnCancelListener(importTask);
 		importDialog.show();		
@@ -408,8 +420,10 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
         onMenuPress( menu, R.id.shelves_view ).thenDo( toggleListener );
         onMenuPress( menu, R.id.list_view ).thenDo( toggleListener );
 
-        // TODO: 04/Sep/2015: Satya: This needs to be converted to download books feature on the menu options.
-        onMenuPress( menu, R.id.scan_books ).thenDo( this::showImportDialog );
+		// BVApp-Comment: 21/Sep/2015: Scan books button converted into download books button.
+		// Instead of scanning and importing books from a local directory, it provides the option to download the books.
+        //// onMenuPress( menu, R.id.scan_books ).thenDo( this::showImportDialog );
+		onMenuPress( menu, R.id.scan_books ).thenDo( this::buildDownloadQuestionDialogForBookUpdates );
         onMenuPress( menu, R.id.about ).thenDo( dialogFactory.buildAboutDialog()::show );
 
         onMenuPress( menu, R.id.profile_day ).thenDo(() -> switchToColourProfile(ColourProfile.DAY) );
@@ -703,21 +717,27 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		
 		importDialog.hide();
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle(R.string.import_failed);
+		// BVApp-Comment: 21/Sep/2015: Showing download failed error instead of import failed error.
+		//// builder.setTitle(R.string.import_failed);
+		// TODO: The title needs to be changed on error context.
+		builder.setTitle(R.string.download_failed); // TODO: New label
 		builder.setMessage(reason);
 		builder.setNeutralButton(android.R.string.ok, null);
 		builder.show();
 	}
 	
 	@Override
-	public void importStatusUpdate(String update, boolean silent) {
+	public void importStatusUpdate(String update, int actualProgress, int maxProgress, boolean silent) {
 		
 		if (silent || !isAdded() || getActivity() == null ) {
 			return;
 		}
 		
 		importDialog.setMessage(update);
-	}	
+		// BVApp-Comment: 21/Sep/2015: Added progress bar capability to import progress dialog.
+		importDialog.setMax(maxProgress);
+		importDialog.setProgress(actualProgress);
+	}
 	
 	public void onAlphabetBarClick( KeyedQueryResult<LibraryBook> result, Character c ) {
 
@@ -996,6 +1016,64 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 
         this.importQuestion = builder.create();
 	}
+
+	// BVApp-Comment: 21/Sep/2015: Added new method to build download question dialog at the application startup.
+	private void buildDownloadQuestionDialogAtAppStart() {
+		if ( this.downloadQuestion != null || ! isAdded() ) {
+			return;
+		}
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle(getString(R.string.no_books_found));
+		builder.setMessage(getString(R.string.download_bks_question));
+
+		builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+			dialog.dismiss();
+			startDownloadBooks();
+		});
+
+		builder.setNegativeButton(android.R.string.no, (dialog, which ) -> {
+			dialog.dismiss();
+			this.downloadQuestion = null;
+		});
+
+		this.downloadQuestion = builder.create();
+	}
+
+	// BVApp-Comment: 21/Sep/2015: Added new method to build download question dialog for book updates.
+	private void buildDownloadQuestionDialogForBookUpdates() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		// TODO: Retrieve hasBooksInLibrary flag properly from SQLite database.
+		boolean hasBooksInLibrary = true;
+		if(hasBooksInLibrary) {
+			builder.setTitle(getString(R.string.download_books));
+			builder.setMessage(getString(R.string.download_update_bks_question));
+		} else {
+			builder.setTitle(getString(R.string.no_books_found));
+			builder.setMessage(getString(R.string.download_bks_question));
+		}
+
+		builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+			dialog.dismiss();
+			startDownloadBooks();
+		});
+
+		builder.setNegativeButton(android.R.string.cancel, (dialog, which ) -> {
+			dialog.dismiss();
+		});
+
+		builder.show();
+	}
+
+	// BVApp-Comment: 21/Sep/2015: Added new method to start downloading the books.
+	private void startDownloadBooks() {
+		// BVApp-Comment: 21/Sep/2015: Just passing library folder for folderToScan and enabling copyToLibrary flag.
+		// This is just dummy passing of values, anyways the NetDownloadTask has its own functionality to
+		// download the books and copy them to the library.
+		File folderToScan = config.getLibraryFolder().unsafeGet();
+		boolean copyToLibrary = true;
+		startImport(folderToScan, copyToLibrary);
+	}
 	
 	private void setAlphabetBarVisible( boolean visible ) {
 		
@@ -1158,9 +1236,12 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 
                 if (filter == null && sel == Configuration.LibrarySelection.LAST_ADDED && r.getSize() == 0 && !askedUserToImport) {
                     askedUserToImport = true;
-                    // TODO: Commented on 02/Sep/2015: Satya: This needs to be converted to download books feature when application started.
-                     buildImportQuestionDialog();
-                     importQuestion.show();
+					// BVApp-Comment: 21/Sep/2015: When application starts, if no books in the library, then provide the option to to download the books.
+					// Instead of scanning and importing books from a local directory, it provides the option to download the books.
+					//// buildImportQuestionDialog();
+					//// importQuestion.show();
+					buildDownloadQuestionDialogAtAppStart();
+					downloadQuestion.show();
                 }
             }, () -> Toast.makeText(context, R.string.library_failed, Toast.LENGTH_SHORT).show());
 

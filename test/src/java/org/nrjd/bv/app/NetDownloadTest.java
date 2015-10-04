@@ -1,4 +1,4 @@
-package com.nrjd.app;
+package org.nrjd.bv.app;
 
 import org.junit.Test;
 

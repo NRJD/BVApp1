@@ -24,8 +24,9 @@ import java.util.List;
 public interface ImportCallback {
 
 	void importComplete( int booksImported, List<String> failures, boolean emptyLibrary, boolean silent );
-	
-	void importStatusUpdate( String update, boolean silent );
+
+	// BVApp-Comment: 21/Sep/2015: Added bar progress capability to import progress dialog.
+	void importStatusUpdate( String update, int actualProgress, int maxProgress, boolean silent );
 		
 	void importFailed( String reason, boolean silent );
 

@@ -24,7 +24,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.google.inject.Inject;
-import com.nrjd.app.AppConstants;
+import org.nrjd.bv.app.AppConstants;
 
 import roboguice.inject.ContextSingleton;
 

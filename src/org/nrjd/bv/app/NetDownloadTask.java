@@ -1,34 +1,32 @@
 /*
- * Copyright (C) 2013 ISKCON New Rajapur Jagannatha Dham.
+ * Copyright (C) 2015 ISKCON New Rajapur Jagannatha Dham.
  *
  * This file is part of Bhakthi Vriksha application.
  */
-
-package com.nrjd.app;
+package org.nrjd.bv.app;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 
 import com.google.inject.Inject;
-import jedi.option.None;
-import jedi.option.Option;
+import org.nrjd.bv.app.reg.BookEntry;
+import org.nrjd.bv.app.reg.RegistryData;
+import org.nrjd.bv.app.reg.RegistryDataUtils;
+import org.nrjd.bv.app.reg.RegistryHandler;
+import org.nrjd.bv.app.util.CommonUtils;
+import org.nrjd.bv.app.util.FileUtils;
+import org.nrjd.bv.app.util.StringUtils;
 
 import net.nightwhistler.pageturner.Configuration;
 import net.nightwhistler.pageturner.library.ImportCallback;
 import net.nightwhistler.pageturner.library.LibraryService;
 import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
 
-import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.epub.EpubReader;
-import nl.siegmann.epublib.service.MediatypeService;
-import roboguice.RoboGuice;
-
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,15 +35,29 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import jedi.option.None;
+import jedi.option.Option;
+import nl.siegmann.epublib.domain.Book;
+import nl.siegmann.epublib.epub.EpubReader;
+import nl.siegmann.epublib.service.MediatypeService;
+import roboguice.RoboGuice;
 
 import static jedi.functional.FunctionalPrimitives.isEmpty;
 
-public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implements OnCancelListener {
 
+public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implements OnCancelListener {
     private static final Logger LOG = LoggerFactory.getLogger(NetDownloadTask.class);
+
     private static final boolean COPY_TO_LIBRARY = true;
+    private static final int DEFAULT_BUFFER_SIZE = 4098;
+
+    private long DOWNLOAD_REGISTRY = 1;
+    private long DOWNLOAD_BOOK = 2;
+    private long IMPORT_BOOK = 3;
     private Context context;
     private LibraryService libraryService;
     private ImportCallback callBack;
@@ -59,6 +71,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
 
     private long totalBooks = 0;
     private long currentBookNumber = 0;
+    private String currentBookName = null;
     private String downloadFailedMessage = null;
 
     @Inject
@@ -107,12 +120,66 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
             return;
         }
 
-        List<String> bookUrls = AppConstants.getBookUrls();
-        this.totalBooks = bookUrls.size();
+        // Download registry data.
+        RegistryHandler registryHandler = new RegistryHandler();
+        String registryUrl = registryHandler.getRegistryUrl();
+        File registryFile = null;
+        RegistryData registryData = null;
+        try {
+            // TODO: Now null "downloadFile" is used as the machanism to check the success of download and then delete the file.
+            // But even if the download goes incomplete, then also we need to cleanup the file.
+            registryFile = downloadBook(registryUrl, null, DOWNLOAD_REGISTRY);
+            if (registryFile != null) {
+                String registryFileData = FileUtils.getFileData(registryFile);
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Got registry file data:\n" + registryFileData);
+                }
+                if (registryFileData != null) {
+                    registryData = RegistryDataUtils.parseRegistryXml(registryFileData);
+                }
+            }
+        } catch (Exception e) {
+            // TODO: Don't show internal exception messages to end users.
+            this.downloadFailedMessage = "Error occurred while checking for book updates: " + e.getMessage();
+            LOG.error(this.downloadFailedMessage, e);
+            return;
+        } finally {
+            if (registryFile != null) {
+                registryFile.delete();
+            }
+        }
+
+        if (registryData == null) {
+            // TODO: Need to modify this error message for end users.
+            this.downloadFailedMessage = "No registry data available!";
+            LOG.error(this.downloadFailedMessage);
+            return;
+        }
+
+        List<BookEntry> bookEntries = registryData.getBookEntries();
+        if ((bookEntries == null) || (bookEntries.size() < 1)) {
+            // TODO: Need to modify this error message for end users.
+            this.downloadFailedMessage = "No book entries available!";
+            LOG.error(this.downloadFailedMessage);
+            return;
+        }
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Got registry data:\n" + registryData);
+        }
+
+        // Download books
+        // TODO: Download only the new book updates.
+        this.totalBooks = bookEntries.size();
         for (int bookIndex = 0; bookIndex < this.totalBooks; bookIndex++) {
             if (StringUtils.isNullOrEmpty(this.downloadFailedMessage)) {
+                // TODO: Now null "downloadFile" is used as the machanism to check the success of download and then delete the file.
+                // But even if the download goes incomplete, then also we need to cleanup the file.
+                BookEntry bookEntry = bookEntries.get(bookIndex);
+                String bookUrl = registryHandler.getBookUrl(bookEntry.getFileName());
                 this.currentBookNumber = bookIndex + 1;
-                File downloadedFile = downloadBook(bookUrls.get(bookIndex));
+                this.currentBookName = bookEntry.getBookName();
+                File downloadedFile = downloadBook(bookUrl, bookEntry, DOWNLOAD_BOOK);
                 if (downloadedFile != null) {
                     try {
                         importBook(downloadedFile);
@@ -125,7 +192,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
         }
     }
 
-    private File downloadBook(String bookUrl) {
+    private File downloadBook(String bookUrl, BookEntry bookEntry, long downloadFileType) {
         // Validations.
         // If bookUrl specified is null or empty, then return from here.
         if (StringUtils.isNullOrEmpty(bookUrl)) {
@@ -133,6 +200,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
         }
         // Download the book.
         String fileName = null;
+        String bookName = ((bookEntry != null) ? bookEntry.getBookName() : fileName);
         try {
             LOG.debug("Downloading: " + bookUrl);
 
@@ -162,16 +230,9 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
 
                 LOG.debug("Downloading books to destFolder: " + destFolder);
 
-                // Default Charset for android is UTF-8*
-                String charsetName = Charset.defaultCharset().name();
-                if (!Charset.isSupported(charsetName)) {
-                    LOG.warn("{} is not a supported Charset. Will fall back to UTF-8", charsetName);
-                    charsetName = AppConstants.UTF8;
-                }
-
                 File destFile = null;
                 try {
-                    destFile = new File(destFolder, URLDecoder.decode(fileName, charsetName));
+                    destFile = new File(destFolder, URLDecoder.decode(fileName, AppConstants.UTF8));
                 } catch (UnsupportedEncodingException e) {
                     // Won't ever reach here
                     throw new AssertionError(e);
@@ -181,46 +242,49 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
                     destFile.delete();
                 }
 
-                downloadBook(response, destFile);
+                downloadBook(response, destFile, bookEntry, downloadFileType);
                 return destFile;
             } else {
-                // TODO: To fix download errors different from import errors. Fix with user errors.
-                this.downloadFailedMessage = "Download failed: " + fileName + ": " + response.getStatusLine().getReasonPhrase();
-                LOG.error("Download failed: " + fileName + ": " + response.getStatusLine().getReasonPhrase());
+                // TODO: Don't show internal exception messages to end users.
+                this.downloadFailedMessage = "Failed to download the books: " + response.getStatusLine().getReasonPhrase();
+                LOG.error(bookName + ": " + this.downloadFailedMessage);
             }
         } catch (Exception e) {
-            // TODO: To fix download errors different from import errors. Fix with user errors.
-            this.downloadFailedMessage = "Download failed: " + fileName;
-            LOG.error("Download failed: " + fileName, e);
+            // TODO: Don't show internal exception messages to end users.
+            this.downloadFailedMessage = "Failed to download the books: " + e.getMessage();
+            LOG.error(bookName + ": " + this.downloadFailedMessage, e);
         }
         return null;
     }
 
-    private void downloadBook(HttpResponse response, File destFile) throws Exception {
-        // fileSize is used for calculating download progress.
+    private void downloadBook(HttpResponse response, File destFile, BookEntry bookEntry, long downloadFileType) throws Exception {
+        // File size is used for calculating the download progress.
+        // If we don't get proper content-length in http response, then assign it from book entry registry.
         long fileSize = response.getEntity().getContentLength();
+        if ((fileSize < 0) && (bookEntry != null)) {
+            LOG.debug("Got invalid content-length: " + fileSize + ": Assigning from book entry registry: " + bookEntry.getSize());
+            fileSize = bookEntry.getSize();
+        }
         Header type = response.getEntity().getContentType();
         long downloadedSize = 0;
         InputStream in = null;
-        FileOutputStream f = null;
+        FileOutputStream fos = null;
         try {
             in = response.getEntity().getContent();
-            f = new FileOutputStream(destFile);
-            byte[] buffer = new byte[4098];
+            fos = new FileOutputStream(destFile);
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
             int readSize = 0;
             while ((readSize = in.read(buffer)) > 0 && !isCancelled()) {
                 // Make sure the user can cancel the download.
                 if (isCancelled()) {
                     return;
                 }
-                f.write(buffer, 0, readSize);
+                fos.write(buffer, 0, readSize);
                 downloadedSize += readSize;
-                final long MAX_PROGRESS = 98; // Remaining 2% is for import book.
-                long progress = (downloadedSize * MAX_PROGRESS) / fileSize;
-                publishProgress(fileSize, downloadedSize, progress);
+                publishProgress(downloadFileType, fileSize, downloadedSize);
             }
         } finally {
-            CommonUtils.closeQuietly(f);
+            CommonUtils.closeQuietly(fos);
             CommonUtils.closeQuietly(in);
         }
         LOG.debug("Downloaded: " + destFile + ": type: " + type + ": " + downloadedSize + " bytes");
@@ -235,8 +299,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
                         Arrays.asList(MediatypeService.mediatypes));
                 libraryService.storeBook(file.getAbsolutePath(), importedBook, false, COPY_TO_LIBRARY);
                 this.booksImported++;
-                publishProgress(file.length(), file.length(), (long) 100);
-                CommonUtils.sleep("DownloadCheck", 5);
+                publishProgress(IMPORT_BOOK, file.length(), file.length());
                 return true;
             } catch (Exception io) {
                 if (!isCancelled()) {
@@ -252,17 +315,26 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
 
     @Override
     public void doOnProgressUpdate(Long... values) {
-        long fileSize = values[0];
-        long downloadedSize = values[1];
-        long progress = values[2];
+        long step = values[0];
+        long fileSize = values[1];
+        long downloadedSize = values[2];
+        long progress = (downloadedSize * 100) / fileSize;
         // String label = context.getString(R.string.download_file_progress);
         // String label = "Downloading %1$d of %2$d: Progress %3$d%\nTotal size %4$d download size %5$d";
         // String message = String.format(label, this.totalBooks, this.currentBookNumber, progress, fileSize, downloadedSize);
-        String message = "Downloading " + this.currentBookNumber + " of " + this.totalBooks + " books" +
-                "\nProgress: " + progress +
-                "\nDownloaded " + downloadedSize + " of " + fileSize + " bytes";
+        String statusMessage = "Downloading " + this.currentBookNumber + " of " + this.totalBooks + " books";
+        if (step == DOWNLOAD_REGISTRY) {
+            statusMessage = "Checking for the book updates.."; // TODO: new label
+        } else if (step == IMPORT_BOOK) {
+            statusMessage = statusMessage + "\nImporting book " + this.currentBookNumber + ".."; // TODO: new label
+        } else if (step == DOWNLOAD_BOOK) {
+            if(StringUtils.isNotNullOrEmpty(this.currentBookName)) {
+                statusMessage = statusMessage + "\n" + this.currentBookName;
+            }
+        }
+        String message = statusMessage + "\nProgress: " + progress + "\nDownloaded " + downloadedSize + " of " + fileSize + " bytes";
         LOG.debug(message);
-        callBack.importStatusUpdate(message, silent);
+        callBack.importStatusUpdate(statusMessage, (int) downloadedSize, (int) fileSize, silent);
     }
 
     @Override
