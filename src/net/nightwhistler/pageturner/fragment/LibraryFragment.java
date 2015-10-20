@@ -127,6 +127,8 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 	
 	private ProgressDialog waitDialog;
 	private ProgressDialog importDialog;
+	// BVApp-Comment: 04/Oct/2015: This flag indicates if a previous import dialog got dismissed or not.
+	// This flag is used to recreate the import dialog once it gets dismissed.
 	private boolean isImportDialogDismissed = false;
 	
 	private AlertDialog importQuestion;
@@ -194,7 +196,7 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		this.waitDialog = new ProgressDialog(context);
 		this.waitDialog.setOwnerActivity(getActivity());
 
-		// BVApp-Comment: 11/Oct/2015: Creating import dialog.
+		// BVApp-Comment: 11/Oct/2015: Creating the import dialog.
 		this.importDialog = createImportDialog();
 
 		registerForContextMenu(this.listView);	
@@ -205,21 +207,21 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		setAlphabetBarVisible(false);
 	}
 
-	// BVApp-Comment: 11/Oct/2015: Utility method to create import dialog so that
-	// this method can be used in case of dialog dismiss case.
+	// BVApp-Comment: 11/Oct/2015: Added utility method to create import dialog so that
+	// this method can be used in the dialog dismiss case as well.
 	private ProgressDialog createImportDialog() {
 		ProgressDialog dialog = new ProgressDialog(context);
 		dialog.setOwnerActivity(getActivity());
 		dialog.setOnDismissListener(v -> { if (v == importDialog) isImportDialogDismissed = true; });
-		// BVApp-Comment: 21/Sep/2015: Changed import progress dialog messages to indicate download books activity.
+		// BVApp-Comment: 11/Oct/2015: Changed import progress dialog messages to indicate download books activity.
 		//// importDialog.setTitle(R.string.importing_books);
 		//// importDialog.setMessage(getString(R.string.scanning_epub));
 		dialog.setTitle(R.string.downloading_books);
 		dialog.setMessage(getString(R.string.checking_for_book_updates));
-		// BVApp-Comment: 21/Sep/2015: Added progress bar capability to import progress dialog.
+		// BVApp-Comment: 11/Oct/2015: Added progress bar capability to import progress dialog.
 		dialog.setIndeterminate(false);
 		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		// Reset isImportDialogDismissed flag.
+		// BVApp-Comment: 11/Oct/2015: Reset isImportDialogDismissed flag.
 		this.isImportDialogDismissed = false;
 		return dialog;
 	}
@@ -234,20 +236,19 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 				android.R.layout.simple_list_item_1,
 				android.R.id.text1, getResources().getStringArray(R.array.libraryQueries));
 
-		actionBar.setListNavigationCallbacks(adapter, this::onNavigationItemSelected);
+		actionBar.setListNavigationCallbacks(adapter, this::onNavigationItemSelected );
 
         refreshView();
 
 		Option<File> libraryFolder = config.getLibraryFolder();
-        LOG.debug("Got libraryFolder: " + libraryFolder);
 
-		libraryFolder.match(folder -> {
-			executeTask(new CleanFilesTask(libraryService, this::booksDeleted));
+		libraryFolder.match( folder -> {
+			executeTask(new CleanFilesTask(libraryService, this::booksDeleted) );
 			executeTask(new ImportTask(getActivity(), libraryService, this, config, config.getCopyToLibraryOnScan(),
-					true), folder);
+					true), folder );
 		}, () -> {
 			LOG.error("No library folder present!");
-			Toast.makeText(context, R.string.library_failed, Toast.LENGTH_LONG).show();
+			Toast.makeText( context, R.string.library_failed, Toast.LENGTH_LONG ).show();
 		});
 
 	}
@@ -403,7 +404,6 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		// BVApp-Comment: 11/Oct/2015: Add cancel capability.
 		importDialog.setCancelable(true);
 		importDialog.setOnCancelListener(importTask);
-
 		importDialog.show();
 				
 		this.oldKeepScreenOn = listView.getKeepScreenOn();

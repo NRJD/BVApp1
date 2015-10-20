@@ -29,6 +29,7 @@ import static jedi.functional.FunctionalPrimitives.select;
 
 public class TextUtil {
 
+    // BVApp-Comment: 02/Sep/2015: Fixed the encoding chars to unicode notation consumable by java strings.
     private static final Pattern PUNCTUATION = Pattern.compile("\\.( ?\\.)*[\"'\\u0094’]?|[\\?!] ?[\"'\\u0094’]?|, ?[\"'\\u0094’]|\\u0094");
 
     /*

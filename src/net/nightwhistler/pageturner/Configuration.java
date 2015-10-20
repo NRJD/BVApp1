@@ -860,6 +860,7 @@ public class Configuration {
 
 	public Option<File> getLibraryFolder() {
 
+        // BVApp-Comment: 04/Oct/2015: Provided BV app books path for stroing the library files.
         Option<File> libraryFolder = getStorageBase().map(
                 baseFolder -> new File(baseFolder.getAbsolutePath() + AppConstants.BOOKS_PATH) );
 

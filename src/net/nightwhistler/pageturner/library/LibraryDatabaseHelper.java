@@ -48,7 +48,8 @@ public class LibraryDatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public enum Order { ASC , DESC }
-	
+
+	// BVApp-Comment: 04/Oct/2015: Provided BV app books database name for storing the books metadata.
 	private static final String DB_NAME = AppConstants.BOOKS_DB_NAME;
 	private static final int VERSION = 4;
 

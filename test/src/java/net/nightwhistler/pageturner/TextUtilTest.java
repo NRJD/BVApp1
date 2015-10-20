@@ -73,8 +73,10 @@ public class TextUtilTest {
 
     @Test
     public void testQuotedUnicode() {
+        // BVApp-Comment: 02/Sep/2015: Fixed the encoding chars to unicode notation consumable by java strings.
         String input = "\\u0093aabbcc.\\u0094";
 
+        // BVApp-Comment: 02/Sep/2015: Fixed the encoding chars to unicode notation consumable by java strings.
         assertThat
 
                 (TextUtil.splitOnPunctuation(input), equalTo(asList("\\u0093aabbcc.\\u0094")));
@@ -102,8 +104,10 @@ public class TextUtilTest {
 
     @Test
     public void testExtraQuotes() {
+        // BVApp-Comment: 02/Sep/2015: Fixed the encoding chars to unicode notation consumable by java strings.
         String input = "\\u0093It’s a start,\\u0094 Arkady said. \\u0093But there are aspects of that treaty you haven’t mentioned.\\u0094 ‘";
 
+        // BVApp-Comment: 02/Sep/2015: Fixed the encoding chars to unicode notation consumable by java strings.
         assertThat
                 (TextUtil.splitOnPunctuation(input), equalTo(
                         asList("\\u0093It’s a start,\\u0094", " Arkady said.", " \\u0093But there are aspects of that treaty you haven’t mentioned.\\u0094",

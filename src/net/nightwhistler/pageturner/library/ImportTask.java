@@ -254,7 +254,7 @@ public class ImportTask extends QueueableAsyncTask<File, Integer, Void> implemen
 			message = String.format(context.getString(R.string.scan_folders), values[1]);			
 		}
 
-        // TODO: BVApp-Comment: 21/Sep/2015: Progress to be implemented.
+        // BVApp-Comment: 21/Sep/2015: TODO: Progress bar needs to be implemented properly for the core PageTurner application.
 		callBack.importStatusUpdate(message, 0, 100, silent);
 	}
 

@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- BVApp-Comment: 05/Sep/2015: Changed icon for the BV app. Provided BV app icon for the "android:icon" property. -->
     <application
         android:name="net.nightwhistler.pageturner.PageTurner"
         android:description="@string/app_desc"

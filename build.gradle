@@ -185,25 +185,25 @@ android {
             if ( System.getenv("KEYSTORE") ) {
                 signingConfig signingConfigs.release
             }
+            // BVApp-Comment: 02/Sep/2015: Adjusted release output file name.
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    // def formattedDate = new Date().format('yyyyMMdd-HHmmss')
                     def newName = output.outputFile.name
                     newName = newName.replace("app-", "BVApp1-")
-                    // newName = newName.replace("-debug", "-debug-" + formattedDate)
+                    // def formattedDate = new Date().format('yyyyMMdd-HHmmss')
                     // newName = newName.replace("-release", "-release-" + formattedDate)
                     output.outputFile = new File(output.outputFile.parent, newName)
                 }
             }
         }
+        // BVApp-Comment: 02/Sep/2015: Adjusted debug output file name.
         debug {
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    // def formattedDate = new Date().format('yyyyMMdd-HHmmss')
                     def newName = output.outputFile.name
                     newName = newName.replace("app-", "BVApp1-")
+                    // def formattedDate = new Date().format('yyyyMMdd-HHmmss')
                     // newName = newName.replace("-debug", "-debug-" + formattedDate)
-                    // newName = newName.replace("-release", "-release-" + formattedDate)
                     output.outputFile = new File(output.outputFile.parent, newName)
                 }
             }

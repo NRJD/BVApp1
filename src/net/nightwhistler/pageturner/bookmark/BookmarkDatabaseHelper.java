@@ -32,6 +32,7 @@ import java.util.ArrayList;
 @Singleton
 public class BookmarkDatabaseHelper extends SQLiteOpenHelper {
 
+    // BVApp-Comment: 04/Oct/2015: Provided BV app bookmarks database name for storing the bookmarks data.
     private static final String DB_NAME =  AppConstants.BOOKMARKS_DB_NAME;
     private static final String TABLE_NAME = "bookmarks";
     private static final int VERSION = 1;
