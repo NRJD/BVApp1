@@ -175,7 +175,8 @@ public abstract class PageTurnerActivity extends RoboSherlockFragmentActivity {
         }
 
         result.add( navigate(getString(R.string.open_library), LibraryActivity.class) );
-        result.add( navigate(getString(R.string.download), CatalogActivity.class));
+        // BVApp-Comment: 11/Oct/2015: Commenting out OPDS download books functionality.
+        //// result.add( navigate(getString(R.string.download), CatalogActivity.class));
 
         result.add( new NavigationCallback(getString(R.string.prefs)).setOnClick(this::startPreferences));
 

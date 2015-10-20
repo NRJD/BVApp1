@@ -131,8 +131,9 @@ public class ReadingActivity extends PageTurnerActivity {
         menuItems.add( new NavigationCallback(getString(R.string.open_library))
                 .setOnClick(() -> launchActivity(LibraryActivity.class)));
 
-        menuItems.add( new NavigationCallback(getString(R.string.download))
-                .setOnClick(() -> launchActivity(CatalogActivity.class)));
+        // BVApp-Comment: 11/Oct/2015: Commenting out OPDS download books functionality.
+        //// menuItems.add( new NavigationCallback(getString(R.string.download))
+        ////         .setOnClick(() -> launchActivity(CatalogActivity.class)));
 
         menuItems.add( new NavigationCallback(getString(R.string.prefs)).setOnClick(this::startPreferences));
 

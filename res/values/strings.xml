@@ -15,8 +15,8 @@
     <string name="prefs">Settings</string>
     <string name="show_toc">Show TOC</string>
     <string name="rolling_blind">Auto-scroll</string>
-    <string name="about">About BVApp1 application.</string>
-    <string name="about_gpl">BVApp1 is free software under the GPL v3.</string>
+    <string name="about">About Bhakti Vriksha application.</string>
+    <string name="about_gpl">This Bhakti Vriksha application is free software under the GPL v3.</string>
     <string name="error_open_bk">Error opening book: %s</string>
     <string name="dictionary_lookup">Look up in Dictionary</string>
     <string name="wikipedia_lookup">Search on Wikipedia</string>
@@ -49,13 +49,7 @@
 
     <string name="loading_library">Loading library…</string>
     <string name="scan_bks_question">There are no books in your library.\nWould you like to scan your device for books?</string>
-    <string name="download_bks_question">There are no books in your library.\nWould you like to download the books?</string>
-    <string name="download_books">Download Books</string>
-    <string name="download_update_bks_question">Would you like to download the updates to the books?</string>
     <string name="brightness">Brightness</string>
-    <string name="downloading_books">Downloading books…</string>
-    <string name="started_downloading_books">Started downloading books.</string>
-    <string name="download_failed">Download failed</string>
 
     <string-array name="v_animLabels">
         <item>Slide</item>
@@ -381,6 +375,15 @@
     <string name="default_book_title" translatable="false">Title of the book</string>
     <string name="hello_world" translatable="false">Hello world!</string>
 
-    
-
+    <!-- BVApp-Comment: Bhakti Vriksha application specific messages. -->
+    <!-- BVApp strings start -->
+    <string name="download_books">Download Books</string>
+    <string name="downloading_books">Downloading Books</string>
+    <string name="download_bks_question">There are no books in your library.\nWould you like to download the books?</string>
+    <string name="download_update_bks_question">Would you like to download the updates to the books?</string>
+    <string name="checking_for_book_updates">Checking for the book updates..</string>
+    <string name="could_not_download_try_again">Could not download the books. No book updates found. Please try again.</string>
+    <string name="no_new_book_updates_found">No new book updates found.</string>
+    <string name="download_failed">Download failed</string>
+    <!-- BVApp strings end -->
 </resources>

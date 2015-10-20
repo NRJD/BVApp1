@@ -18,14 +18,18 @@ public class RegistryHandler {
     private static final String REGISTRY_FILE_NAME = "registry1.xml";
 
     // Data1 folder
-    private static final String NET_FOLDER1 = "https://googledrive.com/host/0B1vAOgyjy-9lcDh4RHNGcFBwems";
-    private static final List<String> BOOK_NAMES1 = Arrays.<String>asList("A1.epub", "G1.epub", "M1.epub");
+    private static final String NET_FOLDER2 = "https://googledrive.com/host/0B1vAOgyjy-9lcDh4RHNGcFBwems";
+
+    // MiniBooks1 folder
+    private static final String NET_FOLDER3 = "https://googledrive.com/host/0B1vAOgyjy-9lU3hnVUlmanJMckE";
+    private static final String REGISTRY_FILE_NAME3 = "registry21.xml";
 
     private String baseUrl = null;
     private String registryFileName = null;
 
     public RegistryHandler() {
-        this(NET_FOLDER, REGISTRY_FILE_NAME);
+        // this(NET_FOLDER, REGISTRY_FILE_NAME);
+        this(NET_FOLDER3, REGISTRY_FILE_NAME3);
     }
 
     private RegistryHandler(String baseUrl, String registryFileName) {

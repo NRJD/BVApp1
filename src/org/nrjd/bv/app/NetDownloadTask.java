@@ -10,6 +10,19 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 
 import com.google.inject.Inject;
+
+import net.nightwhistler.pageturner.Configuration;
+import net.nightwhistler.pageturner.R;
+import net.nightwhistler.pageturner.library.ImportCallback;
+import net.nightwhistler.pageturner.library.LibraryBook;
+import net.nightwhistler.pageturner.library.LibraryService;
+import net.nightwhistler.pageturner.library.QueryResult;
+import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
+
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.nrjd.bv.app.reg.BookEntry;
 import org.nrjd.bv.app.reg.RegistryData;
 import org.nrjd.bv.app.reg.RegistryDataUtils;
@@ -17,16 +30,6 @@ import org.nrjd.bv.app.reg.RegistryHandler;
 import org.nrjd.bv.app.util.CommonUtils;
 import org.nrjd.bv.app.util.FileUtils;
 import org.nrjd.bv.app.util.StringUtils;
-
-import net.nightwhistler.pageturner.Configuration;
-import net.nightwhistler.pageturner.library.ImportCallback;
-import net.nightwhistler.pageturner.library.LibraryService;
-import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
-
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +40,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jedi.option.None;
 import jedi.option.Option;
@@ -65,6 +71,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
     private boolean copyToLibrary = true;
     private List<String> errors = new ArrayList<>();
     private int booksImported = 0;
+    private Map<String, LibraryBook> existingBooksMap = null;
 
     private boolean emptyLibrary;
     private boolean silent;
@@ -87,6 +94,10 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
         this.copyToLibrary = copyToLibrary;
         this.config = config;
         this.silent = silent;
+        this.existingBooksMap = getBookMapByName();
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Got existingBooksMap: " + this.existingBooksMap);
+        }
         RoboGuice.injectMembers(context, this);
     }
 
@@ -156,6 +167,10 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
             return;
         }
 
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Got registry data:\n" + registryData);
+        }
+
         List<BookEntry> bookEntries = registryData.getBookEntries();
         if ((bookEntries == null) || (bookEntries.size() < 1)) {
             // TODO: Need to modify this error message for end users.
@@ -164,25 +179,29 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
             return;
         }
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Got registry data:\n" + registryData);
+        List<BookEntry> bookEntriesToDownload = getBookEntriesToDownload(bookEntries);
+        LOG.info("Got bookEntries: " + bookEntries.size() + ": " + bookEntries);
+        LOG.info("Got bookEntriesToDownload: " + bookEntriesToDownload.size() + ": " + bookEntriesToDownload);
+        if ((bookEntriesToDownload == null) || (bookEntriesToDownload.size() < 1)) {
+            LOG.info("Library is up to date with the books. Nothing needs to downloaded.");
+            return;
         }
 
-        // Download books
-        // TODO: Download only the new book updates.
-        this.totalBooks = bookEntries.size();
+        // Download the book updates.
+        this.totalBooks = bookEntriesToDownload.size();
         for (int bookIndex = 0; bookIndex < this.totalBooks; bookIndex++) {
             if (StringUtils.isNullOrEmpty(this.downloadFailedMessage)) {
                 // TODO: Now null "downloadFile" is used as the machanism to check the success of download and then delete the file.
                 // But even if the download goes incomplete, then also we need to cleanup the file.
-                BookEntry bookEntry = bookEntries.get(bookIndex);
-                String bookUrl = registryHandler.getBookUrl(bookEntry.getFileName());
+                BookEntry bookEntry = bookEntriesToDownload.get(bookIndex);
+                String fileName = bookEntry.getFileName();
+                String bookUrl = registryHandler.getBookUrl(fileName);
                 this.currentBookNumber = bookIndex + 1;
                 this.currentBookName = bookEntry.getBookName();
                 File downloadedFile = downloadBook(bookUrl, bookEntry, DOWNLOAD_BOOK);
                 if (downloadedFile != null) {
                     try {
-                        importBook(downloadedFile);
+                        importBook(downloadedFile, getBookFileNameInLibrary(fileName));
                     } finally {
                         // TODO: Delete temporary file.
                         downloadedFile.delete();
@@ -190,6 +209,96 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
                 }
             }
         }
+    }
+
+
+    private List<BookEntry> getBookEntriesToDownload(List<BookEntry> bookEntries) {
+        List<BookEntry> bookEntriesToDownload = new ArrayList<BookEntry>();
+        if (bookEntries != null) {
+            for (int bookIndex = 0; bookIndex < bookEntries.size(); bookIndex++) {
+                BookEntry bookEntry = bookEntries.get(bookIndex);
+                boolean needsDownload = needsDownload(bookEntry);
+                if (needsDownload) {
+                    bookEntriesToDownload.add(bookEntry);
+                }
+
+            }
+        }
+        return bookEntriesToDownload;
+    }
+
+    private boolean needsDownload(BookEntry bookEntry) {
+        // If BookEntry is null, then we don't know about the book. Then nothing to download.
+        if (bookEntry == null) {
+            return false;
+        }
+        // If book file name is null, then we don't know about the book. Then nothing to download.
+        String bookFileName = bookEntry.getFileName();
+        if (StringUtils.isNullOrEmpty(bookFileName)) {
+            return false;
+        }
+        // If book modification date in the registry is null, then give the benefit of doubt to the book registry and download the book.
+        Date bookModificationDate = bookEntry.getLastModifiedDate();
+        if (bookModificationDate == null) {
+            return true;
+        }
+        // If there are no books available in the library, then book needed to be downloaded.
+        if (this.existingBooksMap == null) {
+            return true;
+        }
+        // If book is not available in the library, then book needed to be downloaded.
+        LibraryBook book = this.existingBooksMap.get(bookFileName);
+        if (book == null) {
+            return true;
+        }
+        // If book was download before the latest book update, then book needed to be downloaded.
+        Date dateAdded = book.getAddedToLibrary();
+        if ((dateAdded != null) && (dateAdded.before(bookModificationDate))) {
+            return true;
+        }
+        // If book  is not available in the file storage, then book needed to be downloaded.
+        String filePath = book.getFileName();
+        if (StringUtils.isNotNullOrEmpty(filePath)) {
+            File bookFile = new File(book.getFileName());
+            if (bookFile.exists()) {
+                Date downloadedBookDate = new Date(bookFile.lastModified());
+                return downloadedBookDate.before(bookModificationDate);
+            } else {
+                return true;
+            }
+        }
+        // If we don't have any information about the book, then nothing to download.
+        return false;
+    }
+
+    private Map<String, LibraryBook> getBookMapByName() {
+        QueryResult<LibraryBook> allBooks = this.libraryService.findAllByTitle(null);
+        return constructBookMapByName(allBooks);
+    }
+
+    private static Map<String, LibraryBook> constructBookMapByName(QueryResult<LibraryBook> books) {
+        Map<String, LibraryBook> bookMap = null;
+        if (books != null) {
+            for (int index = 0; index < books.getSize(); index++) {
+                LibraryBook book = books.getItemAt(index);
+                String fileName = getBookFileNameFromPath(book.getFileName());
+                if (StringUtils.isNotNullOrEmpty(fileName)) {
+                    if (bookMap == null) {
+                        bookMap = new HashMap<String, LibraryBook>();
+                    }
+                    bookMap.put(fileName, book);
+                }
+            }
+        }
+        return bookMap;
+    }
+
+    private static String getBookFileNameFromPath(String bookFilePath) {
+        int index = ((bookFilePath != null) ? bookFilePath.lastIndexOf('/') : -1);
+        if (index >= 0) {
+            return bookFilePath.substring(index + 1);
+        }
+        return null;
     }
 
     private File downloadBook(String bookUrl, BookEntry bookEntry, long downloadFileType) {
@@ -290,9 +399,22 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
         LOG.debug("Downloaded: " + destFile + ": type: " + type + ": " + downloadedSize + " bytes");
     }
 
-    private boolean importBook(File file) {
+    private String getBookFileNameInLibrary(String fileName) {
+        if((fileName != null) && (this.existingBooksMap != null)) {
+            LibraryBook book = this.existingBooksMap.get(fileName);
+            return ((book != null)? book.getFileName() : null);
+        }
+        return null;
+    }
+
+    private boolean importBook(File file, String bookFileNameInLibrary) {
         // TODO: Capture error message when file is null.
         if ((file != null) && (!isCancelled())) {
+            // Delete the book if already exists in library.
+            // This allows to import the book updates.
+            if(bookFileNameInLibrary != null) {
+                libraryService.deleteBook(bookFileNameInLibrary);
+            }
             try {
                 EpubReader epubReader = new EpubReader();
                 Book importedBook = epubReader.readEpubLazy(file.getAbsolutePath(), AppConstants.UTF8,
@@ -319,16 +441,21 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
         long fileSize = values[1];
         long downloadedSize = values[2];
         long progress = (downloadedSize * 100) / fileSize;
+        // BVApp-Comment: TODO: Localize the labels.
         // String label = context.getString(R.string.download_file_progress);
         // String label = "Downloading %1$d of %2$d: Progress %3$d%\nTotal size %4$d download size %5$d";
         // String message = String.format(label, this.totalBooks, this.currentBookNumber, progress, fileSize, downloadedSize);
+        // TODO: Make sure all status msgs have 4 lines, so no resize of progress bar happens.
         String statusMessage = "Downloading " + this.currentBookNumber + " of " + this.totalBooks + " books";
         if (step == DOWNLOAD_REGISTRY) {
-            statusMessage = "Checking for the book updates.."; // TODO: new label
+            statusMessage = context.getString(R.string.checking_for_book_updates);
         } else if (step == IMPORT_BOOK) {
-            statusMessage = statusMessage + "\nImporting book " + this.currentBookNumber + ".."; // TODO: new label
+            if (StringUtils.isNotNullOrEmpty(this.currentBookName)) {
+                statusMessage = statusMessage + "\n" + this.currentBookName;
+            }
+            statusMessage = statusMessage + "\nImporting the book.."; // TODO: new label
         } else if (step == DOWNLOAD_BOOK) {
-            if(StringUtils.isNotNullOrEmpty(this.currentBookName)) {
+            if (StringUtils.isNotNullOrEmpty(this.currentBookName)) {
                 statusMessage = statusMessage + "\n" + this.currentBookName;
             }
         }
