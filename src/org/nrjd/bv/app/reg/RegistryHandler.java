@@ -28,8 +28,8 @@ public class RegistryHandler {
     private String registryFileName = null;
 
     public RegistryHandler() {
-        // this(NET_FOLDER, REGISTRY_FILE_NAME);
-        this(NET_FOLDER3, REGISTRY_FILE_NAME3);
+        this(NET_FOLDER, REGISTRY_FILE_NAME);
+        // this(NET_FOLDER3, REGISTRY_FILE_NAME3);
     }
 
     private RegistryHandler(String baseUrl, String registryFileName) {
