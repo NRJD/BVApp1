@@ -13,16 +13,16 @@ import java.util.List;
  * Application constants.
  */
 public class RegistryHandler {
-    // BVAppData1 folder
+    // TestData2 folder
     private static final String NET_FOLDER = "https://googledrive.com/host/0B1vAOgyjy-9lZ0dPNURjODdBSVk";
-    private static final String REGISTRY_FILE_NAME = "registry1.xml";
-
-    // Data1 folder
-    private static final String NET_FOLDER2 = "https://googledrive.com/host/0B1vAOgyjy-9lcDh4RHNGcFBwems";
+    private static final String REGISTRY_FILE_NAME = "registry2.xml";
 
     // MiniBooks1 folder
     private static final String NET_FOLDER3 = "https://googledrive.com/host/0B1vAOgyjy-9lU3hnVUlmanJMckE";
     private static final String REGISTRY_FILE_NAME3 = "registry21.xml";
+
+    // TestData1 folder
+    private static final String NET_FOLDER2 = "https://googledrive.com/host/0B1vAOgyjy-9lcDh4RHNGcFBwems";
 
     private String baseUrl = null;
     private String registryFileName = null;

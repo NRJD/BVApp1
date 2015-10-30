@@ -155,9 +155,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
             LOG.error(this.downloadFailedMessage, e);
             return;
         } finally {
-            if (registryFile != null) {
-                registryFile.delete();
-            }
+            deleteFileIfExists(registryFile);
         }
 
         if (registryData == null) {
@@ -203,8 +201,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
                     try {
                         importBook(downloadedFile, getBookFileNameInLibrary(fileName));
                     } finally {
-                        // TODO: Delete temporary file.
-                        downloadedFile.delete();
+                        deleteFileIfExists(downloadedFile);
                     }
                 }
             }
@@ -310,6 +307,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
         // Download the book.
         String fileName = null;
         String bookName = ((bookEntry != null) ? bookEntry.getBookName() : fileName);
+        File destFile = null;
         try {
             LOG.debug("Downloading: " + bookUrl);
 
@@ -339,18 +337,13 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
 
                 LOG.debug("Downloading books to destFolder: " + destFolder);
 
-                File destFile = null;
                 try {
                     destFile = new File(destFolder, URLDecoder.decode(fileName, AppConstants.UTF8));
                 } catch (UnsupportedEncodingException e) {
                     // Won't ever reach here
                     throw new AssertionError(e);
                 }
-
-                if (destFile.exists()) {
-                    destFile.delete();
-                }
-
+                deleteFileIfExists(destFile);
                 downloadBook(response, destFile, bookEntry, downloadFileType);
                 return destFile;
             } else {
@@ -363,6 +356,10 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
             this.downloadFailedMessage = "Failed to download the books: " + e.getMessage();
             LOG.error(bookName + ": " + this.downloadFailedMessage, e);
         }
+        // If we come here means and destFile exists means, file got partially downloaded, but some error in middle of downloading.
+        // So cleanup the file.
+        // TODO: Rearrange/modularize this code for deleting partially downloaded file. Not by returning null from this method.
+        deleteFileIfExists(destFile);
         return null;
     }
 
@@ -476,6 +473,12 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
             callBack.importFailed(downloadFailedMessage, silent);
         } else {
             this.callBack.importComplete(booksImported, errors, emptyLibrary, silent);
+        }
+    }
+
+    private static void deleteFileIfExists(File file) {
+        if ((file != null) && file.exists()) {
+            file.delete();
         }
     }
 }
