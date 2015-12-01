@@ -12,4 +12,12 @@ public class AppUtils {
     public static boolean isEmptyLibrary(LibraryService libraryService) {
         return libraryService.findAllByTitle(null).getSize() < 1;
     }
+
+    public static void sleep(int milliSecs) {
+        try {
+            Thread.sleep(milliSecs);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

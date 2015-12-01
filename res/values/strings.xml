@@ -377,6 +377,7 @@
 
     <!-- BVApp-Comment: Bhakti Vriksha application specific messages. -->
     <!-- BVApp strings start -->
+    <string name="manual_name">Bhakti Vriksha Manual</string>
     <string name="download_books">Download Books</string>
     <string name="downloading_books">Downloading Books</string>
     <string name="download_bks_question">There are no books in your library.\nWould you like to download the books?</string>

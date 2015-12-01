@@ -5,4 +5,10 @@
    <color name="translucent_black">#C0000000</color>
    <color name="opaque_black">#000000</color>
     <color name="orange">#ff5500</color>
+
+    <!-- BVApp-Comment: Bhakti Vriksha application specific colors. -->
+    <!-- BVApp colors start -->
+    <color name="light_gray">#d3d3d3</color>
+    <color name="splash_bg_color">#41313b</color>
+    <!-- BVApp colors end -->
 </resources>

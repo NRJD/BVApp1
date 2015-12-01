@@ -3,7 +3,7 @@
  *
  * This file is part of Bhakthi Vriksha application.
  */
-package org.nrjd.bv.app;
+package org.nrjd.bv.app.net;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +23,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.nrjd.bv.app.AppConstants;
 import org.nrjd.bv.app.reg.BookEntry;
 import org.nrjd.bv.app.reg.RegistryData;
 import org.nrjd.bv.app.reg.RegistryDataUtils;

@@ -58,5 +58,16 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <!-- BVApp-Comment: Bhakti Vriksha application specific styles. -->
+    <!-- BVApp styles start -->
+    <style name="AppTheme.NoTitleBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+    <style name="AppTheme.NoTitleBar.NoStatusBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <!-- BVApp styles end -->
 
 </resources>

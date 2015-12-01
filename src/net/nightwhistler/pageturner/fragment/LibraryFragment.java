@@ -46,7 +46,7 @@ import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragmen
 import com.google.inject.Inject;
 
 import org.nrjd.bv.app.AppUtils;
-import org.nrjd.bv.app.NetDownloadTask;
+import org.nrjd.bv.app.net.NetDownloadTask;
 
 import jedi.option.Option;
 import net.nightwhistler.htmlspanner.HtmlSpanner;
