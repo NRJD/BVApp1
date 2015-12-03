@@ -25,12 +25,16 @@ public class CommonUtils {
         }
     }
 
-    public static void sleep(String message, long sleepSecs) {
+    public static void sleep(int milliSecs) {
+        sleep(null, milliSecs);
+    }
+
+    public static void sleep(String message, long milliSecs) {
         try {
             if (LOG.isDebugEnabled()) {
-                LOG.debug(message + ": Sleeping for " + sleepSecs + "..");
+                LOG.debug(message + ": Sleeping for " + milliSecs + " ms..");
             }
-            Thread.currentThread().sleep(sleepSecs * 1000);
+            Thread.currentThread().sleep(milliSecs);
         } catch (Exception e) {
             e = null; // Ignore the exception.
         }

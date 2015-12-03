@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/splashScreenActivity"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:id="@+id/splashView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/splash_bg_color">
 
     <ImageView
-        android:id="@+id/bvFlashImage1"
+        android:id="@+id/splashImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
@@ -14,7 +14,7 @@
         android:scaleType="fitCenter"/>
 
     <TextView
-        android:id="@+id/splashScreenText1"
+        android:id="@+id/splashText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

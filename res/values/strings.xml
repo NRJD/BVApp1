@@ -377,6 +377,21 @@
 
     <!-- BVApp-Comment: Bhakti Vriksha application specific messages. -->
     <!-- BVApp strings start -->
+    <!-- User Login/Registration screen strings -->
+    <string name="prompt_email_address">Enter email address</string>
+    <string name="prompt_email_address_for_user_id">Enter email address (user id)</string>
+    <string name="prompt_password">Enter password</string>
+    <string name="prompt_confirm_password">Enter password again</string>
+    <string name="prompt_name">Enter your name</string>
+    <string name="prompt_mobile_number">Enter mobile number</string>
+
+    <string name="login">Login</string>
+    <string name="registration">Registration</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="reset_password">Reset Password</string>
+
     <string name="manual_name">Bhakti Vriksha Manual</string>
     <string name="download_books">Download Books</string>
     <string name="downloading_books">Downloading Books</string>
@@ -386,5 +401,14 @@
     <string name="could_not_download_try_again">Could not download the books. No book updates found. Please try again.</string>
     <string name="no_new_book_updates_found">No new book updates found.</string>
     <string name="download_failed">Download failed</string>
+
+    <!-- Info messages -->
+    <string name="info_login_successful">Login successful</string>
+    <string name="info_registration_successful">Registration successful. Please try login.</string>
+    <string name="info_reset_password_successful">Reset password successful. Please check your email for the reset password and login again.</string>
+
+    <!-- Error messages -->
+    <string name="error_no_network_connection">No network connection</string>
+
     <!-- BVApp strings end -->
 </resources>

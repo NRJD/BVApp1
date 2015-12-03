@@ -3,7 +3,7 @@
  *
  * This file is part of Bhakthi Vriksha application.
  */
-package org.nrjd.bv.app;
+package org.nrjd.bv.app.util;
 
 import net.nightwhistler.pageturner.library.LibraryService;
 
@@ -11,13 +11,5 @@ import net.nightwhistler.pageturner.library.LibraryService;
 public class AppUtils {
     public static boolean isEmptyLibrary(LibraryService libraryService) {
         return libraryService.findAllByTitle(null).getSize() < 1;
-    }
-
-    public static void sleep(int milliSecs) {
-        try {
-            Thread.sleep(milliSecs);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }

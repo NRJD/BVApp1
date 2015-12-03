@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/splashScreenActivity"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:id="@+id/splashView2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/opaque_black">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,17 +12,17 @@
         android:layout_centerInParent="true">
 
         <ImageView
-            android:id="@+id/bvFlashImage2"
+            android:id="@+id/splashImage2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:src="@drawable/bv_splash_128"/>
 
         <TextView
-            android:id="@+id/splashScreenText1"
+            android:id="@+id/splashText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bvFlashImage2"
+            android:layout_below="@+id/splashImage2"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:shadowColor="@color/light_gray"

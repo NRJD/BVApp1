@@ -5,18 +5,15 @@
  */
 package org.nrjd.bv.app.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import net.nightwhistler.pageturner.R;
-import net.nightwhistler.pageturner.activity.ReadingActivity;
 
-import org.nrjd.bv.app.AppUtils;
+import org.nrjd.bv.app.util.CommonUtils;
 
-public class StartupActivity extends Activity {
-    private static final int SPLASH_DISPLAY_TIME = 2000;
+public class StartupActivity extends BaseActivity {
+    private static final int SPLASH_DISPLAY_TIME = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +40,15 @@ public class StartupActivity extends Activity {
         @Override
         public Boolean doInBackground(Void... params) {
             // TODO: Implement the startup initialization here.
-            AppUtils.sleep(SPLASH_DISPLAY_TIME);
+            CommonUtils.sleep(SPLASH_DISPLAY_TIME);
             return Boolean.TRUE;
         }
 
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            Intent intent = new Intent(StartupActivity.this, ReadingActivity.class);
-            startActivity(intent);
+            // TODO: Check if not already registered then, go to registration activity, otherwise to login activity.
+            ActivityUtils.startLoginActivity(StartupActivity.this);
         }
     }
 }

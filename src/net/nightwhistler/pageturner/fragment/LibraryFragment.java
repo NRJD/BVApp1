@@ -23,7 +23,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
@@ -45,7 +44,7 @@ import com.actionbarsherlock.widget.SearchView;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 import com.google.inject.Inject;
 
-import org.nrjd.bv.app.AppUtils;
+import org.nrjd.bv.app.util.AppUtils;
 import org.nrjd.bv.app.net.NetDownloadTask;
 
 import jedi.option.Option;
