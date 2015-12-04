@@ -6,7 +6,6 @@
 package org.nrjd.bv.app.util;
 
 import org.nrjd.bv.app.AppConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +17,12 @@ import java.io.InputStreamReader;
 
 public class FileUtils {
     private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
+
+    /**
+     * Private constructor to prevent the instantiation of this class.
+     */
+    private FileUtils() {
+    }
 
     /**
      * Retrieves the data from the given file.

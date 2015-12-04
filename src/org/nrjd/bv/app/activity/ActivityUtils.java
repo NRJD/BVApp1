@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class ActivityUtils {
     /**
-     * Private constructer to prevent the instantiation of this class.
+     * Private constructor to prevent the instantiation of this class.
      */
     private ActivityUtils() {
     }

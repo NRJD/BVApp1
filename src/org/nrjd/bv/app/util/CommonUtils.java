@@ -15,6 +15,12 @@ import java.io.IOException;
 public class CommonUtils {
     private static final Logger LOG = LoggerFactory.getLogger(CommonUtils.class);
 
+    /**
+     * Private constructor to prevent the instantiation of this class.
+     */
+    private CommonUtils() {
+    }
+
     public static void closeQuietly(Closeable resource) {
         if (resource != null) {
             try {

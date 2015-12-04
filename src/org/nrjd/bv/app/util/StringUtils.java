@@ -9,6 +9,12 @@ import java.util.List;
 
 
 public class StringUtils {
+    /**
+     * Private constructor to prevent the instantiation of this class.
+     */
+    private StringUtils() {
+    }
+
     public static boolean isNullOrEmpty(String string) {
         return ((string == null) || string.trim().equals(""));
     }

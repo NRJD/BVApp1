@@ -19,17 +19,7 @@ public class StartupActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new StartupTask().execute();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // The startup activity (or splash screen activity) should not be shown to the user when
-        // the user presses the back button. For this, we should destroy the startup activity after
-        // it is shown for few seconds. Because the onPause() method of Activity class will be called
-        // when the user leaves the activity, doing this in the onPause() method by calling the finish() method.
-        finish();
+        (new StartupTask()).execute();
     }
 
     /**
@@ -39,7 +29,7 @@ public class StartupActivity extends BaseActivity {
     private class StartupTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         public Boolean doInBackground(Void... params) {
-            // TODO: Implement the startup initialization here.
+            // TODO: Implement the startup initialization here and sleep only for the remaining time available from SPLASH_DISPLAY_TIME.
             CommonUtils.sleep(SPLASH_DISPLAY_TIME);
             return Boolean.TRUE;
         }
@@ -49,6 +39,10 @@ public class StartupActivity extends BaseActivity {
             super.onPostExecute(result);
             // TODO: Check if not already registered then, go to registration activity, otherwise to login activity.
             ActivityUtils.startLoginActivity(StartupActivity.this);
+            // The startup activity (or splash screen activity) should not be shown to the user when the user presses the back button,
+            // so destroying the startup activity (or splash screen activity) as the user is leaving this activity at this point.
+            finishActivity();
+            finishActivity();
         }
     }
 }

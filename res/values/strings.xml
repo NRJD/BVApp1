@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    
+
     <string name="app_name" translatable="false">BVApp1</string>
-    
+
     <string name="title">Title</string>
     <string name="app_desc">Bhakti Vriksha application.</string>
     <string name="browse">Browse…</string>
@@ -76,7 +76,7 @@
         <item>Top buttons move forward</item>
         <item>Bottom buttons move forward</item>
     </string-array>
-        
+
     <string-array name="libraryQueries">
         <item>Most recently read books</item>
         <item>Most recently added books</item>
@@ -84,7 +84,7 @@
         <item>All books by title</item>
         <item>All books by author</item>
     </string-array>
- 
+
 
     <string name="access_denied">Your access-key is invalid. Please visit pageturner-reader.org to obtain a valid access key.</string>
     <string name="import_books">Import Books</string>
@@ -128,22 +128,22 @@
     <string name="c2opds_server">Calibre2OPDS</string>
     <string name="generic_server">Generic OPDS site</string>
     <string name="save">Save changes</string>
-    
+
     <string name="custom_site_desc">Your own OPDS / Calibre sites. You can add sites from the Preferences screen.</string>
     <string name="site_name">Site name</string>
     <string name="site_url">Site URL</string>
     <string name="site_desc">Description</string>
     <string name="site_username">Username</string>
     <string name="site_password">Password</string>
-    
+
     <string name="msg_name_blank">Please fill in a name.</string>
     <string name="msg_url_blank">Please fill in a URL.</string>
-    
+
     <string name="edit">Edit</string>
-    
+
     <string name="no_custom_sites">You don\'t have any custom sites defined. Please add some in the preferences.</string>
-    <string name="text_to_speech">Read out loud (TTS)</string>    
-    
+    <string name="text_to_speech">Read out loud (TTS)</string>
+
     <string name="init_tts">Initializing TTS…\nPlease wait.</string>
     <string name="tts_failed">TTS Failed.</string>
 
@@ -158,7 +158,7 @@
     <string name="search_results_item">Search results…</string>
     <string name="lookup_wiktionary">Search on Wiktionary</string>
 
-	<string name="no_search_results">Your search yielded no results.</string>
+    <string name="no_search_results">Your search yielded no results.</string>
 
     <string name="dead_link">Sorry, it looks like the link you clicked is broken.</string>
     <string name="could_not_load">Could not load text: %s</string>
@@ -283,45 +283,45 @@
     <string name="pref_show_pagenum_summary">Shows page numbers while reading. It may take a few seconds for page numbers to be displayed the first time.</string>
 
     <string name="pref_nook_touch">Nook Touch Preferences</string>
-   <string name="pref_nook_touch_button_nav">Button Navigation</string>
-   <string name="pref_nook_touch_button_nav_summary">How should the buttons on the side of the Nook turn the page?</string>
-    
+    <string name="pref_nook_touch_button_nav">Button Navigation</string>
+    <string name="pref_nook_touch_button_nav_summary">How should the buttons on the side of the Nook turn the page?</string>
+
     <string name="pref_reading_direction">Reading direction</string>
     <string name="pref_reading_direction_summary">Read left to right or right to left (Hebrew and Arabic)</string>
-       
+
     <string-array name="reading_directionsLabels">
         <item>Left to right</item>
-        <item>Right to left</item>        
-    </string-array>    
-    
+        <item>Right to left</item>
+    </string-array>
+
     <string name="pref_manage_sites">Manage OPDS / Calibre Catalogs</string>
     <string name="pref_manage_sites_summary">Add and remove custom online catalogs and Calibre servers.</string>
 
-    
+
     <string name="pref_serif_font">Serif font</string>
     <string name="pref_serif_summary">Font to use if a book requests a Serif font.</string>
-   
+
     <string name="pref_sans_serif_font">Sans-Serif font</string>
-    <string name="pref_sans_serif_summary">Font to use if a book requests a Sans-Serif font.</string>   
-    
+    <string name="pref_sans_serif_summary">Font to use if a book requests a Sans-Serif font.</string>
+
     <string name="pref_lang">UI Language</string>
     <string name="pref_lang_summary">Allows you to switch PageTurner\'s language settings.</string>
     <string name="language_switch_message">The new language setting will become active the next time you open a book.</string>
 
     <string name="pref_accept_self_signed">Accept self-signed certificates</string>
     <string name="pref_accept_self_signed_summary">Allows you to connect to OPDS sites which use self-signed certificates.</string>
-    
+
     <string-array name="supported_languagesLabels">
- 	    <item>Use device setting</item>
- 	    <item>English</item>
- 	    <item>Dutch</item>
- 	    <item>German</item>
- 	    <item>Spanish</item>
- 	    <item>Italian</item>
- 	    <item>Arabic</item> 	    
- 	    <item>Hebrew</item>
- 	    <item>Farsi</item> 	    
- 	</string-array>
+        <item>Use device setting</item>
+        <item>English</item>
+        <item>Dutch</item>
+        <item>German</item>
+        <item>Spanish</item>
+        <item>Italian</item>
+        <item>Arabic</item>
+        <item>Hebrew</item>
+        <item>Farsi</item>
+    </string-array>
 
 
     <string name="pref_dim_system_ui">Dim System UI</string>
@@ -333,7 +333,7 @@
     <string-array name="long_short_labels">
         <item>Long press to open, short press for details</item>
         <item>Short press to open, long press for details</item>
-     </string-array>
+    </string-array>
 
     <string name="pref_dev_settings">Development settings</string>
 
@@ -402,13 +402,27 @@
     <string name="no_new_book_updates_found">No new book updates found.</string>
     <string name="download_failed">Download failed</string>
 
+    <!-- Progress messages -->
+    <string name="progress_title_please_wait">Please wait</string>
+    <string name="progress_message_logging_in">Logging in..</string>
+
     <!-- Info messages -->
     <string name="info_login_successful">Login successful</string>
     <string name="info_registration_successful">Registration successful. Please try login.</string>
     <string name="info_reset_password_successful">Reset password successful. Please check your email for the reset password and login again.</string>
 
     <!-- Error messages -->
-    <string name="error_no_network_connection">No network connection</string>
+    <string name="error_empty_email_address">Please enter email address.</string>
+    <string name="error_invalid_email_address">Please enter a valid email address.</string>
+    <string name="error_empty_password">Please enter password.</string>
+    <string name="error_password_length_mismatch">Please enter a valid password with length between 6 to 10 characters.</string>
+    <string name="error_no_network_connection">No network connection available. Please check your network settings.</string>
 
+    <string name="service_error_occured">Could not perform the action. Service error occurred. Please try again.</string>
+    <string name="service_error_login__invalid_email_address">Could not login. Invalid email address.</string>
+    <string name="service_error_login__email_address_not_registered">Could not login. Email address not registered.</string>
+    <string name="service_error_login__invalid_password">Could not login. Invalid credentials.</string>
+    <string name="service_error_login__email_not_verified">Could not login. Email address not yet verified. Please verify the email address and login again.</string>
+    <string name="service_error_login__mobile_number_not_verified">Could not login. Mobile number not yet verified. Please verify the mobile number and login again.</string>
     <!-- BVApp strings end -->
 </resources>

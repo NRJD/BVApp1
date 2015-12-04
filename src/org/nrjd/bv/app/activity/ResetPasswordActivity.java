@@ -22,16 +22,6 @@ public class ResetPasswordActivity extends BaseActivity {
         initializeActivity();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // The startup activity (or splash screen activity) should not be shown to the user when
-        // the user presses the back button. For this, we should destroy the startup activity after
-        // it is shown for few seconds. Because the onPause() method of Activity class will be called
-        // when the user leaves the activity, doing this in the onPause() method by calling the finish() method.
-        finish();
-    }
-
     private void initializeActivity() {
         // Initialize login handler.
         Button loginButton = (Button) findViewById(R.id.loginButton);
@@ -52,6 +42,9 @@ public class ResetPasswordActivity extends BaseActivity {
             // Perform login.
             Toast.makeText(getBaseContext(), getString(R.string.info_reset_password_successful), Toast.LENGTH_SHORT).show();
             ActivityUtils.startLoginActivity(this);
+            // The reset password activity should not be shown to the user when the user presses the back button,
+            // so destroying the reset password activity as the user is leaving this activity at this point.
+            finishActivity();
         }
     }
 }

@@ -10,6 +10,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class NetworkServiceUtils {
+    /**
+     * Private constructor to prevent the instantiation of this class.
+     */
+    private NetworkServiceUtils() {
+    }
+
     public static boolean isNetworkOn(Context context) {
         boolean isNetworkOn = false;
         if (context != null) {

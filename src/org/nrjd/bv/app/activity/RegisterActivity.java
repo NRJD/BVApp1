@@ -7,6 +7,7 @@ package org.nrjd.bv.app.activity;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import net.nightwhistler.pageturner.R;
@@ -20,16 +21,6 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initializeActivity();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // The startup activity (or splash screen activity) should not be shown to the user when
-        // the user presses the back button. For this, we should destroy the startup activity after
-        // it is shown for few seconds. Because the onPause() method of Activity class will be called
-        // when the user leaves the activity, doing this in the onPause() method by calling the finish() method.
-        finish();
     }
 
     private void initializeActivity() {
@@ -49,9 +40,18 @@ public class RegisterActivity extends BaseActivity {
         if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
             Toast.makeText(getBaseContext(), getString(R.string.error_no_network_connection), Toast.LENGTH_SHORT).show();
         } else {
+            EditText passwordTextView = (EditText) findViewById(R.id.password);
+            String password = passwordTextView.getText().toString(); // Don't trim the password value.
+            if ((password.length() < 6) || (password.length() > 10)) {
+                showToastMessage(getString(R.string.error_password_length_mismatch), Toast.LENGTH_LONG);
+                return; // Return from here
+            }
             // Perform registration.
             Toast.makeText(getBaseContext(), getString(R.string.info_registration_successful), Toast.LENGTH_SHORT).show();
             ActivityUtils.startLoginActivity(this);
+            // The register activity should not be shown to the user when the user presses the back button,
+            // so destroying the register activity as the user is leaving this activity at this point.
+            finishActivity();
         }
     }
 }

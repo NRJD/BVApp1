@@ -24,6 +24,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class XmlUtils {
     private static final Logger LOG = LoggerFactory.getLogger(XmlUtils.class);
 
+    /**
+     * Private constructor to prevent the instantiation of this class.
+     */
+    private XmlUtils() {
+    }
+
     public static DocumentBuilderFactory createDocumentBuilderFactory() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setIgnoringElementContentWhitespace(true);

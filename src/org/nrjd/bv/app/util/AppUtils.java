@@ -9,6 +9,12 @@ import net.nightwhistler.pageturner.library.LibraryService;
 
 
 public class AppUtils {
+    /**
+     * Private constructor to prevent the instantiation of this class.
+     */
+    private AppUtils() {
+    }
+
     public static boolean isEmptyLibrary(LibraryService libraryService) {
         return libraryService.findAllByTitle(null).getSize() < 1;
     }

@@ -17,6 +17,12 @@ public class DateUtils {
                     new SimpleDateFormat("yyyy/MM/dd"), new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")};
 
     /**
+     * Private constructor to prevent the instantiation of this class.
+     */
+    private DateUtils() {
+    }
+
+    /**
      * Parses the given date string representation and returns the corresponding date value.
      *
      * @param dateString date string to be parsed for the date value.
