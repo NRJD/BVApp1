@@ -23,7 +23,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.nrjd.bv.app.AppConstants;
+import org.nrjd.bv.app.util.AppConstants;
 import org.nrjd.bv.app.reg.BookEntry;
 import org.nrjd.bv.app.reg.RegistryData;
 import org.nrjd.bv.app.reg.RegistryDataUtils;

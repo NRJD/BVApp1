@@ -5,11 +5,12 @@
  */
 package org.nrjd.bv.app.service;
 
+
 /**
- * Async Task: can be used to load DB, images during which the splash screen
- * is shown to user
+ * Task callback interface.
  */
 public interface TaskCallback {
     public void onTaskComplete(Response response);
+
     public void onTaskCancelled();
 }

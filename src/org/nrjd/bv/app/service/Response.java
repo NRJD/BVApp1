@@ -5,6 +5,7 @@
  */
 package org.nrjd.bv.app.service;
 
+
 public class Response {
     private boolean isSuccess = true;
     private ErrorCode errorCode = null;

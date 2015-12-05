@@ -7,13 +7,33 @@ package org.nrjd.bv.app.service;
 
 import net.nightwhistler.pageturner.R;
 
+
+/**
+ * Possible service error codes.
+ */
 public enum ErrorCode {
-    EC_SERVICE_ERROR_OCCURRED(-1, R.string.service_error_occured),
-    EC_LOGIN__INVALID_EMAIL_ADDRESS(-2001, R.string.service_error_login__invalid_email_address),
-    EC_LOGIN__EMAIL_ADDRESS_NOT_REGISTERED(-2002, R.string.service_error_login__email_address_not_registered),
-    EC_LOGIN__INVALID_PASSWORD(-2003, R.string.service_error_login__invalid_password),
-    EC_LOGIN__EMAIL_ADDRESS_NOT_VERIFIED(-2004, R.string.service_error_login__email_not_verified),
-    EC_LOGIN__MOBILE_NUMBER_NOT_VERIFIED(-2005, R.string.service_error_login__mobile_number_not_verified);
+    // General errors.
+    EC_SERVICE_ERROR_OCCURRED(-2001, R.string.service_error_occured),
+    // Login errors.
+    EC_LOGIN__EMPTY_EMAIL_ADDRESS(-2101, R.string.service_error_login__empty_email_address),
+    EC_LOGIN__INVALID_EMAIL_ADDRESS(-2102, R.string.service_error_login__invalid_email_address),
+    EC_LOGIN__EMAIL_ADDRESS_NOT_REGISTERED(-2103, R.string.service_error_login__email_address_not_registered),
+    EC_LOGIN__EMPTY_PASSWORD(-2104, R.string.service_error_login__empty_password),
+    EC_LOGIN__INVALID_PASSWORD(-2105, R.string.service_error_login__invalid_password),
+    EC_LOGIN__EMAIL_ADDRESS_NOT_VERIFIED(-2106, R.string.service_error_login__email_address_not_verified),
+    EC_LOGIN__MOBILE_NUMBER_NOT_VERIFIED(-2107, R.string.service_error_login__mobile_number_not_verified),
+    // Registration errors.
+    EC_REGISTER__EMPTY_EMAIL_ADDRESS(-2201, R.string.service_error_register__empty_email_address),
+    EC_REGISTER__INVALID_EMAIL_ADDRESS(-2202, R.string.service_error_register__invalid_email_address),
+    EC_REGISTER__EMAIL_ADDRESS_ALREADY_REGISTERED(-2203, R.string.service_error_register__email_address_already_registered),
+    EC_REGISTER__EMPTY_PASSWORD(-2204, R.string.service_error_register__empty_password),
+    EC_REGISTER__EMPTY_NAME(-2205, R.string.service_error_register__empty_name),
+    EC_REGISTER__EMPTY_MOBILE_COUNTRY_CODE(-2206, R.string.service_error_register__empty_mobile_country_code),
+    EC_REGISTER__EMPTY_MOBILE_NUMBER(-2207, R.string.service_error_register__empty_mobile_number),
+    // Reset password errors.
+    EC_RESET_PASSWORD__EMPTY_EMAIL_ADDRESS(-2301, R.string.service_error_reset_password__empty_email_address),
+    EC_RESET_PASSWORD__INVALID_EMAIL_ADDRESS(-2302, R.string.service_error_reset_password__invalid_email_address),
+    EC_RESET_PASSWORD__EMAIL_ADDRESS_NOT_REGISTERED(-2303, R.string.service_error_reset_password__email_address_not_registered);
 
     private int serviceErrorCode = 0;
     private int messageId = 0;
@@ -25,10 +45,6 @@ public enum ErrorCode {
 
     public static ErrorCode getGenericErrorCode() {
         return EC_SERVICE_ERROR_OCCURRED;
-    }
-
-    public int getServiceErrorCode() {
-        return this.serviceErrorCode;
     }
 
     public int getMessageId() {

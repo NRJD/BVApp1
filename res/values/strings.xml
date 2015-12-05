@@ -406,6 +406,7 @@
     <string name="progress_title_please_wait">Please wait</string>
     <string name="progress_message_logging_in">Logging in..</string>
     <string name="progress_message_registering">Registering..</string>
+    <string name="progress_message_reset_password">Requesting to reset password..</string>
 
     <!-- Info messages -->
     <string name="info_login_successful">Login successful</string>
@@ -413,17 +414,37 @@
     <string name="info_reset_password_successful">Reset password successful. Please check your email for the reset password and login again.</string>
 
     <!-- Error messages -->
-    <string name="error_empty_email_address">Please enter email address.</string>
-    <string name="error_invalid_email_address">Please enter a valid email address.</string>
-    <string name="error_empty_password">Please enter password.</string>
-    <string name="error_password_length_mismatch">Please enter a valid password with length between 6 to 10 characters.</string>
-    <string name="error_no_network_connection">No network connection available. Please check your network settings.</string>
+    <string name="input_error_empty_email_address">Please enter email address.</string>
+    <string name="input_error_invalid_email_address">Please enter a valid email address.</string>
+    <string name="input_error_empty_password">Please enter password.</string>
+    <string name="input_error_empty_confirm_password">>Please enter confirm password.</string>
+    <string name="input_error_password_length_mismatch">Please enter a valid password with minimum 6 characters and up to a maximum 15 characters.</string>
+    <string name="input_error_passwords_mismatch">Passwords do not match.</string>
+    <string name="input_error_empty_name">Please enter your name.</string>
+    <string name="input_error_empty_mobile_country_code">Please enter mobile country code.</string>
+    <string name="input_error_empty_mobile_number">Please enter mobile number.</string>
 
     <string name="service_error_occured">Could not perform the action. Service error occurred. Please try again.</string>
+    <string name="service_error_no_network_connection">No network connection available. Please check your network settings.</string>
+
+    <string name="service_error_login__empty_email_address">Could not login. Email address not specified.</string>
     <string name="service_error_login__invalid_email_address">Could not login. Invalid email address.</string>
-    <string name="service_error_login__email_address_not_registered">Could not login. Email address not registered.</string>
+    <string name="service_error_login__email_address_not_registered">Could not login. Specified email address is not registered with us.</string>
+    <string name="service_error_login__empty_password">Could not register. Credentials not specified.</string>
     <string name="service_error_login__invalid_password">Could not login. Invalid credentials.</string>
-    <string name="service_error_login__email_not_verified">Could not login. Email address not yet verified. Please verify the email address and login again.</string>
-    <string name="service_error_login__mobile_number_not_verified">Could not login. Mobile number not yet verified. Please verify the mobile number and login again.</string>
+    <string name="service_error_login__email_address_not_verified">Could not login. Specified email address is not yet verified. Please verify the email address and login again.</string>
+    <string name="service_error_login__mobile_number_not_verified">Could not login. Specified mobile number is not yet verified. Please verify the mobile number and login again.</string>
+
+    <string name="service_error_register__empty_email_address">Could not register. Email address not specified.</string>
+    <string name="service_error_register__invalid_email_address">Could not register. Invalid email address.</string>
+    <string name="service_error_register__email_address_already_registered">Could not register. Specified email address is already registered with us.</string>
+    <string name="service_error_register__empty_password">Could not register.  Credentials not specified.</string>
+    <string name="service_error_register__empty_name">Could not register. User name not specified.</string>
+    <string name="service_error_register__empty_mobile_country_code">Could not register. Mobile country code not specified.</string>
+    <string name="service_error_register__empty_mobile_number">Could not register. Mobile number not specified.</string>
+
+    <string name="service_error_reset_password__empty_email_address">Could not reset password. Email address not specified.</string>
+    <string name="service_error_reset_password__invalid_email_address">Could not reset password. Invalid email address.</string>
+    <string name="service_error_reset_password__email_address_not_registered">Could not reset password. Specified email address is not registered with us.</string>
     <!-- BVApp strings end -->
 </resources>

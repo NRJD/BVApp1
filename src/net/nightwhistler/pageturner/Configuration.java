@@ -30,7 +30,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import com.google.inject.Inject;
-import org.nrjd.bv.app.AppConstants;
+import org.nrjd.bv.app.util.AppConstants;
 
 import jedi.option.Option;
 import net.nightwhistler.htmlspanner.FontFamily;

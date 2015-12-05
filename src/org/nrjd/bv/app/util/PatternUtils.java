@@ -8,8 +8,7 @@ package org.nrjd.bv.app.util;
 import java.util.regex.Pattern;
 
 /**
- * Pattern utils.
- * <p>
+ * Pattern matching utils.
  */
 public class PatternUtils {
     /**

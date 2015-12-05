@@ -3,7 +3,7 @@
  *
  * This file is part of Bhakthi Vriksha application.
  */
-package org.nrjd.bv.app;
+package org.nrjd.bv.app.util;
 
 
 /**
@@ -17,6 +17,9 @@ public class AppConstants {
     public static final String UTF8 = "UTF-8";
 
     public static final boolean BV_APP_MODE = true;
+
+    public static final int SPLASH_DISPLAY_TIME = 1500; // Milliseconds
+    public static final int STUB_DATA_SERVICE_VALIDATION_TIME = 1500; // Milliseconds
 
     /**
      * Determines if the application running in BV App mode.

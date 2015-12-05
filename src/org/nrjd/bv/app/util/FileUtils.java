@@ -5,7 +5,6 @@
  */
 package org.nrjd.bv.app.util;
 
-import org.nrjd.bv.app.AppConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -11,16 +11,17 @@ import android.widget.Toast;
 /**
  * Base activity class.
  */
-public class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity {
     private Toast currentToastView = null;
 
     /**
-     * Call this method to close this activity and if this activity should not be shown
-     * to the user when the user presses the back button.
+     * This method indicates whether to retain this activity in the back button history.
+     * <p>
+     * @return {@code true} If this activity should be retained in the back button history, that is,
+     * this activity should be shown to the user when the user presses the back button.
+     * Otherwise returns {@code false}.
      */
-    protected void finishActivity() {
-        finish();
-    }
+    abstract public boolean retainActivityInBackButtonHistory();
 
     /**
      * Cancels the current toast message view that is being shown in this activity.

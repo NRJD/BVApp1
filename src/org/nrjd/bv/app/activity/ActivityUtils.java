@@ -45,6 +45,7 @@ public class ActivityUtils {
         Intent intent = new Intent(sourceActivity.getApplicationContext(), targetActivityClass);
         populateParameters(intent, parameters);
         sourceActivity.startActivity(intent);
+        handleSourceActivityEvents(sourceActivity);
     }
 
     private static void populateParameters(Intent intent, Map<String, Bundle> parameters) {
@@ -57,6 +58,17 @@ public class ActivityUtils {
                         intent.putExtra(parameterName, parameters.get(parameterName));
                     }
                 }
+            }
+        }
+    }
+
+    public static void handleSourceActivityEvents(Activity sourceActivity) {
+        if (sourceActivity instanceof BaseActivity) {
+            BaseActivity baseActivity = (BaseActivity) sourceActivity;
+            if (!baseActivity.retainActivityInBackButtonHistory()) {
+                // The user is leaving this activity at this point. Destroying this activity so that
+                // this activity will not be shown to the user when the user presses the back button.
+                baseActivity.finish();
             }
         }
     }

@@ -7,21 +7,19 @@ package org.nrjd.bv.app.service;
 
 
 /**
- * User login task.
+ * User registration task.
  */
-public class LoginTask extends BaseTask {
+public class ResetPasswordTask extends BaseTask {
     private String userId = null;
-    private String password = null;
 
-    public LoginTask(String userId, String password, TaskCallback taskCallback) {
+    public ResetPasswordTask(String userId, TaskCallback taskCallback) {
         super(taskCallback);
         this.userId = userId;
-        this.password = password;
     }
 
     @Override
     public Response doInBackground(Void... params) {
         StubDataProvider stubDataProvider = StubDataProvider.getInstance();
-        return stubDataProvider.verifyLogin(this.userId, this.password);
+        return stubDataProvider.resetPassword(this.userId);
     }
 }

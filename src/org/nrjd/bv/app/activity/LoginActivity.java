@@ -5,7 +5,6 @@
  */
 package org.nrjd.bv.app.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -25,13 +24,13 @@ import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
+
 public class LoginActivity extends BaseActivity implements TaskCallback {
 
     private AutoCompleteTextView userIdTextView = null;
     private EditText passwordTextView = null;
     private Button loginButton = null;
-    private ProgressDialog progressDialog = null;
-    private boolean isTaskInProgress = false;
+    private ProgressTrackerDialog progressTrackerDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +42,33 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
     @Override
     protected void onResume() {
         super.onResume();
-        showProgressDialogIfTaskInProgress();
+        this.progressTrackerDialog.showProgressDialogIfTaskInProgress();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        hideProgressDialogIfTaskInProgress();
+        this.progressTrackerDialog.hideProgressDialogIfTaskInProgress();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dismissProgressDialog();
+        this.progressTrackerDialog.dismissProgressDialog();
+    }
+
+    /**
+     * The login activity should not be shown to the user when the user presses the back button,
+     * so destroy the login activity when the user moves out of the login activity to some other activity.
+     */
+    public boolean retainActivityInBackButtonHistory() {
+        return false;
     }
 
     private void initializeActivity() {
+        // Initialize progress tracker dialog.
+        this.progressTrackerDialog = new ProgressTrackerDialog(this, R.string.progress_title_please_wait, R.string.progress_message_logging_in);
+        // Initialize view elements.
         this.userIdTextView = (AutoCompleteTextView) findViewById(R.id.userId);
         this.passwordTextView = (EditText) findViewById(R.id.password);
         this.loginButton = (Button) findViewById(R.id.loginButton);
@@ -86,27 +96,29 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
     }
 
     private void handleLogin() {
-        // TODO: Add utility to get it
+        // Get inputs.
         String userId = this.userIdTextView.getText().toString().trim();
         String password = this.passwordTextView.getText().toString(); // Don't trim the password value.
+        // Validate inputs.
         if (StringUtils.isNullOrEmpty(userId)) {
-            showToastMessage(getString(R.string.error_empty_email_address), Toast.LENGTH_LONG);
+            showToastMessage(getString(R.string.input_error_empty_email_address), Toast.LENGTH_LONG);
             return; // Return from here
         }
         if (!PatternUtils.isValidEmailAddress(userId)) {
-            showToastMessage(getString(R.string.error_invalid_email_address), Toast.LENGTH_LONG);
+            showToastMessage(getString(R.string.input_error_invalid_email_address), Toast.LENGTH_LONG);
             return; // Return from here
         }
         if (StringUtils.isNullOrEmpty(password)) {
-            showToastMessage(getString(R.string.error_empty_password), Toast.LENGTH_LONG);
+            showToastMessage(getString(R.string.input_error_empty_password), Toast.LENGTH_LONG);
             return; // Return from here
         }
+        // Validate services.
         if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
-            showToastMessage(getString(R.string.error_no_network_connection), Toast.LENGTH_LONG);
+            showToastMessage(getString(R.string.service_error_no_network_connection), Toast.LENGTH_LONG);
             return; // Return from here
         }
-        // Perform login
-        showProgressDialog();
+        // Perform login.
+        this.progressTrackerDialog.showProgressDialog();
         (new LoginTask(userId, password, this)).execute();
     }
 
@@ -123,65 +135,15 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         if ((response != null) && response.isSuccess()) {
             showToastMessage(getString(R.string.info_login_successful), Toast.LENGTH_SHORT);
             ActivityUtils.startReadingActivity(this);
-            // The login activity should not be shown to the user when the user presses the back button,
-            // so destroying the login activity as the user is leaving this activity at this point.
-            finishActivity();
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
             showToastMessage(getString(errorCode.getMessageId()), Toast.LENGTH_LONG);
-            hideProgressDialog();
+            this.progressTrackerDialog.hideProgressDialog();
         }
     }
 
     @Override
     public void onTaskCancelled() {
-        hideProgressDialog();
-    }
-
-    private void showProgressDialog() {
-        if (this.progressDialog == null) {
-            this.progressDialog = createProgressDialog();
-        }
-        this.progressDialog.show();
-        this.isTaskInProgress = true;
-    }
-
-    private void hideProgressDialog() {
-        if (this.progressDialog != null) {
-            this.progressDialog.hide();
-        }
-        this.isTaskInProgress = false;
-    }
-
-    private void dismissProgressDialog() {
-        if (this.progressDialog != null) {
-            this.progressDialog.dismiss();
-        }
-        this.progressDialog = null;
-        this.isTaskInProgress = false;
-    }
-
-    private void showProgressDialogIfTaskInProgress() {
-        if (this.isTaskInProgress && (this.progressDialog != null)) {
-            this.progressDialog.show();
-        }
-    }
-
-    private void hideProgressDialogIfTaskInProgress() {
-        if (this.isTaskInProgress && (this.progressDialog != null)) {
-            this.progressDialog.hide();
-        }
-    }
-
-    private ProgressDialog createProgressDialog() {
-        ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setOwnerActivity(this);
-        dialog.setOnDismissListener(v -> {
-            this.isTaskInProgress = false;
-        });
-        dialog.setTitle(R.string.progress_title_please_wait);
-        dialog.setMessage(getString(R.string.progress_message_logging_in));
-        dialog.setIndeterminate(true);
-        return dialog;
+        this.progressTrackerDialog.dismissProgressDialog();
     }
 }
