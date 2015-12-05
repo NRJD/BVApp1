@@ -53,6 +53,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:text="@string/forgot_password" />
+
+        <Button
+            android:id="@+id/verifyAccountDetailsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:text="@string/verify_account_details" />
     </LinearLayout>
 
 </ScrollView>

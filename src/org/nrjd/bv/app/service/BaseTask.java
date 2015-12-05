@@ -12,7 +12,7 @@ import org.nrjd.bv.app.util.CommonUtils;
 
 
 /**
- * User registration task.
+ * Base task.
  */
 public abstract class BaseTask extends AsyncTask<Void, Void, Response> {
     private TaskCallback taskCallback = null;
@@ -21,8 +21,7 @@ public abstract class BaseTask extends AsyncTask<Void, Void, Response> {
         this.taskCallback = taskCallback;
     }
 
-    @Override
-    protected void onPreExecute() {
+    public void doBackgroundWork() {
         // TODO: Remove the sleep call.
         CommonUtils.sleep(AppConstants.STUB_DATA_SERVICE_VALIDATION_TIME);
     }

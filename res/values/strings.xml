@@ -378,19 +378,28 @@
     <!-- BVApp-Comment: Bhakti Vriksha application specific messages. -->
     <!-- BVApp strings start -->
     <!-- User Login/Registration screen strings -->
-    <string name="prompt_email_address">Enter email address</string>
-    <string name="prompt_email_address_for_user_id">Enter email address (user id)</string>
-    <string name="prompt_password">Enter password</string>
-    <string name="prompt_confirm_password">Enter password again</string>
-    <string name="prompt_name">Enter your name</string>
-    <string name="prompt_mobile_number">Enter mobile number</string>
-
     <string name="login">Login</string>
     <string name="registration">Registration</string>
     <string name="back_to_login">Back to Login</string>
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="reset_password">Reset Password</string>
+    <string name="verify_account_details">Verify Account Details</string>
+    <string name="verify">Verify</string>
+
+    <string name="prompt_email_address">Enter email address</string>
+    <string name="prompt_login_email_address">Enter login email address</string>
+    <string name="prompt_password">Enter password</string>
+    <string name="prompt_confirm_password">Enter password again</string>
+    <string name="prompt_name">Enter your name</string>
+    <string name="prompt_mobile_number">Enter mobile number</string>
+    <string name="verify_login_email_address">Verify login email address</string>
+    <string name="prompt_email_verification_code">Enter email verification code</string>
+    <string name="verify_registered_mobile_number">Verify registered mobile number</string>
+    <string name="prompt_mobile_number_verification_code">Enter mobile number verification code</string>
+    <string name="verify_account_details_notes">Please verify the email address and mobile number before you login into the application. Please check your emails for the verification code details.</string>
+    <string name="status_email_address_verified">Email address verified</string>
+    <string name="status_mobile_number_verified">Mobile number verified</string>
 
     <string name="manual_name">Bhakti Vriksha Manual</string>
     <string name="download_books">Download Books</string>
@@ -407,11 +416,15 @@
     <string name="progress_message_logging_in">Logging in..</string>
     <string name="progress_message_registering">Registering..</string>
     <string name="progress_message_reset_password">Requesting to reset password..</string>
+    <string name="progress_message_email_address">Verifying the email address..</string>
+    <string name="progress_message_mobile_number">Verifying the mobile number..</string>
 
     <!-- Info messages -->
     <string name="info_login_successful">Login successful</string>
-    <string name="info_registration_successful">Registration successful. Please try login.</string>
+    <string name="info_registration_successful">Registration successful. Please verify the account details. Verification code details have been sent to your email.</string>
     <string name="info_reset_password_successful">Reset password successful. Please check your email for the reset password and login again.</string>
+    <string name="info_email_address_verification_successful">Successfully verified the email address.</string>
+    <string name="info_mobile_number_verification_successful">Successfully verified the mobile number.</string>
 
     <!-- Error messages -->
     <string name="input_error_empty_email_address">Please enter email address.</string>
@@ -423,8 +436,10 @@
     <string name="input_error_empty_name">Please enter your name.</string>
     <string name="input_error_empty_mobile_country_code">Please enter mobile country code.</string>
     <string name="input_error_empty_mobile_number">Please enter mobile number.</string>
+    <string name="input_error_empty_email_verification_code">Please enter email verification code.</string>
+    <string name="input_error_empty_mobile_number_verification_code">Please enter mobile number verification code.</string>
 
-    <string name="service_error_occured">Could not perform the action. Service error occurred. Please try again.</string>
+    <string name="service_error_occurred">Could not perform the action. Service error occurred. Please try again.</string>
     <string name="service_error_no_network_connection">No network connection available. Please check your network settings.</string>
 
     <string name="service_error_login__empty_email_address">Could not login. Email address not specified.</string>
@@ -446,5 +461,12 @@
     <string name="service_error_reset_password__empty_email_address">Could not reset password. Email address not specified.</string>
     <string name="service_error_reset_password__invalid_email_address">Could not reset password. Invalid email address.</string>
     <string name="service_error_reset_password__email_address_not_registered">Could not reset password. Specified email address is not registered with us.</string>
+
+    <string name="service_error_verify_account__invalid_email_address">Verification failed. Invalid email address.</string>
+    <string name="service_error_verify_account__email_address_not_registered">Verification failed. Specified email address is not registered with us.</string>
+    <string name="service_error_verify_account__invalid_email_address_verification_code">Verification failed. Invalid email address verification code.</string>
+    <string name="service_error_verify_account__invalid_mobile_number">Verification failed. Invalid mobile number.</string>
+    <string name="service_error_verify_account__mobile_number_not_registered">Verification failed. Specified mobile number is not registered with us.</string>
+    <string name="service_error_verify_account__invalid_mobile_number_verification_code">Verification failed. Invalid mobile number verification code.</string>
     <!-- BVApp strings end -->
 </resources>

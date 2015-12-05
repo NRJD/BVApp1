@@ -11,9 +11,6 @@ import android.os.Bundle;
 
 import net.nightwhistler.pageturner.activity.ReadingActivity;
 
-import java.util.Map;
-import java.util.Set;
-
 public class ActivityUtils {
     /**
      * Private constructor to prevent the instantiation of this class.
@@ -33,6 +30,10 @@ public class ActivityUtils {
         startActivity(sourceActivity, ResetPasswordActivity.class);
     }
 
+    public static void startVerifyAccountActivity(Activity sourceActivity, Bundle parameters) {
+        startActivity(sourceActivity, VerifyAccountActivity.class, parameters);
+    }
+
     public static void startReadingActivity(Activity sourceActivity) {
         startActivity(sourceActivity, ReadingActivity.class);
     }
@@ -41,25 +42,13 @@ public class ActivityUtils {
         startActivity(sourceActivity, targetActivityClass, null);
     }
 
-    public static void startActivity(Activity sourceActivity, Class<?> targetActivityClass, Map<String, Bundle> parameters) {
+    public static void startActivity(Activity sourceActivity, Class<?> targetActivityClass, Bundle parameters) {
         Intent intent = new Intent(sourceActivity.getApplicationContext(), targetActivityClass);
-        populateParameters(intent, parameters);
+        if(parameters != null) {
+            intent.putExtras(parameters);
+        }
         sourceActivity.startActivity(intent);
         handleSourceActivityEvents(sourceActivity);
-    }
-
-    private static void populateParameters(Intent intent, Map<String, Bundle> parameters) {
-        if ((intent != null) && (parameters != null)) {
-            Set<String> parameterNames = parameters.keySet();
-            if (parameterNames != null) {
-                for (String parameterName : parameterNames) {
-                    Bundle bundle = parameters.get(parameterName);
-                    if (bundle != null) {
-                        intent.putExtra(parameterName, parameters.get(parameterName));
-                    }
-                }
-            }
-        }
     }
 
     public static void handleSourceActivityEvents(Activity sourceActivity) {

@@ -17,6 +17,7 @@ import org.nrjd.bv.app.net.NetworkServiceUtils;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.RegisterTask;
 import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.StubDataTracker;
 import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
@@ -147,16 +148,27 @@ public class RegisterActivity extends BaseActivity implements TaskCallback {
     public void onTaskComplete(Response response) {
         if ((response != null) && response.isSuccess()) {
             showToastMessage(getString(R.string.info_registration_successful), Toast.LENGTH_SHORT);
-            ActivityUtils.startLoginActivity(this);
+            StubDataTracker.getInstance().setIsUserRegistered(true);
+            Bundle registrationDataParameters = getRegistrationDataParameters();
+            ActivityUtils.startVerifyAccountActivity(this, registrationDataParameters);
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
             showToastMessage(getString(errorCode.getMessageId()), Toast.LENGTH_LONG);
-            this.progressTrackerDialog.hideProgressDialog();
         }
+        this.progressTrackerDialog.hideProgressDialog();
     }
 
     @Override
     public void onTaskCancelled() {
         this.progressTrackerDialog.dismissProgressDialog();
+    }
+
+    private Bundle getRegistrationDataParameters() {
+        String userId = this.userIdTextView.getText().toString().trim();
+        String mobileNumber = this.mobileNumberTextView.getText().toString().trim();
+        Bundle registrationDataParameters = new Bundle();
+        registrationDataParameters.putString(VerifyAccountActivity.USER_ID_PARAM, userId);
+        registrationDataParameters.putString(VerifyAccountActivity.MOBILE_NUMBER_PARAM, mobileNumber);
+        return registrationDataParameters;
     }
 }

@@ -7,7 +7,7 @@ package org.nrjd.bv.app.service;
 
 
 /**
- * User registration task.
+ * Reset password task.
  */
 public class ResetPasswordTask extends BaseTask {
     private String userId = null;
@@ -19,6 +19,7 @@ public class ResetPasswordTask extends BaseTask {
 
     @Override
     public Response doInBackground(Void... params) {
+        super.doBackgroundWork();
         StubDataProvider stubDataProvider = StubDataProvider.getInstance();
         return stubDataProvider.resetPassword(this.userId);
     }

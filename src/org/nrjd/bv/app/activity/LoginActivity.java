@@ -20,6 +20,7 @@ import org.nrjd.bv.app.net.NetworkServiceUtils;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.LoginTask;
 import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.StubDataTracker;
 import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
@@ -81,9 +82,15 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         // Initialize registration handler.
         Button signUpButton = (Button) findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(l -> handleRegistration());
-        // Initialize registration handler.
+        // Initialize forgot password handler.
         Button forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
-        forgotPasswordButton.setOnClickListener(l -> handleForgotPassword());
+        forgotPasswordButton.setOnClickListener(l -> handleResetPassword());
+        // Initialize verify account details handler.
+        Button verifyAccountDetailsButton = (Button) findViewById(R.id.verifyAccountDetailsButton);
+        verifyAccountDetailsButton.setOnClickListener(l -> handleVerifyAccountDetails());
+        if(!StubDataTracker.getInstance().isUserRegistered()) {
+            verifyAccountDetailsButton.setEnabled(false);
+        }
     }
 
     private boolean handlePasswordEnterEvent(TextView view, int actionId, KeyEvent event) {
@@ -126,8 +133,12 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         ActivityUtils.startRegisterActivity(this);
     }
 
-    private void handleForgotPassword() {
+    private void handleResetPassword() {
         ActivityUtils.startResetPasswordActivity(this);
+    }
+
+    private void handleVerifyAccountDetails() {
+        ActivityUtils.startVerifyAccountActivity(this, null);
     }
 
     @Override
@@ -138,8 +149,8 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
             showToastMessage(getString(errorCode.getMessageId()), Toast.LENGTH_LONG);
-            this.progressTrackerDialog.hideProgressDialog();
         }
+        this.progressTrackerDialog.hideProgressDialog();
     }
 
     @Override

@@ -21,6 +21,7 @@ public class LoginTask extends BaseTask {
 
     @Override
     public Response doInBackground(Void... params) {
+        super.doBackgroundWork();
         StubDataProvider stubDataProvider = StubDataProvider.getInstance();
         return stubDataProvider.verifyLogin(this.userId, this.password);
     }

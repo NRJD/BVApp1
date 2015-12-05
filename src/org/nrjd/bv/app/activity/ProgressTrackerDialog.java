@@ -41,7 +41,7 @@ public class ProgressTrackerDialog {
 
     public void showProgressDialog(int titleId, int messageId) {
         if (this.progressDialog == null) {
-            this.progressDialog = createProgressDialog(titleId, titleId);
+            this.progressDialog = createProgressDialog(titleId, messageId);
         } else {
             this.progressDialog.setTitle(titleId);
             this.progressDialog.setMessage(this.ownerActivity.getString(messageId));

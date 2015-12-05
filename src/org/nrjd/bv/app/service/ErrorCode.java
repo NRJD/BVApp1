@@ -9,11 +9,11 @@ import net.nightwhistler.pageturner.R;
 
 
 /**
- * Possible service error codes.
+ * Service error codes.
  */
 public enum ErrorCode {
     // General errors.
-    EC_SERVICE_ERROR_OCCURRED(-2001, R.string.service_error_occured),
+    EC_SERVICE_ERROR_OCCURRED(-2001, R.string.service_error_occurred),
     // Login errors.
     EC_LOGIN__EMPTY_EMAIL_ADDRESS(-2101, R.string.service_error_login__empty_email_address),
     EC_LOGIN__INVALID_EMAIL_ADDRESS(-2102, R.string.service_error_login__invalid_email_address),
@@ -33,7 +33,14 @@ public enum ErrorCode {
     // Reset password errors.
     EC_RESET_PASSWORD__EMPTY_EMAIL_ADDRESS(-2301, R.string.service_error_reset_password__empty_email_address),
     EC_RESET_PASSWORD__INVALID_EMAIL_ADDRESS(-2302, R.string.service_error_reset_password__invalid_email_address),
-    EC_RESET_PASSWORD__EMAIL_ADDRESS_NOT_REGISTERED(-2303, R.string.service_error_reset_password__email_address_not_registered);
+    EC_RESET_PASSWORD__EMAIL_ADDRESS_NOT_REGISTERED(-2303, R.string.service_error_reset_password__email_address_not_registered),
+    // Verify account errors.
+    EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS(-2401, R.string.service_error_verify_account__invalid_email_address),
+    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED(-2402, R.string.service_error_verify_account__email_address_not_registered),
+    EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE(-2403, R.string.service_error_verify_account__invalid_email_address_verification_code),
+    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER(-2404, R.string.service_error_verify_account__invalid_mobile_number),
+    EC_VERIFY_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED(-2405, R.string.service_error_verify_account__mobile_number_not_registered),
+    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE(-2406, R.string.service_error_verify_account__invalid_mobile_number_verification_code);
 
     private int serviceErrorCode = 0;
     private int messageId = 0;

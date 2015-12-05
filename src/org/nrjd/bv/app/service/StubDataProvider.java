@@ -9,6 +9,7 @@ import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +23,10 @@ public class StubDataProvider {
     private static Map<String, String> VALID_USER_IDS = generatePasswordMap(new String[]{"u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8", "u9", "u10"});
     private static Set<String> VERIFIED_EMAIL_ADDRESSES = generateEmailAddressSet(new String[]{"u1", "u2", "u3", "u4", "u5"});
     private static Set<String> VERIFIED_MOBILE_NUMBERS = generateEmailAddressSet(new String[]{"u1", "u2", "u3"});
-    
+    private static List<String> MOBILE_NUMBERS = Arrays.<String>asList("1234567891", "1234567892", "1234567893");
+    private static List<String> EMAIL_VERIFICATION_CODES = Arrays.<String>asList("123451", "123452", "123453");
+    private static List<String> MOBILE_VERIFICATION_CODES = Arrays.<String>asList("234561", "234562", "234563");
+
     private static final StubDataProvider INSTANCE = new StubDataProvider();
 
     /**
@@ -100,6 +104,43 @@ public class StubDataProvider {
         }
         if (!VALID_USER_IDS.containsKey(userId)) {
             return Response.createFailedResponse(ErrorCode.EC_RESET_PASSWORD__EMAIL_ADDRESS_NOT_REGISTERED);
+        }
+        return Response.createSuccessResponse();
+    }
+
+    public Response verifyEmailAddress(String userId, String userIdVerificationCode) {
+        // TODO: More validations
+        if (StringUtils.isNullOrEmpty(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
+        }
+        if (!PatternUtils.isValidEmailAddress(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
+        }
+        if (!VALID_USER_IDS.containsKey(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED);
+        }
+        if (StringUtils.isNullOrEmpty(userIdVerificationCode)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+        }
+        if (!EMAIL_VERIFICATION_CODES.contains(userIdVerificationCode)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+        }
+        return Response.createSuccessResponse();
+    }
+
+    public Response verifyMobileNumber(String mobileNumber, String mobileNumberVerificationCode) {
+        // TODO: More validations
+        if (StringUtils.isNullOrEmpty(mobileNumber)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER);
+        }
+        if (!MOBILE_NUMBERS.contains(mobileNumber)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED);
+        }
+        if (StringUtils.isNullOrEmpty(mobileNumberVerificationCode)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE);
+        }
+        if (!MOBILE_VERIFICATION_CODES.contains(mobileNumberVerificationCode)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE);
         }
         return Response.createSuccessResponse();
     }

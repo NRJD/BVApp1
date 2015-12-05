@@ -107,8 +107,8 @@ public class ResetPasswordActivity extends BaseActivity implements TaskCallback 
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
             showToastMessage(getString(errorCode.getMessageId()), Toast.LENGTH_LONG);
-            this.progressTrackerDialog.hideProgressDialog();
         }
+        this.progressTrackerDialog.hideProgressDialog();
     }
 
     @Override

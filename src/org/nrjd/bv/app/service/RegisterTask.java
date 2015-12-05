@@ -27,6 +27,7 @@ public class RegisterTask extends BaseTask {
 
     @Override
     public Response doInBackground(Void... params) {
+        super.doBackgroundWork();
         StubDataProvider stubDataProvider = StubDataProvider.getInstance();
         return stubDataProvider.verifyRegistration(this.userId, this.password, this.name, this.mobileCountryCode, this.mobileNumber);
     }
