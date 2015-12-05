@@ -405,6 +405,7 @@
     <!-- Progress messages -->
     <string name="progress_title_please_wait">Please wait</string>
     <string name="progress_message_logging_in">Logging in..</string>
+    <string name="progress_message_registering">Registering..</string>
 
     <!-- Info messages -->
     <string name="info_login_successful">Login successful</string>

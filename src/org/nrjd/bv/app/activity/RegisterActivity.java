@@ -37,6 +37,28 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void handleRegistration() {
+        // TODO: Add utility to get it
+//        String userId = this.userIdTextView.getText().toString().trim();
+//        String password = this.passwordTextView.getText().toString(); // Don't trim the password value.
+//        if (StringUtils.isNullOrEmpty(userId)) {
+//            showToastMessage(getString(R.string.error_empty_email_address), Toast.LENGTH_LONG);
+//            return; // Return from here
+//        }
+//        if (!PatternUtils.isValidEmailAddress(userId)) {
+//            showToastMessage(getString(R.string.error_invalid_email_address), Toast.LENGTH_LONG);
+//            return; // Return from here
+//        }
+//        if (StringUtils.isNullOrEmpty(password)) {
+//            showToastMessage(getString(R.string.error_empty_password), Toast.LENGTH_LONG);
+//            return; // Return from here
+//        }
+//        if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
+//            showToastMessage(getString(R.string.error_no_network_connection), Toast.LENGTH_LONG);
+//            return; // Return from here
+//        }
+//        // Perform login
+//        showProgressDialog();
+//        (new LoginTask(userId, password, this)).execute();
         if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
             Toast.makeText(getBaseContext(), getString(R.string.error_no_network_connection), Toast.LENGTH_SHORT).show();
         } else {
