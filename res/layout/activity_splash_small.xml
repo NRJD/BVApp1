@@ -30,8 +30,8 @@
             android:shadowDy="-1"
             android:shadowRadius="2"
             android:textColor="@color/opaque_white"
-            android:text="@string/manual_name"
-            android:textSize="28sp" />
+            android:text="@string/user_guide_name"
+            android:textSize="20sp" />
     </RelativeLayout>
 </RelativeLayout>
 

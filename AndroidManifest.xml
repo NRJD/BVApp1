@@ -39,16 +39,20 @@
         </activity>
         <activity
             android:name="org.nrjd.bv.app.activity.LoginActivity"
-            android:label="@string/login" />
+            android:label="@string/login"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="org.nrjd.bv.app.activity.RegisterActivity"
-            android:label="@string/login" />
+            android:label="@string/registration"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="org.nrjd.bv.app.activity.ResetPasswordActivity"
-            android:label="@string/login" />
+            android:label="@string/reset_password"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="org.nrjd.bv.app.activity.VerifyAccountActivity"
-            android:label="@string/verify_account_details" />
+            android:label="@string/verify_account_details"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="net.nightwhistler.pageturner.activity.ReadingActivity"
             android:label="@string/app_name" >

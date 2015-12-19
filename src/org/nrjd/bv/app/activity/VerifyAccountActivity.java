@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import net.nightwhistler.pageturner.R;
 
-import org.nrjd.bv.app.net.NetworkServiceUtils;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.MobileNumberVerificationTask;
 import org.nrjd.bv.app.service.Response;
@@ -158,11 +157,6 @@ public class VerifyAccountActivity extends BaseActivity implements TaskCallback 
             showToastMessage(getString(R.string.input_error_empty_email_verification_code), Toast.LENGTH_LONG);
             return; // Return from here
         }
-        // Validate services.
-        if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
-            showToastMessage(getString(R.string.service_error_no_network_connection), Toast.LENGTH_LONG);
-            return; // Return from here
-        }
         // Perform login
         this.progressTrackerDialog.showProgressDialog(R.string.progress_title_please_wait, R.string.progress_message_email_address);
         (new UserIdVerificationTask(userId, userIdVerificationCode, this)).execute();
@@ -179,11 +173,6 @@ public class VerifyAccountActivity extends BaseActivity implements TaskCallback 
         }
         if (StringUtils.isNullOrEmpty(mobileNumberVerificationCode)) {
             showToastMessage(getString(R.string.input_error_empty_mobile_number_verification_code), Toast.LENGTH_LONG);
-            return; // Return from here
-        }
-        // Validate services.
-        if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
-            showToastMessage(getString(R.string.service_error_no_network_connection), Toast.LENGTH_LONG);
             return; // Return from here
         }
         // Perform login

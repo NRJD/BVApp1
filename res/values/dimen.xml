@@ -6,6 +6,7 @@
 	<dimen name="ambilwarna_spacer">8dp</dimen>
 	<dimen name="edit_text_margin_top">8dp</dimen>
 	<dimen name="edit_text_margin_bottom">8dp</dimen>
+	<dimen name="splash_text_margin_bottom">16dp</dimen>
 	<dimen name="verified_status_text_passing_right">16dp</dimen>
 	<dimen name="verified_status_text_size">16dp</dimen>
 	<dimen name="layout_section_gap">24dp</dimen>

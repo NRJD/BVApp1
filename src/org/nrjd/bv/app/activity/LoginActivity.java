@@ -16,11 +16,10 @@ import android.widget.Toast;
 
 import net.nightwhistler.pageturner.R;
 
-import org.nrjd.bv.app.net.NetworkServiceUtils;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.LoginTask;
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.StubDataTracker;
+import org.nrjd.bv.app.util.UserRegUtils;
 import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
@@ -88,9 +87,7 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         // Initialize verify account details handler.
         Button verifyAccountDetailsButton = (Button) findViewById(R.id.verifyAccountDetailsButton);
         verifyAccountDetailsButton.setOnClickListener(l -> handleVerifyAccountDetails());
-        if(!StubDataTracker.getInstance().isUserRegistered()) {
-            verifyAccountDetailsButton.setEnabled(false);
-        }
+        verifyAccountDetailsButton.setEnabled(UserRegUtils.getInstance().isUserRegistered());
     }
 
     private boolean handlePasswordEnterEvent(TextView view, int actionId, KeyEvent event) {
@@ -117,11 +114,6 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         }
         if (StringUtils.isNullOrEmpty(password)) {
             showToastMessage(getString(R.string.input_error_empty_password), Toast.LENGTH_LONG);
-            return; // Return from here
-        }
-        // Validate services.
-        if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
-            showToastMessage(getString(R.string.service_error_no_network_connection), Toast.LENGTH_LONG);
             return; // Return from here
         }
         // Perform login.

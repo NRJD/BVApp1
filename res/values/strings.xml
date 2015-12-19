@@ -401,7 +401,7 @@
     <string name="status_email_address_verified">Email address verified</string>
     <string name="status_mobile_number_verified">Mobile number verified</string>
 
-    <string name="manual_name">Bhakti Vriksha Manual</string>
+    <string name="user_guide_name">Bhakti Vriksha User Guide</string>
     <string name="download_books">Download Books</string>
     <string name="downloading_books">Downloading Books</string>
     <string name="download_bks_question">There are no books in your library.\nWould you like to download the books?</string>

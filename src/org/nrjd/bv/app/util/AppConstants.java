@@ -18,7 +18,7 @@ public class AppConstants {
 
     public static final boolean BV_APP_MODE = true;
 
-    public static final int SPLASH_DISPLAY_TIME = 1500; // Milliseconds
+    public static final int SPLASH_DISPLAY_TIME = 5000; // Milliseconds
     public static final int STUB_DATA_SERVICE_VALIDATION_TIME = 1500; // Milliseconds
 
     /**

@@ -13,11 +13,9 @@ import android.widget.Toast;
 
 import net.nightwhistler.pageturner.R;
 
-import org.nrjd.bv.app.net.NetworkServiceUtils;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.RegisterTask;
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.StubDataTracker;
 import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
@@ -134,11 +132,6 @@ public class RegisterActivity extends BaseActivity implements TaskCallback {
             showToastMessage(getString(R.string.input_error_empty_mobile_number), Toast.LENGTH_LONG);
             return; // Return from here
         }
-        // Validate services.
-        if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
-            showToastMessage(getString(R.string.service_error_no_network_connection), Toast.LENGTH_LONG);
-            return; // Return from here
-        }
         // Perform login
         this.progressTrackerDialog.showProgressDialog();
         (new RegisterTask(userId, password, userName, mobileCountryCode, mobileNumber, this)).execute();
@@ -148,7 +141,6 @@ public class RegisterActivity extends BaseActivity implements TaskCallback {
     public void onTaskComplete(Response response) {
         if ((response != null) && response.isSuccess()) {
             showToastMessage(getString(R.string.info_registration_successful), Toast.LENGTH_SHORT);
-            StubDataTracker.getInstance().setIsUserRegistered(true);
             Bundle registrationDataParameters = getRegistrationDataParameters();
             ActivityUtils.startVerifyAccountActivity(this, registrationDataParameters);
         } else {

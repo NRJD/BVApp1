@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import net.nightwhistler.pageturner.R;
 
-import org.nrjd.bv.app.net.NetworkServiceUtils;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.ResetPasswordTask;
 import org.nrjd.bv.app.service.Response;
@@ -87,11 +86,6 @@ public class ResetPasswordActivity extends BaseActivity implements TaskCallback 
         }
         if (!PatternUtils.isValidEmailAddress(userId)) {
             showToastMessage(getString(R.string.input_error_invalid_email_address), Toast.LENGTH_LONG);
-            return; // Return from here
-        }
-        // Validate services.
-        if (!NetworkServiceUtils.isNetworkOn(getBaseContext())) {
-            showToastMessage(getString(R.string.service_error_no_network_connection), Toast.LENGTH_LONG);
             return; // Return from here
         }
         // Perform login

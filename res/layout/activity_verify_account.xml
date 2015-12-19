@@ -38,8 +38,12 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:hint="@string/prompt_login_email_address"
             android:inputType="textEmailAddress"
+            android:maxLength="@integer/email_value_max_length"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true">
+
+            <requestFocus />
+        </AutoCompleteTextView>
 
         <EditText
             android:id="@+id/userIdVerificationCode"
@@ -48,6 +52,7 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:hint="@string/prompt_email_verification_code"
             android:inputType="number"
+            android:maxLength="@integer/email_verification_code_max_length"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -102,6 +107,7 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:hint="@string/prompt_mobile_number"
             android:inputType="number"
+            android:maxLength="@integer/mobile_number_name_value_max_length"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -112,6 +118,7 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:hint="@string/prompt_mobile_number_verification_code"
             android:inputType="number"
+            android:maxLength="@integer/mobile_verification_code_max_length"
             android:maxLines="1"
             android:singleLine="true" />
 

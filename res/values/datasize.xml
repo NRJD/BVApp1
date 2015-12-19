@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="email_value_max_length">50</integer>
+    <integer name="password_value_max_length">50</integer>
+    <integer name="user_name_value_max_length">50</integer>
+    <integer name="mobile_country_code_value_max_length">20</integer>
+    <integer name="mobile_number_name_value_max_length">50</integer>
+    <integer name="email_verification_code_max_length">50</integer>
+    <integer name="mobile_verification_code_max_length">50</integer>
+</resources>

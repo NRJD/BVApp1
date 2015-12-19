@@ -20,8 +20,12 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:hint="@string/prompt_email_address"
             android:inputType="textEmailAddress"
+            android:maxLength="@integer/email_value_max_length"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true">
+
+            <requestFocus />
+        </AutoCompleteTextView>
 
         <EditText
             android:id="@+id/password"
@@ -30,6 +34,7 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
+            android:maxLength="@integer/password_value_max_length"
             android:maxLines="1"
             android:singleLine="true" />
 

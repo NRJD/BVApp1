@@ -3,7 +3,7 @@
     android:id="@+id/splashView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash_bg_color">
+    android:background="@color/bg_translucent_black">
 
     <ImageView
         android:id="@+id/splashImage"
@@ -17,12 +17,13 @@
         android:id="@+id/splashText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:shadowColor="@color/light_gray"
+        android:layout_marginBottom="@dimen/splash_text_margin_bottom"
+        android:gravity="bottom|center"
+        android:shadowColor="@color/bg_translucent_black"
         android:shadowDx="-1"
         android:shadowDy="-1"
         android:shadowRadius="2"
-        android:text="@string/manual_name"
+        android:text="@string/user_guide_name"
         android:textColor="@color/opaque_white"
-        android:textSize="28sp" />
+        android:textSize="20sp" />
 </RelativeLayout>
