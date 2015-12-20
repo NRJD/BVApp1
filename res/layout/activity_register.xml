@@ -7,11 +7,11 @@
     android:fillViewport="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/registerForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/registerForm"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/main_layout_padding">
 
         <AutoCompleteTextView
             android:id="@+id/userId"
@@ -55,21 +55,61 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:hint="@string/prompt_name"
-            android:inputType="text"
+            android:inputType="textPersonName"
             android:maxLength="@integer/user_name_value_max_length"
             android:maxLines="1"
             android:singleLine="true" />
 
-        <AutoCompleteTextView
-            android:id="@+id/mobileNumber"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/edit_text_margin_top"
-            android:hint="@string/prompt_mobile_number"
-            android:maxLength="@integer/mobile_number_name_value_max_length"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:orientation="horizontal">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mobileCountryCodeLayout"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="0dp"
+                android:background="@drawable/mobile_country_code_sel_style"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mobileCountryCodeText"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="2dp"
+                    android:text="@string/select"
+                    android:textColor="@color/default_btn_text_color"
+                    android:textSize="@dimen/mobile_country_iso_code_text_size" />
+
+                <ImageView
+                    android:id="@+id/mobileCountryCodeIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/sel_country_code"/>
+            </RelativeLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/mobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:hint="@string/prompt_mobile_number"
+                android:inputType="phone"
+                android:maxLength="@integer/mobile_number_name_value_max_length"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/signUpButton"

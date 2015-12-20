@@ -7,11 +7,11 @@
     android:fillViewport="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/loginForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginForm"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/main_layout_padding">
 
         <AutoCompleteTextView
             android:id="@+id/userId"

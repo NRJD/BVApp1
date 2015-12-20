@@ -15,6 +15,10 @@ public class StringUtils {
     private StringUtils() {
     }
 
+    public static String trim(String string) {
+        return ((string != null) ? string.trim() : null);
+    }
+
     public static boolean isNullOrEmpty(String string) {
         return ((string == null) || string.trim().equals(""));
     }

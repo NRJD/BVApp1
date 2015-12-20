@@ -386,6 +386,7 @@
     <string name="reset_password">Reset Password</string>
     <string name="verify_account_details">Verify Account Details</string>
     <string name="verify">Verify</string>
+    <string name="select">Select</string>
 
     <string name="prompt_email_address">Enter email address</string>
     <string name="prompt_login_email_address">Enter login email address</string>
@@ -395,6 +396,7 @@
     <string name="prompt_mobile_number">Enter mobile number</string>
     <string name="verify_login_email_address">Verify login email address</string>
     <string name="prompt_email_verification_code">Enter email verification code</string>
+    <string name="select_mobile_country_code">Select mobile country code</string>
     <string name="verify_registered_mobile_number">Verify registered mobile number</string>
     <string name="prompt_mobile_number_verification_code">Enter mobile number verification code</string>
     <string name="verify_account_details_notes">Please verify the email address and mobile number before you login into the application. Please check your emails for the verification code details.</string>
@@ -434,7 +436,8 @@
     <string name="input_error_password_length_mismatch">Please enter a valid password with minimum 6 characters and up to a maximum 15 characters.</string>
     <string name="input_error_passwords_mismatch">Passwords do not match.</string>
     <string name="input_error_empty_name">Please enter your name.</string>
-    <string name="input_error_empty_mobile_country_code">Please enter mobile country code.</string>
+    <string name="input_error_insufficient_name_length">Please enter a valid name with minimum 3 characters.</string>
+    <string name="input_error_empty_mobile_country_code">Please select mobile country code.</string>
     <string name="input_error_empty_mobile_number">Please enter mobile number.</string>
     <string name="input_error_empty_email_verification_code">Please enter email verification code.</string>
     <string name="input_error_empty_mobile_number_verification_code">Please enter mobile number verification code.</string>

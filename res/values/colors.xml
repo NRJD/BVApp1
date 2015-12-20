@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <color name="opaque_white">#ffffff</color>
-   <color name="dark_grey">#888888</color>
-   <color name="translucent_black">#C0000000</color>
-   <color name="opaque_black">#000000</color>
+    <color name="opaque_white">#ffffff</color>
+    <color name="dark_grey">#888888</color>
+    <color name="translucent_black">#C0000000</color>
+    <color name="opaque_black">#000000</color>
     <color name="orange">#ff5500</color>
 
     <!-- BVApp-Comment: Bhakti Vriksha application specific colors. -->
@@ -20,6 +20,10 @@
     <color name="dark_blue">#00008B</color>
     <color name="brown">#A52A2A</color>
     <color name="maroon">#800000</color>
+    <!-- default_btn_fill_color RGB=30,35,39 -->
+    <color name="default_btn_fill_color">#1E2327</color>
+    <!-- default_btn_text_color RGB=243,243,243 -->
+    <color name="default_btn_text_color">#F3F3F3</color>
     <!-- BVApp background colors start -->
     <color name="bg_translucent_black">#C0000000</color>
     <color name="bg_light_gray">#d3d3d3</color>

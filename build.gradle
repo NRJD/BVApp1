@@ -127,7 +127,8 @@ android {
 
     defaultConfig {
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
-        minSdkVersion 7
+        // BVApp-Comment: 19/Dec/2015: Changed minSdkVersion from 7 to 11 for using ListPopupWindow API.
+        minSdkVersion 11
 
         targetSdkVersion 19
     }

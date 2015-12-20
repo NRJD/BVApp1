@@ -6,6 +6,7 @@
 package org.nrjd.bv.app.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,10 @@ public class ActivityUtils {
      * Private constructor to prevent the instantiation of this class.
      */
     private ActivityUtils() {
+    }
+
+    public static Context getContext(Activity activity) {
+        return ((activity != null)? activity.getBaseContext() : null);
     }
 
     public static void startLoginActivity(Activity sourceActivity) {

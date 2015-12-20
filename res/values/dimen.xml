@@ -4,10 +4,15 @@
 	<dimen name="ambilwarna_hsvWidth">240dp</dimen>
 	<dimen name="ambilwarna_hueWidth">30dp</dimen>
 	<dimen name="ambilwarna_spacer">8dp</dimen>
+	<!-- BVApp dimensions start -->
+	<dimen name="main_layout_padding">20dp</dimen>
 	<dimen name="edit_text_margin_top">8dp</dimen>
 	<dimen name="edit_text_margin_bottom">8dp</dimen>
+	<dimen name="edit_text_margin_right">8dp</dimen>
 	<dimen name="splash_text_margin_bottom">16dp</dimen>
 	<dimen name="verified_status_text_passing_right">16dp</dimen>
 	<dimen name="verified_status_text_size">16dp</dimen>
 	<dimen name="layout_section_gap">24dp</dimen>
+	<dimen name="mobile_country_iso_code_text_size">16dp</dimen>
+	<!-- BVApp dimensions end -->
 </resources>
