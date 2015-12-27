@@ -7,24 +7,24 @@ package org.nrjd.bv.app.service;
 
 
 /**
- * User login task.
+ * User registration task.
  */
-public class LoginTask extends BaseTask {
+public class ChangePasswordTask extends BaseTask {
     private String userId = null;
-    private String password = null;
+    private String oldPassword = null;
+    private String newPassword = null;
 
-    public LoginTask(String userId, String password, TaskCallback taskCallback) {
+    public ChangePasswordTask(String userId, String oldPassword, String newPassword, TaskCallback taskCallback) {
         super(taskCallback);
         this.userId = userId;
-        this.password = password;
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
     }
 
     @Override
     public Response doInBackground(Void... params) {
         super.doBackgroundWork();
         StubDataProvider stubDataProvider = StubDataProvider.getInstance();
-        Response response = stubDataProvider.verifyLogin(this.userId, this.password);
-        ResponseDataUtils.setIsTempPassword(response, StubDataProvider.isTempPassword(this.password));
-        return response;
+        return stubDataProvider.changePassword(this.userId, this.oldPassword, this.newPassword);
     }
 }

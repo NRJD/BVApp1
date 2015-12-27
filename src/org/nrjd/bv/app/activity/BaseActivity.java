@@ -42,6 +42,29 @@ public abstract class BaseActivity extends Activity {
     }
 
     /**
+     * Shows the given toast error message in this activity.
+     */
+    protected void showToastErrorMessage(String message) {
+        showToastMessage(Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG));
+    }
+
+    /**
+     * Shows the given toast quick info message in this activity.
+     */
+    protected void showToastQuickInfoMessage(String message) {
+        showToastMessage(Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT));
+    }
+
+    /**
+     * Shows the given toast alert message in this activity.
+     * This kind of toast message is shown to the user for longer duration so that
+     * the user is able to observe and notice this toast message.
+     */
+    protected void showToastAlertInfoMessage(String message) {
+        showToastMessage(Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG));
+    }
+
+    /**
      * Shows the given toast message view in this activity.
      */
     protected void showToastMessage(Toast toastView) {

@@ -40,7 +40,15 @@ public enum ErrorCode {
     EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE(-2403, R.string.service_error_verify_account__invalid_email_address_verification_code),
     EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER(-2404, R.string.service_error_verify_account__invalid_mobile_number),
     EC_VERIFY_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED(-2405, R.string.service_error_verify_account__mobile_number_not_registered),
-    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE(-2406, R.string.service_error_verify_account__invalid_mobile_number_verification_code);
+    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE(-2406, R.string.service_error_verify_account__invalid_mobile_number_verification_code),
+    // Change Password errors.
+    EC_CHG_PSWD__EMPTY_EMAIL_ADDRESS(-2501, R.string.service_error_chg_pswd__empty_email_address),
+    EC_CHG_PSWD__INVALID_EMAIL_ADDRESS(-2502, R.string.service_error_chg_pswd__invalid_email_address),
+    EC_CHG_PSWD__EMAIL_ADDRESS_NOT_REGISTERED(-2503, R.string.service_error_chg_pswd__email_address_not_registered),
+    EC_CHG_PSWD__EMPTY_OLD_PASSWORD(-2504, R.string.service_error_chg_pswd__empty_old_password),
+    EC_CHG_PSWD__INVALID_OLD_PASSWORD(-2505, R.string.service_error_chg_pswd__invalid_old_password),
+    EC_CHG_PSWD__EMPTY_NEW_PASSWORD(-2507, R.string.service_error_chg_pswd__empty_new_password),
+    EC_CHG_PSWD__EMAIL_ADDRESS_NOT_VERIFIED(-2506, R.string.service_error_chg_pswd__email_address_not_verified);
 
     private int serviceErrorCode = 0;
     private int messageId = 0;

@@ -39,6 +39,10 @@ public class ActivityUtils {
         startActivity(sourceActivity, VerifyAccountActivity.class, parameters);
     }
 
+    public static void startChangePasswordActivity(Activity sourceActivity, Bundle parameters) {
+        startActivity(sourceActivity, ChangePasswordActivity.class, parameters);
+    }
+
     public static void startReadingActivity(Activity sourceActivity) {
         startActivity(sourceActivity, ReadingActivity.class);
     }

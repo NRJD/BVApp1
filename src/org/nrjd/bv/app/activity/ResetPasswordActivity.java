@@ -81,11 +81,11 @@ public class ResetPasswordActivity extends BaseActivity implements TaskCallback 
         String userId = this.userIdTextView.getText().toString().trim();
         // Validate inputs.
         if (StringUtils.isNullOrEmpty(userId)) {
-            showToastMessage(getString(R.string.input_error_empty_email_address), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_email_address));
             return; // Return from here
         }
         if (!PatternUtils.isValidEmailAddress(userId)) {
-            showToastMessage(getString(R.string.input_error_invalid_email_address), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_invalid_email_address));
             return; // Return from here
         }
         // Perform login
@@ -96,11 +96,11 @@ public class ResetPasswordActivity extends BaseActivity implements TaskCallback 
     @Override
     public void onTaskComplete(Response response) {
         if ((response != null) && response.isSuccess()) {
-            showToastMessage(getString(R.string.info_reset_password_successful), Toast.LENGTH_SHORT);
+            showToastAlertInfoMessage(getString(R.string.info_reset_password_successful));
             ActivityUtils.startLoginActivity(this);
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
-            showToastMessage(getString(errorCode.getMessageId()), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(errorCode.getMessageId()));
         }
         this.progressTrackerDialog.hideProgressDialog();
     }

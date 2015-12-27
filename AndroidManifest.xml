@@ -54,6 +54,10 @@
             android:label="@string/verify_account_details"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name="org.nrjd.bv.app.activity.ChangePasswordActivity"
+            android:label="@string/change_password"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name="net.nightwhistler.pageturner.activity.ReadingActivity"
             android:label="@string/app_name" >
             <!-- BVApp-Comment: 29/Nov/2015: Changed the application launch option to StartupActivity class. -->

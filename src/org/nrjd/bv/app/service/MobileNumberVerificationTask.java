@@ -24,7 +24,7 @@ public class MobileNumberVerificationTask extends BaseTask {
         super.doBackgroundWork();
         StubDataProvider stubDataProvider = StubDataProvider.getInstance();
         Response response = stubDataProvider.verifyMobileNumber(this.mobileNumber, this.mobileNumberVerificationCode);
-        response.addParameter(ResponseDataUtils.IS_MOBILE_NUMBER_VERIFICATION_TASK, Boolean.TRUE);
+        ResponseDataUtils.setIsMobileNumberVerificationTask(response, true);
         return response;
     }
 }

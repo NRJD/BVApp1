@@ -24,7 +24,7 @@ public class UserIdVerificationTask extends BaseTask {
         super.doBackgroundWork();
         StubDataProvider stubDataProvider = StubDataProvider.getInstance();
         Response response = stubDataProvider.verifyEmailAddress(this.userId, this.userIdVerificationCode);
-        response.addParameter(ResponseDataUtils.IS_USER_ID_VERIFICATION_TASK, Boolean.TRUE);
+        ResponseDataUtils.setIsUserIdVerificationTask(response, true);
         return response;
     }
 }

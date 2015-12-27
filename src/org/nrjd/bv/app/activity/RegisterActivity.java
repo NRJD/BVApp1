@@ -172,43 +172,43 @@ public class RegisterActivity extends BaseActivity implements TaskCallback, Adap
         String mobileNumber = this.mobileNumberTextView.getText().toString().trim();
         // Validate inputs.
         if (StringUtils.isNullOrEmpty(userId)) {
-            showToastMessage(getString(R.string.input_error_empty_email_address), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_email_address));
             return; // Return from here
         }
         if (!PatternUtils.isValidEmailAddress(userId)) {
-            showToastMessage(getString(R.string.input_error_invalid_email_address), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_invalid_email_address));
             return; // Return from here
         }
         if (StringUtils.isNullOrEmpty(password)) {
-            showToastMessage(getString(R.string.input_error_empty_password), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_password));
             return; // Return from here
         }
         if (StringUtils.isNullOrEmpty(confirmPassword)) {
-            showToastMessage(getString(R.string.input_error_empty_confirm_password), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_confirm_password));
             return; // Return from here
         }
         if ((password.length() < 6) || (password.length() > 15)) {
-            showToastMessage(getString(R.string.input_error_password_length_mismatch), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_password_length_mismatch));
             return; // Return from here
         }
         if (!password.equals(confirmPassword)) {
-            showToastMessage(getString(R.string.input_error_passwords_mismatch), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_passwords_mismatch));
             return; // Return from here
         }
         if (StringUtils.isNullOrEmpty(userName)) {
-            showToastMessage(getString(R.string.input_error_empty_name), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_name));
             return; // Return from here
         }
         if (userName.length() < 3) {
-            showToastMessage(getString(R.string.input_error_insufficient_name_length), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_insufficient_name_length));
             return; // Return from here
         }
         if (StringUtils.isNullOrEmpty(mobileCountryCode)) {
-            showToastMessage(getString(R.string.input_error_empty_mobile_country_code), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_mobile_country_code));
             return; // Return from here
         }
         if (StringUtils.isNullOrEmpty(mobileNumber)) {
-            showToastMessage(getString(R.string.input_error_empty_mobile_number), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_mobile_number));
             return; // Return from here
         }
         // Perform login
@@ -219,12 +219,12 @@ public class RegisterActivity extends BaseActivity implements TaskCallback, Adap
     @Override
     public void onTaskComplete(Response response) {
         if ((response != null) && response.isSuccess()) {
-            showToastMessage(getString(R.string.info_registration_successful), Toast.LENGTH_SHORT);
+            showToastAlertInfoMessage(getString(R.string.info_registration_successful));
             Bundle registrationDataParameters = getRegistrationDataParameters();
             ActivityUtils.startVerifyAccountActivity(this, registrationDataParameters);
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
-            showToastMessage(getString(errorCode.getMessageId()), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(errorCode.getMessageId()));
         }
         this.progressTrackerDialog.hideProgressDialog();
     }
@@ -238,8 +238,8 @@ public class RegisterActivity extends BaseActivity implements TaskCallback, Adap
         String userId = this.userIdTextView.getText().toString().trim();
         String mobileNumber = this.mobileNumberTextView.getText().toString().trim();
         Bundle registrationDataParameters = new Bundle();
-        registrationDataParameters.putString(VerifyAccountActivity.USER_ID_PARAM, userId);
-        registrationDataParameters.putString(VerifyAccountActivity.MOBILE_NUMBER_PARAM, mobileNumber);
+        registrationDataParameters.putString(ActivityParameters.USER_ID_PARAM, userId);
+        registrationDataParameters.putString(ActivityParameters.MOBILE_NUMBER_PARAM, mobileNumber);
         return registrationDataParameters;
     }
 }

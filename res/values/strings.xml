@@ -384,9 +384,11 @@
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="reset_password">Reset Password</string>
+    <string name="change_password">Change Password</string>
     <string name="verify_account_details">Verify Account Details</string>
     <string name="verify">Verify</string>
     <string name="select">Select</string>
+    <string name="user_id_text_label">Login Email Address:\n\t\t%1$s</string>
 
     <string name="prompt_email_address">Enter email address</string>
     <string name="prompt_login_email_address">Enter login email address</string>
@@ -399,9 +401,11 @@
     <string name="select_mobile_country_code">Select mobile country code</string>
     <string name="verify_registered_mobile_number">Verify registered mobile number</string>
     <string name="prompt_mobile_number_verification_code">Enter mobile number verification code</string>
-    <string name="verify_account_details_notes">Please verify the email address and mobile number before you login into the application. Please check your emails for the verification code details.</string>
     <string name="status_email_address_verified">Email address verified</string>
     <string name="status_mobile_number_verified">Mobile number verified</string>
+    <string name="prompt_old_password">Enter old password</string>
+    <string name="prompt_new_password">Enter new password</string>
+    <string name="prompt_confirm_new_password">Enter new password again</string>
 
     <string name="user_guide_name">Bhakti Vriksha User Guide</string>
     <string name="download_books">Download Books</string>
@@ -413,6 +417,10 @@
     <string name="no_new_book_updates_found">No new book updates found.</string>
     <string name="download_failed">Download failed</string>
 
+    <!-- Notes messages -->
+    <string name="notes_verify_account_details">Please enter the login email address and email verification code to verify the email address. Please check your email for the email verification code details. \n\nOnce you successfully verify your email address, you will be re-directed back to login screen and you can login into the application.</string>
+    <string name="notes_reset_password">Please enter the login email address to reset the password. Once you select the Reset Password, a temporary password will be sent to your email address specified here and you will be re-directed back to login screen. Please check your email for the temporary password and login again.</string>
+
     <!-- Progress messages -->
     <string name="progress_title_please_wait">Please wait</string>
     <string name="progress_message_logging_in">Logging in..</string>
@@ -420,27 +428,38 @@
     <string name="progress_message_reset_password">Requesting to reset password..</string>
     <string name="progress_message_email_address">Verifying the email address..</string>
     <string name="progress_message_mobile_number">Verifying the mobile number..</string>
+    <string name="progress_message_updating_the_new_password">Updating the new password..</string>
 
     <!-- Info messages -->
     <string name="info_login_successful">Login successful</string>
-    <string name="info_registration_successful">Registration successful. Please verify the account details. Verification code details have been sent to your email.</string>
-    <string name="info_reset_password_successful">Reset password successful. Please check your email for the reset password and login again.</string>
-    <string name="info_email_address_verification_successful">Successfully verified the email address.</string>
+    <string name="info_registration_successful">Registration successful. Please verify the login email address. Email verification code details have been sent to your email.</string>
+    <string name="info_reset_password_successful">Reset password successful. Please check your email for the temporary password and login again.</string>
+    <string name="info_email_address_verification_successful">Successfully verified the email address. Please login into the application.</string>
     <string name="info_mobile_number_verification_successful">Successfully verified the mobile number.</string>
+    <string name="info_change_password_successful">Password changed successfully. Please login with the new password.</string>
+    <string name="info_change_password_due_to_login_with_temp_password">It is found that you have logged in with the temporary password. Please change the password. Once you successfully changed the password, you will be re-directed back to login screen and you can login with the new password.</string>
 
     <!-- Error messages -->
     <string name="input_error_empty_email_address">Please enter email address.</string>
     <string name="input_error_invalid_email_address">Please enter a valid email address.</string>
     <string name="input_error_empty_password">Please enter password.</string>
-    <string name="input_error_empty_confirm_password">>Please enter confirm password.</string>
+    <string name="input_error_empty_confirm_password">Please enter confirm password.</string>
     <string name="input_error_password_length_mismatch">Please enter a valid password with minimum 6 characters and up to a maximum 15 characters.</string>
+    <string name="input_error_new_password_length_mismatch">Please enter a valid new password with minimum 6 characters and up to a maximum 15 characters.</string>
+    <string name="input_error_new_password_same_as_old_password">New password is same as old password.</string>
     <string name="input_error_passwords_mismatch">Passwords do not match.</string>
+    <string name="input_error_new_passwords_mismatch">New passwords do not match.</string>
     <string name="input_error_empty_name">Please enter your name.</string>
     <string name="input_error_insufficient_name_length">Please enter a valid name with minimum 3 characters.</string>
     <string name="input_error_empty_mobile_country_code">Please select mobile country code.</string>
     <string name="input_error_empty_mobile_number">Please enter mobile number.</string>
     <string name="input_error_empty_email_verification_code">Please enter email verification code.</string>
     <string name="input_error_empty_mobile_number_verification_code">Please enter mobile number verification code.</string>
+    <string name="input_error_empty_email_address_for_change_password">Could not determine login email address. Internal error. Please try again after restarting the application or contact support.</string>
+    <string name="input_error_invalid_email_address_for_change_password">Login email address found to be invalid. Internal error. Please try again after restarting the application or contact support.</string>
+    <string name="input_error_empty_old_password">Please enter old password.</string>
+    <string name="input_error_empty_new_password">Please enter new password.</string>
+    <string name="input_error_empty_confirm_new_password">Please enter confirm new password.</string>
 
     <string name="service_error_occurred">Could not perform the action. Service error occurred. Please try again.</string>
     <string name="service_error_no_network_connection">No network connection available. Please check your network settings.</string>
@@ -448,7 +467,7 @@
     <string name="service_error_login__empty_email_address">Could not login. Email address not specified.</string>
     <string name="service_error_login__invalid_email_address">Could not login. Invalid email address.</string>
     <string name="service_error_login__email_address_not_registered">Could not login. Specified email address is not registered with us.</string>
-    <string name="service_error_login__empty_password">Could not register. Credentials not specified.</string>
+    <string name="service_error_login__empty_password">Could not login. Credentials not specified.</string>
     <string name="service_error_login__invalid_password">Could not login. Invalid credentials.</string>
     <string name="service_error_login__email_address_not_verified">Could not login. Specified email address is not yet verified. Please verify the email address and login again.</string>
     <string name="service_error_login__mobile_number_not_verified">Could not login. Specified mobile number is not yet verified. Please verify the mobile number and login again.</string>
@@ -471,5 +490,13 @@
     <string name="service_error_verify_account__invalid_mobile_number">Verification failed. Invalid mobile number.</string>
     <string name="service_error_verify_account__mobile_number_not_registered">Verification failed. Specified mobile number is not registered with us.</string>
     <string name="service_error_verify_account__invalid_mobile_number_verification_code">Verification failed. Invalid mobile number verification code.</string>
+
+    <string name="service_error_chg_pswd__empty_email_address">Could not change password. Email address not specified.</string>
+    <string name="service_error_chg_pswd__invalid_email_address">Could not change password. Invalid email address.</string>
+    <string name="service_error_chg_pswd__email_address_not_registered">Could not change password. Specified email address is not registered with us.</string>
+    <string name="service_error_chg_pswd__empty_old_password">Could not change password. Old password not specified.</string>
+    <string name="service_error_chg_pswd__invalid_old_password">Could not change password. Invalid old password.</string>
+    <string name="service_error_chg_pswd__empty_new_password">Could not change password. New password not specified.</string>
+    <string name="service_error_chg_pswd__email_address_not_verified">Could not change password. Specified email address is not yet verified. Please verify the email address and login again.</string>
     <!-- BVApp strings end -->
 </resources>

@@ -12,17 +12,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.nightwhistler.pageturner.R;
 
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.LoginTask;
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.util.UserRegUtils;
+import org.nrjd.bv.app.service.ResponseDataUtils;
 import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
+import org.nrjd.bv.app.util.UserRegUtils;
 
 
 public class LoginActivity extends BaseActivity implements TaskCallback {
@@ -105,15 +105,15 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         String password = this.passwordTextView.getText().toString(); // Don't trim the password value.
         // Validate inputs.
         if (StringUtils.isNullOrEmpty(userId)) {
-            showToastMessage(getString(R.string.input_error_empty_email_address), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_email_address));
             return; // Return from here
         }
         if (!PatternUtils.isValidEmailAddress(userId)) {
-            showToastMessage(getString(R.string.input_error_invalid_email_address), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_invalid_email_address));
             return; // Return from here
         }
         if (StringUtils.isNullOrEmpty(password)) {
-            showToastMessage(getString(R.string.input_error_empty_password), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(R.string.input_error_empty_password));
             return; // Return from here
         }
         // Perform login.
@@ -136,11 +136,17 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
     @Override
     public void onTaskComplete(Response response) {
         if ((response != null) && response.isSuccess()) {
-            showToastMessage(getString(R.string.info_login_successful), Toast.LENGTH_SHORT);
-            ActivityUtils.startReadingActivity(this);
+            if (ResponseDataUtils.isTempPassword(response)) {
+                showToastAlertInfoMessage(getString(R.string.info_change_password_due_to_login_with_temp_password));
+                Bundle loginDataParameters = getLoginDataParameters();
+                ActivityUtils.startChangePasswordActivity(this, loginDataParameters);
+            } else {
+                showToastQuickInfoMessage(getString(R.string.info_login_successful));
+                ActivityUtils.startReadingActivity(this);
+            }
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
-            showToastMessage(getString(errorCode.getMessageId()), Toast.LENGTH_LONG);
+            showToastErrorMessage(getString(errorCode.getMessageId()));
         }
         this.progressTrackerDialog.hideProgressDialog();
     }
@@ -148,5 +154,12 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
     @Override
     public void onTaskCancelled() {
         this.progressTrackerDialog.dismissProgressDialog();
+    }
+
+    private Bundle getLoginDataParameters() {
+        String userId = this.userIdTextView.getText().toString().trim();
+        Bundle loginDataParameters = new Bundle();
+        loginDataParameters.putString(ActivityParameters.USER_ID_PARAM, userId);
+        return loginDataParameters;
     }
 }
