@@ -37,6 +37,8 @@ import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.epub.EpubReader;
 import nl.siegmann.epublib.util.IOUtil;
+
+import org.nrjd.bv.app.epub.EpubDataUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -374,6 +376,8 @@ public class TextLoader implements LinkTagHandler.LinkCallBack {
         Spannable result = new SpannableString("");
 
         try {
+            // BVApp-Comment: 28/Dec/2015: Decrypt the resource data before reading it.
+            EpubDataUtils.decryptResourceData(res);
             result = htmlSpanner.fromHtml(res.getReader(), cancellationCallback);
             renderedText.put(res.getHref(), result);
         } catch (Exception e) {

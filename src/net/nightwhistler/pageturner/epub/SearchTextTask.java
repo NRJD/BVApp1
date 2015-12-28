@@ -31,6 +31,7 @@ import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
 import org.htmlcleaner.TagNode;
+import org.nrjd.bv.app.epub.EpubDataUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -84,6 +85,8 @@ public class SearchTextTask extends QueueableAsyncTask<String, SearchResult, Lis
 
                 if ( ! isEmpty(currentResource) ) {
 
+					// BVApp-Comment: 28/Dec/2015: Decrypt the resource data before reading it.
+					EpubDataUtils.decryptResourceData(currentResource.unsafeGet());
                     Spanned spanned = spanner.fromHtml( currentResource.unsafeGet().getReader());
                     Matcher matcher = pattern.matcher(spanned);
 
