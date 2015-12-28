@@ -10,11 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import net.nightwhistler.pageturner.R;
 
+import org.nrjd.bv.app.epub.EpubDataUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class FileAdapter extends BaseAdapter {
 
@@ -41,7 +42,8 @@ public class FileAdapter extends BaseAdapter {
 
         if ( listing != null ) {
             for ( File childFile: listing ) {
-                if ( childFile.isDirectory() || childFile.getName().toLowerCase(Locale.US).endsWith(".epub")) {
+                // BVApp-Comment: 28/Dec/2015: Checking for directory or valid baook name.
+                if ( childFile.isDirectory() || EpubDataUtils.isValidBookName(childFile.getName())) {
                     items.add(new FileItem(childFile.getName(), childFile, ! childFile.isDirectory() ));
                 }
             }

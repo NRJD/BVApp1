@@ -31,6 +31,7 @@ import nl.siegmann.epublib.epub.EpubReader;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.nrjd.bv.app.epub.EpubDataUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,13 +116,14 @@ public class DownloadFileTask extends QueueableAsyncTask<String, Long, Void> {
 				if (!destFolder.exists()) {
 					destFolder.mkdirs();
 				}
-				
+
+				// BVApp-Comment: 28/Dec/2015: Append book extension if the file name does not contain a valid book extension.
 				/**
-				 * Make sure we always store downloaded files as .epub, 
+				 * Make sure we always store downloaded files with valid book extension,
 				 * so they show up in scans later on.
 				 */
-				if ( ! fileName.endsWith(".epub") ) {
-					fileName = fileName + ".epub";
+				if ( ! EpubDataUtils.isValidBookName(fileName)) {
+					fileName = EpubDataUtils.appendBookExtension(fileName);
 				}
 
                 // Default Charset for android is UTF-8*

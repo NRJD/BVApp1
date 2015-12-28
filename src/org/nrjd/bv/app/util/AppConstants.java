@@ -16,6 +16,9 @@ public class AppConstants {
     public static final String BOOKS_PATH = "/" + APP_NAME + "/Books";
     public static final String UTF8 = "UTF-8";
 
+    public static final String BOOK_EXTENSION = ".bk";
+    public static final String BOOK_EXTENSION_2 = ".epub";
+
     public static final boolean BV_APP_MODE = true;
 
     public static final int SPLASH_DISPLAY_TIME = 5000; // Milliseconds

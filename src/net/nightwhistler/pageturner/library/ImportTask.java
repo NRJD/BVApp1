@@ -32,6 +32,8 @@ import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.epub.EpubReader;
 import nl.siegmann.epublib.service.MediatypeService;
+
+import org.nrjd.bv.app.epub.EpubDataUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -186,7 +188,8 @@ public class ImportTask extends QueueableAsyncTask<File, Integer, Void> implemen
         String fileName = file.getAbsolutePath();
 
         //Scan items
-        if ( fileName.endsWith(".epub") ) {
+        // BVApp-Comment: 28/Dec/2015: Checking for the valid book name for importing the book.
+        if ( EpubDataUtils.isValidBookName(fileName)) {
             items.add(file);
         } else {
 
