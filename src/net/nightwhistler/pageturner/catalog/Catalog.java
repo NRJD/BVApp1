@@ -34,7 +34,7 @@ import net.nightwhistler.htmlspanner.HtmlSpanner;
 import net.nightwhistler.nucular.atom.Entry;
 import net.nightwhistler.nucular.atom.Feed;
 import net.nightwhistler.nucular.atom.Link;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.view.FastBitmapDrawable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

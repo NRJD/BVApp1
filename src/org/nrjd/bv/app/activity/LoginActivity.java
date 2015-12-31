@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2015 ISKCON New Rajapur Jagannatha Dham.
  *
- * This file is part of Bhakthi Vriksha application.
+ * This file is part of Bhakti Vriksha application.
  */
 package org.nrjd.bv.app.activity;
 
@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.LoginTask;

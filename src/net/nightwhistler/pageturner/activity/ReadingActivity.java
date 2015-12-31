@@ -28,7 +28,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import com.google.inject.Inject;
 import net.nightwhistler.pageturner.Configuration;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.fragment.ReadingFragment;
 import net.nightwhistler.pageturner.view.NavigationCallback;
 import org.slf4j.Logger;

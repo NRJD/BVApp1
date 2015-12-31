@@ -54,7 +54,7 @@ import net.nightwhistler.pageturner.Configuration.ColourProfile;
 import net.nightwhistler.pageturner.Configuration.LibrarySelection;
 import net.nightwhistler.pageturner.Configuration.LibraryView;
 import net.nightwhistler.pageturner.PlatformUtil;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.activity.*;
 import net.nightwhistler.ui.DialogFactory;
 import net.nightwhistler.ui.UiUtils;

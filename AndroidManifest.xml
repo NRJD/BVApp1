@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="net.nightwhistler.pageturner"
+      package="org.nrjd.bv.app"
       android:versionName="2.4.0_SNAPSHOT"
       android:versionCode="62"
       android:installLocation="auto">
-    
+
+    <!-- BVApp-Comment: 01/01/2016: Changed package name to BV app package. -->
+
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="14" />
@@ -15,14 +17,14 @@
 
     <!-- BVApp-Comment: 05/Sep/2015: Changed icon for the BV app. Provided BV app icon for the "android:icon" property. -->
     <application
-        android:name="net.nightwhistler.pageturner.PageTurner"
+        android:name="org.nrjd.bv.app.BhaktiVriksha"
         android:description="@string/app_desc"
         android:icon="@mipmap/bv_app2"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         >
         
-        <receiver android:name=".activity.MediaButtonReceiver" >
+        <receiver android:name="net.nightwhistler.pageturner.activity.MediaButtonReceiver" >
         	<intent-filter android:priority="10000" >
             	<action android:name="android.intent.action.MEDIA_BUTTON" />
         	</intent-filter>

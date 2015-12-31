@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import net.nightwhistler.pageturner.PlatformUtil;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.sync.BookProgress;
 import net.nightwhistler.pageturner.view.bookview.BookView;
 

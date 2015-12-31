@@ -46,7 +46,7 @@ import net.nightwhistler.nucular.atom.Entry;
 import net.nightwhistler.nucular.atom.Feed;
 import net.nightwhistler.nucular.atom.Link;
 import net.nightwhistler.pageturner.Configuration;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.activity.ReadingActivity;
 import net.nightwhistler.pageturner.catalog.Catalog;
 import net.nightwhistler.pageturner.catalog.DownloadFileTask;

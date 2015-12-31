@@ -26,7 +26,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockDialogFragment;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.bookmark.Bookmark;
 import net.nightwhistler.pageturner.bookmark.BookmarkDatabaseHelper;
 import org.slf4j.Logger;

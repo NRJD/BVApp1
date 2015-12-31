@@ -36,6 +36,8 @@ import com.google.inject.Inject;
 import net.nightwhistler.pageturner.*;
 import roboguice.RoboGuice;
 
+import org.nrjd.bv.app.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

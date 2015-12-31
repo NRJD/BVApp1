@@ -56,6 +56,8 @@ import static jedi.option.Options.none;
 import static jedi.option.Options.option;
 import static net.nightwhistler.pageturner.CustomOPDSSite.fromJSON;
 
+import org.nrjd.bv.app.R;
+
 /**
  * Application configuration class which provides a friendly API to the various
  * settings available.

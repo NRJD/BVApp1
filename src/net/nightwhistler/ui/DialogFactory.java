@@ -30,7 +30,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.google.inject.Inject;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 
 public class DialogFactory {
 

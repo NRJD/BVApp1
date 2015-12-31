@@ -33,7 +33,7 @@ import net.nightwhistler.nucular.atom.Feed;
 import net.nightwhistler.nucular.atom.Link;
 import net.nightwhistler.pageturner.Configuration;
 import net.nightwhistler.pageturner.CustomOPDSSite;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.catalog.*;
 import net.nightwhistler.pageturner.fragment.BookDetailsFragment;
 import net.nightwhistler.pageturner.fragment.CatalogFragment;

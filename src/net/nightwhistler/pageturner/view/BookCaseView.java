@@ -29,7 +29,7 @@ import android.view.KeyEvent;
 import android.widget.GridView;
 import net.nightwhistler.pageturner.Configuration;
 import net.nightwhistler.pageturner.Configuration.ColourProfile;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.library.LibraryBook;
 import net.nightwhistler.pageturner.library.QueryResult;
 import roboguice.RoboGuice;

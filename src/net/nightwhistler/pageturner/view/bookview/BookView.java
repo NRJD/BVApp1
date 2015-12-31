@@ -53,7 +53,7 @@ import net.nightwhistler.htmlspanner.TagNodeHandler;
 import net.nightwhistler.htmlspanner.handlers.TableHandler;
 import net.nightwhistler.htmlspanner.spans.CenterSpan;
 import net.nightwhistler.pageturner.Configuration;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.dto.HighLight;
 import net.nightwhistler.pageturner.dto.SearchResult;
 import net.nightwhistler.pageturner.dto.TocEntry;

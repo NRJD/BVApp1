@@ -26,7 +26,7 @@ import android.preference.*;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockPreferenceActivity;
 import net.nightwhistler.pageturner.Configuration;
 import net.nightwhistler.pageturner.PageTurner;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import roboguice.RoboGuice;
 
 public class PageTurnerPrefsActivity extends RoboSherlockPreferenceActivity {

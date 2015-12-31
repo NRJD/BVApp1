@@ -1,11 +1,11 @@
 /*
  * Copyright (C) 2015 ISKCON New Rajapur Jagannatha Dham.
  *
- * This file is part of Bhakthi Vriksha application.
+ * This file is part of Bhakti Vriksha application.
  */
 package org.nrjd.bv.app.service;
 
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 
 
 /**

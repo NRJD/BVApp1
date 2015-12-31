@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 
 import org.nrjd.bv.app.epub.EpubDataUtils;
 

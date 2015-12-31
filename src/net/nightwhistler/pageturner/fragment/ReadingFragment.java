@@ -60,7 +60,7 @@ import net.nightwhistler.pageturner.Configuration.AnimationStyle;
 import net.nightwhistler.pageturner.Configuration.ColourProfile;
 import net.nightwhistler.pageturner.Configuration.ReadingDirection;
 import net.nightwhistler.pageturner.Configuration.ScrollStyle;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.TextUtil;
 import net.nightwhistler.pageturner.activity.LibraryActivity;
 import net.nightwhistler.pageturner.activity.MediaButtonReceiver;

@@ -28,7 +28,7 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import jedi.option.Option;
 import net.nightwhistler.pageturner.PlatformUtil;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.ui.UiUtils;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)

@@ -32,7 +32,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import jedi.option.Option;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.dto.HighLight;
 import net.nightwhistler.pageturner.epub.PageTurnerSpine;
 import net.nightwhistler.pageturner.view.HighlightManager;

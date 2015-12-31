@@ -16,7 +16,7 @@ import com.limecreativelabs.sherlocksupport.ActionBarDrawerToggleCompat;
 import jedi.option.Option;
 import net.nightwhistler.pageturner.Configuration;
 import net.nightwhistler.pageturner.PageTurner;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.view.NavigationCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -28,7 +28,7 @@ import net.nightwhistler.nucular.atom.Link;
 import net.nightwhistler.nucular.parser.Nucular;
 import net.nightwhistler.nucular.parser.opensearch.SearchDescription;
 import net.nightwhistler.pageturner.Configuration;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

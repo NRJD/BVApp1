@@ -15,7 +15,7 @@ import jedi.functional.Functor;
 import jedi.functional.Functor2;
 import jedi.option.Option;
 import net.nightwhistler.pageturner.PlatformUtil;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.view.NavigationCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -30,7 +30,7 @@ import android.widget.*;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockListFragment;
 import com.google.inject.Inject;
 import net.nightwhistler.pageturner.Configuration;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.activity.FileAdapter;
 import net.nightwhistler.pageturner.activity.FileItem;
 

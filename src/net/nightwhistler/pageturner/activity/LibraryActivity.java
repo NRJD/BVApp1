@@ -18,7 +18,7 @@
  */
 package net.nightwhistler.pageturner.activity;
 
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.fragment.LibraryFragment;
 import roboguice.inject.InjectFragment;
 

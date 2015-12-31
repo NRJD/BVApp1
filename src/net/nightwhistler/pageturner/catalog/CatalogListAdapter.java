@@ -32,7 +32,7 @@ import jedi.option.Option;
 import net.nightwhistler.nucular.atom.Entry;
 import net.nightwhistler.nucular.atom.Feed;
 import net.nightwhistler.nucular.atom.Link;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 
 import static jedi.option.Options.none;
 import static jedi.option.Options.option;

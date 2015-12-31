@@ -23,7 +23,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import net.nightwhistler.nucular.atom.Entry;
 import net.nightwhistler.nucular.atom.Feed;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.fragment.BookDetailsFragment;
 import net.nightwhistler.pageturner.catalog.CatalogParent;
 

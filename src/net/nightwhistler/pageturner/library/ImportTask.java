@@ -27,7 +27,7 @@ import jedi.functional.Command2;
 import jedi.option.None;
 import jedi.option.Option;
 import net.nightwhistler.pageturner.Configuration;
-import net.nightwhistler.pageturner.R;
+import org.nrjd.bv.app.R;
 import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.epub.EpubReader;
