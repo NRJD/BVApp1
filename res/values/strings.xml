@@ -2,7 +2,7 @@
 <resources>
 
 
-    <string name="app_name" translatable="false">BVApp1</string>
+    <string name="app_name" translatable="false">Bhakti Vriksha</string>
 
     <string name="title">Title</string>
     <string name="app_desc">Bhakti Vriksha application.</string>
