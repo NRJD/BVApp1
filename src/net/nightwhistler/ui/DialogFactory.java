@@ -98,7 +98,8 @@ public class DialogFactory {
 
 		String html = "<h2>" + context.getString(R.string.app_name) + " " +  version + "</h2>";
 		html += context.getString(R.string.about_gpl);
-		html += "<br/><a href='http://pageturner-reader.org'>http://pageturner-reader.org</a>";
+        // BVApp-Comment: 01/01/2016: Changed to use BV app website url.
+		html += "<br/><a href='" + context.getString(R.string.app_website_url) + "'>" + context.getString(R.string.app_website_url) + "</a>";
 
 		builder.setMessage( Html.fromHtml(html));
 
