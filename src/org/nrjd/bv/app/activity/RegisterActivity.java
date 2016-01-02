@@ -14,16 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.nrjd.bv.app.R;
 
 import org.nrjd.bv.app.metadata.CountryCallingCode;
 import org.nrjd.bv.app.metadata.CountryCallingCodeUtils;
 import org.nrjd.bv.app.service.ErrorCode;
-import org.nrjd.bv.app.service.RegisterTask;
+import org.nrjd.bv.app.task.RegisterTask;
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 import org.nrjd.bv.app.util.SystemUtils;
@@ -32,7 +30,7 @@ import org.nrjd.bv.app.util.TelephonyUtils;
 import java.util.List;
 
 
-public class RegisterActivity extends BaseActivity implements TaskCallback, AdapterView.OnItemClickListener {
+public class RegisterActivity extends BaseTaskActivity implements AdapterView.OnItemClickListener {
 
     private AutoCompleteTextView userIdTextView = null;
     private EditText passwordTextView = null;
@@ -213,7 +211,7 @@ public class RegisterActivity extends BaseActivity implements TaskCallback, Adap
         }
         // Perform login
         this.progressTrackerDialog.showProgressDialog();
-        (new RegisterTask(userId, password, userName, mobileCountryCode, mobileNumber, this)).execute();
+        (new RegisterTask(getTaskContext(), userId, password, userName, mobileCountryCode, mobileNumber)).execute();
     }
 
     @Override

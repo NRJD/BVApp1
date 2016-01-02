@@ -12,6 +12,8 @@ import android.os.Bundle;
 
 import net.nightwhistler.pageturner.activity.ReadingActivity;
 
+import org.nrjd.bv.app.ctx.AppContext;
+
 public class ActivityUtils {
     /**
      * Private constructor to prevent the instantiation of this class.
@@ -21,6 +23,10 @@ public class ActivityUtils {
 
     public static Context getContext(Activity activity) {
         return ((activity != null)? activity.getBaseContext() : null);
+    }
+
+    public static AppContext getAppContext(Activity activity) {
+        return new AppContext(getContext(activity));
     }
 
     public static void startLoginActivity(Activity sourceActivity) {

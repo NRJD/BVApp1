@@ -8,19 +8,17 @@ package org.nrjd.bv.app.activity;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.nrjd.bv.app.R;
 
 import org.nrjd.bv.app.service.ErrorCode;
-import org.nrjd.bv.app.service.ResetPasswordTask;
+import org.nrjd.bv.app.task.ResetPasswordTask;
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
 
-public class ResetPasswordActivity extends BaseActivity implements TaskCallback {
+public class ResetPasswordActivity extends BaseTaskActivity {
 
     private AutoCompleteTextView userIdTextView = null;
     private Button resetPasswordButton = null;
@@ -90,7 +88,7 @@ public class ResetPasswordActivity extends BaseActivity implements TaskCallback 
         }
         // Perform login
         this.progressTrackerDialog.showProgressDialog();
-        (new ResetPasswordTask(userId, this)).execute();
+        (new ResetPasswordTask(getTaskContext(), userId)).execute();
     }
 
     @Override

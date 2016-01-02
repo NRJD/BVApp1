@@ -3,7 +3,11 @@
  *
  * This file is part of Bhakti Vriksha application.
  */
-package org.nrjd.bv.app.service;
+package org.nrjd.bv.app.task;
+
+import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.ResponseDataUtils;
+import org.nrjd.bv.app.service.StubDataProvider;
 
 
 /**
@@ -13,8 +17,8 @@ public class UserIdVerificationTask extends BaseTask {
     private String userId = null;
     private String userIdVerificationCode = null;
 
-    public UserIdVerificationTask(String userId, String userIdVerificationCode, TaskCallback taskCallback) {
-        super(taskCallback);
+    public UserIdVerificationTask(TaskContext taskContext, String userId, String userIdVerificationCode) {
+        super(taskContext);
         this.userId = userId;
         this.userIdVerificationCode = userIdVerificationCode;
     }

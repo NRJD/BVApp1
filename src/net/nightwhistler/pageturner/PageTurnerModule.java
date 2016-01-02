@@ -111,7 +111,14 @@ public class PageTurnerModule extends AbstractModule {
 		return client;
 	}
 
-    public class SSLHttpClient extends DefaultHttpClient {
+	// BVApp-Comment: 02/Dec/2016: Added utility to return an instance of SSLHttpClient class.
+	public static HttpClient getSSLHttpClient() {
+		return new SSLHttpClient(new BasicHttpParams());
+	}
+
+	// BVApp-Comment: 02/Dec/2016: Making SSLHttpClient class as static class in order to
+	// create and return this instance thru the static method getSSLHttpClient().
+    public static class SSLHttpClient extends DefaultHttpClient {
 
 
         public SSLHttpClient(HttpParams params) {

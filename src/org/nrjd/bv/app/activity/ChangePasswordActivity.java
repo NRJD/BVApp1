@@ -12,15 +12,14 @@ import android.widget.TextView;
 
 import org.nrjd.bv.app.R;
 
-import org.nrjd.bv.app.service.ChangePasswordTask;
+import org.nrjd.bv.app.task.ChangePasswordTask;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.TaskCallback;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
 
-public class ChangePasswordActivity extends BaseActivity implements TaskCallback {
+public class ChangePasswordActivity extends BaseTaskActivity {
 
     private TextView userIdTextView = null;
     private String userId = null;
@@ -139,7 +138,7 @@ public class ChangePasswordActivity extends BaseActivity implements TaskCallback
         }
         // Perform login
         this.progressTrackerDialog.showProgressDialog();
-        (new ChangePasswordTask(this.userId, oldPassword, newPassword, this)).execute();
+        (new ChangePasswordTask(getTaskContext(), this.userId, oldPassword, newPassword)).execute();
     }
 
     @Override

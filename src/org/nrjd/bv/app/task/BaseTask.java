@@ -3,29 +3,39 @@
  *
  * This file is part of Bhakti Vriksha application.
  */
-package org.nrjd.bv.app.service;
+package org.nrjd.bv.app.task;
 
 import android.os.AsyncTask;
 
-import org.nrjd.bv.app.util.AppConstants;
-import org.nrjd.bv.app.util.CommonUtils;
+import org.nrjd.bv.app.ctx.AppContext;
+import org.nrjd.bv.app.service.Response;
 
 
 /**
  * Base task.
  */
 public abstract class BaseTask extends AsyncTask<Void, Void, Response> {
+    private AppContext appContext = null;
     private TaskCallback taskCallback = null;
 
-    public BaseTask(TaskCallback taskCallback) {
-        this.taskCallback = taskCallback;
+    public BaseTask(TaskContext taskContext) {
+        if (taskContext != null) {
+            this.appContext = taskContext.getAppContext();
+            this.taskCallback = taskContext.getTaskCallback();
+        }
     }
 
-    public void doBackgroundWork() {
-        // TODO: Remove the sleep call.
-        CommonUtils.sleep(AppConstants.STUB_DATA_SERVICE_VALIDATION_TIME);
+    protected AppContext getAppContext() {
+        return this.appContext;
     }
 
+    /**
+     * Common background work for all tasks.
+     */
+    protected void doBackgroundWork() {
+    }
+
+    @Override
     protected void onPostExecute(Response response) {
         super.onPostExecute(response);
         if (this.taskCallback != null) {

@@ -14,19 +14,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.nrjd.bv.app.R;
-
 import org.nrjd.bv.app.service.ErrorCode;
-import org.nrjd.bv.app.service.LoginTask;
 import org.nrjd.bv.app.service.Response;
 import org.nrjd.bv.app.service.ResponseDataUtils;
-import org.nrjd.bv.app.service.TaskCallback;
+import org.nrjd.bv.app.task.LoginTask;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 import org.nrjd.bv.app.util.UserRegUtils;
 
 
-public class LoginActivity extends BaseActivity implements TaskCallback {
-
+public class LoginActivity extends BaseTaskActivity {
     private AutoCompleteTextView userIdTextView = null;
     private EditText passwordTextView = null;
     private Button loginButton = null;
@@ -118,7 +115,7 @@ public class LoginActivity extends BaseActivity implements TaskCallback {
         }
         // Perform login.
         this.progressTrackerDialog.showProgressDialog();
-        (new LoginTask(userId, password, this)).execute();
+        (new LoginTask(getTaskContext(), userId, password)).execute();
     }
 
     private void handleRegistration() {

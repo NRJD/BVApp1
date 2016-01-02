@@ -3,19 +3,22 @@
  *
  * This file is part of Bhakti Vriksha application.
  */
-package org.nrjd.bv.app.service;
+package org.nrjd.bv.app.task;
+
+import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.StubDataProvider;
 
 
 /**
- * User registration task.
+ * Change password task.
  */
 public class ChangePasswordTask extends BaseTask {
     private String userId = null;
     private String oldPassword = null;
     private String newPassword = null;
 
-    public ChangePasswordTask(String userId, String oldPassword, String newPassword, TaskCallback taskCallback) {
-        super(taskCallback);
+    public ChangePasswordTask(TaskContext taskContext, String userId, String oldPassword, String newPassword) {
+        super(taskContext);
         this.userId = userId;
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;

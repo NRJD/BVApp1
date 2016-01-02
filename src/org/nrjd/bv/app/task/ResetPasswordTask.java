@@ -3,7 +3,10 @@
  *
  * This file is part of Bhakti Vriksha application.
  */
-package org.nrjd.bv.app.service;
+package org.nrjd.bv.app.task;
+
+import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.StubDataProvider;
 
 
 /**
@@ -12,8 +15,8 @@ package org.nrjd.bv.app.service;
 public class ResetPasswordTask extends BaseTask {
     private String userId = null;
 
-    public ResetPasswordTask(String userId, TaskCallback taskCallback) {
-        super(taskCallback);
+    public ResetPasswordTask(TaskContext taskContext, String userId) {
+        super(taskContext);
         this.userId = userId;
     }
 

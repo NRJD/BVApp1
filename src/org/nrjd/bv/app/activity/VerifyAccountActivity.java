@@ -18,13 +18,12 @@ import org.nrjd.bv.app.R;
 import org.nrjd.bv.app.service.ErrorCode;
 import org.nrjd.bv.app.service.Response;
 import org.nrjd.bv.app.service.ResponseDataUtils;
-import org.nrjd.bv.app.service.TaskCallback;
-import org.nrjd.bv.app.service.UserIdVerificationTask;
+import org.nrjd.bv.app.task.UserIdVerificationTask;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
 
-public class VerifyAccountActivity extends BaseActivity implements TaskCallback {
+public class VerifyAccountActivity extends BaseTaskActivity {
 
     private AutoCompleteTextView userIdTextView = null;
     private EditText userIdVerfCodeTextView = null;
@@ -162,7 +161,7 @@ public class VerifyAccountActivity extends BaseActivity implements TaskCallback 
         }
         // Perform login
         this.progressTrackerDialog.showProgressDialog(R.string.progress_title_please_wait, R.string.progress_message_email_address);
-        (new UserIdVerificationTask(userId, userIdVerificationCode, this)).execute();
+        (new UserIdVerificationTask(getTaskContext(), userId, userIdVerificationCode)).execute();
     }
 
     /*

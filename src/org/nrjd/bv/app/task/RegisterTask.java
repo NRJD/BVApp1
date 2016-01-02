@@ -3,7 +3,10 @@
  *
  * This file is part of Bhakti Vriksha application.
  */
-package org.nrjd.bv.app.service;
+package org.nrjd.bv.app.task;
+
+import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.StubDataProvider;
 
 
 /**
@@ -16,8 +19,8 @@ public class RegisterTask extends BaseTask {
     private String mobileCountryCode = null;
     private String mobileNumber = null;
 
-    public RegisterTask(String userId, String password, String name, String mobileCountryCode, String mobileNumber, TaskCallback taskCallback) {
-        super(taskCallback);
+    public RegisterTask(TaskContext taskContext, String userId, String password, String name, String mobileCountryCode, String mobileNumber) {
+        super(taskContext);
         this.userId = userId;
         this.password = password;
         this.name = name;

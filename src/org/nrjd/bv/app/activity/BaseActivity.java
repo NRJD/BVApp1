@@ -17,6 +17,7 @@ public abstract class BaseActivity extends Activity {
     /**
      * This method indicates whether to retain this activity in the back button history.
      * <p>
+     *
      * @return {@code true} If this activity should be retained in the back button history, that is,
      * this activity should be shown to the user when the user presses the back button.
      * Otherwise returns {@code false}.

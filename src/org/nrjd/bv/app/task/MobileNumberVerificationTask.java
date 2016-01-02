@@ -3,7 +3,11 @@
  *
  * This file is part of Bhakti Vriksha application.
  */
-package org.nrjd.bv.app.service;
+package org.nrjd.bv.app.task;
+
+import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.ResponseDataUtils;
+import org.nrjd.bv.app.service.StubDataProvider;
 
 
 /**
@@ -13,8 +17,8 @@ public class MobileNumberVerificationTask extends BaseTask {
     private String mobileNumber = null;
     private String mobileNumberVerificationCode = null;
 
-    public MobileNumberVerificationTask(String mobileNumber, String mobileNumberVerificationCode, TaskCallback taskCallback) {
-        super(taskCallback);
+    public MobileNumberVerificationTask(TaskContext taskContext, String mobileNumber, String mobileNumberVerificationCode) {
+        super(taskContext);
         this.mobileNumber = mobileNumber;
         this.mobileNumberVerificationCode = mobileNumberVerificationCode;
     }
