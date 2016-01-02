@@ -497,6 +497,8 @@
     <string name="service_error_verify_account__invalid_mobile_number">Verification failed. Invalid mobile number.</string>
     <string name="service_error_verify_account__mobile_number_not_registered">Verification failed. Specified mobile number is not registered with us.</string>
     <string name="service_error_verify_account__invalid_mobile_number_verification_code">Verification failed. Invalid mobile number verification code.</string>
+    <string name="service_error_verify_account__email_address_already_verified">Email address already verified. You can login into the application.</string>
+    <string name="service_error_verify_account__email_address_not_verified">Verification failed. Either email address is not registered with us, or invalid verification code.</string>
 
     <string name="service_error_chg_pswd__empty_email_address">Could not change password. Email address not specified.</string>
     <string name="service_error_chg_pswd__invalid_email_address">Could not change password. Invalid email address.</string>

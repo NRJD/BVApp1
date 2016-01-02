@@ -45,6 +45,8 @@ public enum ErrorCode {
     EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER(-2404, R.string.service_error_verify_account__invalid_mobile_number),
     EC_VERIFY_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED(-2405, R.string.service_error_verify_account__mobile_number_not_registered),
     EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE(-2406, R.string.service_error_verify_account__invalid_mobile_number_verification_code),
+    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED(-2407, R.string.service_error_verify_account__email_address_already_verified),
+    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_VERIFIED(-2407, R.string.service_error_verify_account__email_address_not_verified),
     // Change Password errors.
     EC_CHG_PSWD__EMPTY_EMAIL_ADDRESS(-2501, R.string.service_error_chg_pswd__empty_email_address),
     EC_CHG_PSWD__INVALID_EMAIL_ADDRESS(-2502, R.string.service_error_chg_pswd__invalid_email_address),

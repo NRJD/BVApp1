@@ -29,14 +29,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_REGISTER;
+import static org.nrjd.bv.app.service.DataServiceParameters.CMD_VERIFY_ACCOUNT;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_CMD;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_COUNTRY_CODE;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_EMAIL;
+import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_EMAIL_VERIFICATION_CODE;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_NAME;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_PASSWORD;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_PHONE_NUMBER;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_STATUS_ID;
+import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_ALREADY_VERIFIED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_NOT_VERIFIED;
+import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_VERIFIED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_DUPLICATE_EMAIL_ID;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_USER_ADD;
 
@@ -98,6 +102,39 @@ public class DataServiceProvider {
                 return Response.createSuccessResponse();
             } else if (STATUS_DUPLICATE_EMAIL_ID.equalsIgnoreCase(statusId) || STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMAIL_ADDRESS_ALREADY_REGISTERED);
+            }
+        }
+        return Response.getServiceErrorResponse();
+    }
+
+    public Response verifyUserId(String userId, String userIdVerificationCode) throws DataServiceException {
+        // Validate parameters.
+        if (StringUtils.isNullOrEmpty(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
+        }
+        if (!PatternUtils.isValidEmailAddress(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
+        }
+        if (StringUtils.isNullOrEmpty(userIdVerificationCode)) {
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+        }
+        // Construct json data.
+        JSONObject jsonRequestData = new JSONObject();
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_CMD, CMD_VERIFY_ACCOUNT);
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_EMAIL, userId);
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_EMAIL_VERIFICATION_CODE, userIdVerificationCode);
+        JSONObject jsonResponseData = processServerRequest(jsonRequestData);
+        // Process response data
+        // TODO: Distinctly show error messages for ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED
+        // and ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE
+        if (jsonRequestData != null) {
+            String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
+            if (STATUS_ACCT_VERIFIED.equalsIgnoreCase(statusId)) {
+                return Response.createSuccessResponse();
+            } else if (STATUS_ACCT_ALREADY_VERIFIED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED);
+            } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_VERIFIED);
             }
         }
         return Response.getServiceErrorResponse();

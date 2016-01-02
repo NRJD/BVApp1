@@ -36,8 +36,7 @@ public class RegisterTask extends BaseTask {
         super.doBackgroundWork();
         Response response = null;
         try {
-            DataServiceProvider DataServiceProvider = new DataServiceProvider(this.getAppContext());
-            response = DataServiceProvider.performRegistration(this.userId, this.password, this.name, this.mobileCountryCode, this.mobileNumber);
+            response = getDataServiceProvider().performRegistration(this.userId, this.password, this.name, this.mobileCountryCode, this.mobileNumber);
         } catch (Exception e) {
             LOGGER.debug("Error while registration", e);
             response = constructErrorResponse(e);

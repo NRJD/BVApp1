@@ -39,4 +39,6 @@ public class DataServiceParameters {
     public static String STATUS_USER_ADD = "USER_ADDED";
     public static String STATUS_ACCT_NOT_VERIFIED = "ACCT_NOT_VERIFIED";
     public static String STATUS_DUPLICATE_EMAIL_ID = "DUPL_EMAILID";
+    public static String STATUS_ACCT_VERIFIED = "ACCT_VERIFIED";
+    public static String STATUS_ACCT_ALREADY_VERIFIED = "ACCT_ALREADY_VERIFIED";
 }
