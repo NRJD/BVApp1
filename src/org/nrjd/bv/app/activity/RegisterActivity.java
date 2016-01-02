@@ -19,7 +19,7 @@ import org.nrjd.bv.app.R;
 
 import org.nrjd.bv.app.metadata.CountryCallingCode;
 import org.nrjd.bv.app.metadata.CountryCallingCodeUtils;
-import org.nrjd.bv.app.service.ErrorCode;
+import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.task.RegisterTask;
 import org.nrjd.bv.app.service.Response;
 import org.nrjd.bv.app.util.PatternUtils;

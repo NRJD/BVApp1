@@ -5,7 +5,7 @@
  */
 package org.nrjd.bv.app.service;
 
-
+import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.util.StringUtils;
 
 import java.util.HashMap;
@@ -31,6 +31,10 @@ public class Response {
 
     public static Response createFailedResponse(ErrorCode errorCode) {
         return new Response(false, errorCode);
+    }
+
+    public static Response getServiceErrorResponse() {
+        return createFailedResponse(ErrorCode.EC_SERVICE_ERROR_OCCURRED);
     }
 
     public boolean isSuccess() {

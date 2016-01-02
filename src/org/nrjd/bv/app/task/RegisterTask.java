@@ -5,14 +5,17 @@
  */
 package org.nrjd.bv.app.task;
 
+import org.nrjd.bv.app.service.DataServiceProvider;
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.StubDataProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * User registration task.
  */
 public class RegisterTask extends BaseTask {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegisterTask.class);
     private String userId = null;
     private String password = null;
     private String name = null;
@@ -31,7 +34,14 @@ public class RegisterTask extends BaseTask {
     @Override
     public Response doInBackground(Void... params) {
         super.doBackgroundWork();
-        StubDataProvider stubDataProvider = StubDataProvider.getInstance();
-        return stubDataProvider.verifyRegistration(this.userId, this.password, this.name, this.mobileCountryCode, this.mobileNumber);
+        Response response = null;
+        try {
+            DataServiceProvider DataServiceProvider = new DataServiceProvider(this.getAppContext());
+            response = DataServiceProvider.performRegistration(this.userId, this.password, this.name, this.mobileCountryCode, this.mobileNumber);
+        } catch (Exception e) {
+            LOGGER.debug("Error while registration", e);
+            response = constructErrorResponse(e);
+        }
+        return response;
     }
 }

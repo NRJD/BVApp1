@@ -464,8 +464,12 @@
     <string name="input_error_empty_new_password">Please enter new password.</string>
     <string name="input_error_empty_confirm_new_password">Please enter confirm new password.</string>
 
-    <string name="service_error_occurred">Could not perform the action. Service error occurred. Please try again.</string>
-    <string name="service_error_no_network_connection">No network connection available. Please check your network settings.</string>
+    <!-- Here put support email address for contacting technical support problems -->
+    <string name="service_error_occurred">Service error occurred. Please check your settings and try again, or please contact technical support if the problem persists.</string>
+    <string name="service_error_http_status_code_error">Service error occurred. Please try again after some time, or please contact technical support if the problem persists.</string>
+    <string name="service_error_no_network_connection">Network connection not available. Please check your network settings.</string>
+    <string name="service_error_could_not_connect_to_service">Could not connect to service. Please try again after some time.</string>
+    <string name="service_error_network_timeout_during_read">Connection timed out. Please try again.</string>
 
     <string name="service_error_login__empty_email_address">Could not login. Email address not specified.</string>
     <string name="service_error_login__invalid_email_address">Could not login. Invalid email address.</string>

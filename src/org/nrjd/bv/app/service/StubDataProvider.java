@@ -5,6 +5,7 @@
  */
 package org.nrjd.bv.app.service;
 
+import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 

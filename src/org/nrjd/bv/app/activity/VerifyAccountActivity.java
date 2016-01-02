@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import org.nrjd.bv.app.R;
 
-import org.nrjd.bv.app.service.ErrorCode;
+import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.service.Response;
 import org.nrjd.bv.app.service.ResponseDataUtils;
 import org.nrjd.bv.app.task.UserIdVerificationTask;

@@ -26,6 +26,10 @@ public class AppContext {
         this.context = context;
     }
 
+    public Context getContext() {
+        return this.context;
+    }
+
     public File getDownloadsFolder() {
         return getAppDataFolder(DOWNLOADS_FOLDER_NAME);
     }

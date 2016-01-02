@@ -3,17 +3,21 @@
  *
  * This file is part of Bhakti Vriksha application.
  */
-package org.nrjd.bv.app.service;
+package org.nrjd.bv.app.util;
 
 import org.nrjd.bv.app.R;
 
 
 /**
- * Service error codes.
+ * Error codes used by the application.
  */
 public enum ErrorCode {
-    // General errors.
+    // General service errors.
     EC_SERVICE_ERROR_OCCURRED(-2001, R.string.service_error_occurred),
+    EC_SERVICE_ERROR_HTTP_STATUS_CODE_ERROR(-2002, R.string.service_error_http_status_code_error),
+    EC_SERVICE_ERROR_NO_NETWORK_CONNECTION(-2003, R.string.service_error_no_network_connection),
+    EC_SERVICE_ERROR_COULD_NOT_CONNECT_TO_SERVICE(-2004, R.string.service_error_could_not_connect_to_service),
+    EC_SERVICE_ERROR_NETWORK_TIMEOUT_DURING_READ(-2005, R.string.service_error_network_timeout_during_read),
     // Login errors.
     EC_LOGIN__EMPTY_EMAIL_ADDRESS(-2101, R.string.service_error_login__empty_email_address),
     EC_LOGIN__INVALID_EMAIL_ADDRESS(-2102, R.string.service_error_login__invalid_email_address),

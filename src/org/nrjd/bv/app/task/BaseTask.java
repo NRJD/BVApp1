@@ -8,6 +8,8 @@ package org.nrjd.bv.app.task;
 import android.os.AsyncTask;
 
 import org.nrjd.bv.app.ctx.AppContext;
+import org.nrjd.bv.app.service.DataServiceException;
+import org.nrjd.bv.app.service.DataServiceUtils;
 import org.nrjd.bv.app.service.Response;
 
 
@@ -49,5 +51,13 @@ public abstract class BaseTask extends AsyncTask<Void, Void, Response> {
         if (this.taskCallback != null) {
             this.taskCallback.onTaskCancelled();
         }
+    }
+
+    protected Response constructErrorResponse(Exception e) {
+        Response response = null;
+        if ((e != null) & (e instanceof DataServiceException)) {
+            response = DataServiceUtils.getDataServiceErrorResponse((DataServiceException) e);
+        }
+        return ((response != null) ? response : Response.getServiceErrorResponse());
     }
 }

@@ -5,6 +5,12 @@
  */
 package org.nrjd.bv.app.net;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import org.nrjd.bv.app.ctx.AppContext;
+
 public class NetworkServiceUtils {
     /**
      * Private constructor to prevent the instantiation of this class.
@@ -12,9 +18,10 @@ public class NetworkServiceUtils {
     private NetworkServiceUtils() {
     }
 
-    /**
-     * 19/Dec/2015: Commented as this obstructs the app functionality if network not available.
-     *
+    public static boolean isNetworkOn(AppContext appContext) {
+        return isNetworkOn((appContext != null) ? appContext.getContext() : null);
+    }
+
     public static boolean isNetworkOn(Context context) {
         boolean isNetworkOn = false;
         if (context != null) {
@@ -25,5 +32,4 @@ public class NetworkServiceUtils {
         }
         return isNetworkOn;
     }
-     */
 }
