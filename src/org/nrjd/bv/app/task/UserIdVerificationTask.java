@@ -32,7 +32,7 @@ public class UserIdVerificationTask extends BaseTask {
         try {
             response = getDataServiceProvider().verifyUserId(this.userId, this.userIdVerificationCode);
         } catch (Exception e) {
-            LOGGER.debug("Error while verifying the user id", e);
+            LOGGER.debug("Error occurred while verifying the user id", e);
             response = constructErrorResponse(e);
         }
         ResponseDataUtils.setIsUserIdVerificationTask(response, true);

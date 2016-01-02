@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static org.nrjd.bv.app.service.DataServiceParameters.CMD_LOGIN;
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_REGISTER;
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_VERIFY_ACCOUNT;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_CMD;
@@ -37,11 +38,14 @@ import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_EMAIL_VERIFICA
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_NAME;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_PASSWORD;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_PHONE_NUMBER;
+import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_RESET_PASSWORD_ENABLED;
 import static org.nrjd.bv.app.service.DataServiceParameters.PARAM_STATUS_ID;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_ALREADY_VERIFIED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_NOT_VERIFIED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_VERIFIED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_DUPLICATE_EMAIL_ID;
+import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_LOGIN_FAILED_INVALID_CREDENTIALS;
+import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_LOGIN_SUCCESS;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_USER_ADD;
 
 /**
@@ -64,6 +68,41 @@ public class DataServiceProvider {
 
     private static String getServerDataUrl() {
         return SERVER_DATA_URL;
+    }
+
+    public Response performLogin(String userId, String password) throws DataServiceException {
+        // Validate parameters.
+        if (StringUtils.isNullOrEmpty(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMPTY_EMAIL_ADDRESS);
+        }
+        if (!PatternUtils.isValidEmailAddress(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_LOGIN__INVALID_EMAIL_ADDRESS);
+        }
+        if (StringUtils.isNullOrEmpty(password)) {
+            return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMPTY_PASSWORD);
+        }
+        // Construct json data.
+        JSONObject jsonRequestData = new JSONObject();
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_CMD, CMD_LOGIN);
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_EMAIL, userId);
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_PASSWORD, password);
+        JSONObject jsonResponseData = processServerRequest(jsonRequestData);
+        // Process response data
+        if (jsonRequestData != null) {
+            // TODO: Show the error message for ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_REGISTERED
+            String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
+            if (STATUS_LOGIN_SUCCESS.equalsIgnoreCase(statusId)) {
+                Response response = Response.createSuccessResponse();
+                String resetPasswordEnabled = JsonUtils.getJsonParameter(jsonResponseData, PARAM_RESET_PASSWORD_ENABLED);
+                ResponseDataUtils.setIsTempPassword(response, Boolean.valueOf(resetPasswordEnabled));
+                return response;
+            } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_VERIFIED);
+            } else if (STATUS_LOGIN_FAILED_INVALID_CREDENTIALS.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_LOGIN__INVALID_PASSWORD);
+            }
+        }
+        return Response.getServiceErrorResponse();
     }
 
     public Response performRegistration(String userId, String password, String name, String mobileCountryCode, String mobileNumber) throws DataServiceException {
@@ -125,9 +164,9 @@ public class DataServiceProvider {
         JsonUtils.addJsonParameter(jsonRequestData, PARAM_EMAIL_VERIFICATION_CODE, userIdVerificationCode);
         JSONObject jsonResponseData = processServerRequest(jsonRequestData);
         // Process response data
-        // TODO: Distinctly show error messages for ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED
-        // and ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE
         if (jsonRequestData != null) {
+            // TODO: Distinctly show error messages for ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED
+            // and ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE
             String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
             if (STATUS_ACCT_VERIFIED.equalsIgnoreCase(statusId)) {
                 return Response.createSuccessResponse();

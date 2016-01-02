@@ -41,4 +41,6 @@ public class DataServiceParameters {
     public static String STATUS_DUPLICATE_EMAIL_ID = "DUPL_EMAILID";
     public static String STATUS_ACCT_VERIFIED = "ACCT_VERIFIED";
     public static String STATUS_ACCT_ALREADY_VERIFIED = "ACCT_ALREADY_VERIFIED";
+    public static String STATUS_LOGIN_SUCCESS = "LOGIN_SUCCESS";
+    public static String STATUS_LOGIN_FAILED_INVALID_CREDENTIALS = "LOGIN_FAILED_INVALID_CREDENTIALS";
 }

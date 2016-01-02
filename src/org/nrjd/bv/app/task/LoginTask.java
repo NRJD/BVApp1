@@ -6,14 +6,15 @@
 package org.nrjd.bv.app.task;
 
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.ResponseDataUtils;
-import org.nrjd.bv.app.service.StubDataProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * User login task.
  */
 public class LoginTask extends BaseTask {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegisterTask.class);
     private String userId = null;
     private String password = null;
 
@@ -26,9 +27,13 @@ public class LoginTask extends BaseTask {
     @Override
     public Response doInBackground(Void... params) {
         super.doBackgroundWork();
-        StubDataProvider stubDataProvider = StubDataProvider.getInstance();
-        Response response = stubDataProvider.verifyLogin(this.userId, this.password);
-        ResponseDataUtils.setIsTempPassword(response, StubDataProvider.isTempPassword(this.password));
+        Response response = null;
+        try {
+            response = getDataServiceProvider().performLogin(this.userId, this.password);
+        } catch (Exception e) {
+            LOGGER.debug("Error occurred while doing the user login", e);
+            response = constructErrorResponse(e);
+        }
         return response;
     }
 }
