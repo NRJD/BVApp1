@@ -29,8 +29,7 @@ public class AppConstants {
 
     public static final boolean BHAKTI_VRIKSHA_APP_MODE = true;
 
-    public static final int SPLASH_DISPLAY_TIME = 5000; // Milliseconds
-    public static final int STUB_DATA_SERVICE_VALIDATION_TIME = 1500; // Milliseconds
+    public static final int SPLASH_DISPLAY_TIME = 1000; // Milliseconds
 
     /**
      * Determines if the application running in Bhakti Vriksha app mode.

@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
@@ -401,8 +402,19 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		importDialog.setTitle(R.string.downloading_books);
 		importDialog.setMessage(getString(R.string.checking_for_book_updates));
 		// BVApp-Comment: 11/Oct/2015: Add cancel capability.
-		importDialog.setCancelable(true);
-		importDialog.setOnCancelListener(importTask);
+		//// importDialog.setCancelable(true);
+		//// importDialog.setOnCancelListener(importTask);
+
+		// BVApp-Comment: 03/Dec2016: Added explicit cancel button for cancelling the dialog,
+		// because setCancelable(true) will make key press outside the dialog resulting into
+		// dismissing the progress dialog. Same with mobile screen saver or screen display off event
+		// will result into dismissing the progress dialog.
+		// So adding explicit cancel button and making cancellable to false.
+		importDialog.setCancelable(false);
+		importDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), (dialog, which ) -> {
+			importTask.onCancel(dialog);
+			dialog.dismiss();
+		});
 		importDialog.show();
 				
 		this.oldKeepScreenOn = listView.getKeepScreenOn();

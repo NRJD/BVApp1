@@ -380,6 +380,7 @@
     <!-- General app strings -->
     <!-- TODO: Define app website URL here once it is available. -->
     <string name="app_website_url"></string>
+    <string name="cancel">Cancel</string>
     <!-- User Login/Registration screen strings -->
     <string name="login">Login</string>
     <string name="registration">Registration</string>

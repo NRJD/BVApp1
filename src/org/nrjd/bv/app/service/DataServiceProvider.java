@@ -56,7 +56,8 @@ public class DataServiceProvider {
     private static final HttpClient HTTP_CLIENT = PageTurnerModule.getSSLHttpClient();
     // Server URL constants
     // TODO: Move them to common location.
-    private static final String BASE_SERVER_URL = "http://10.0.0.5:8011/BVServer";
+    private static final String BASE_SERVER_URL = "http://52.32.43.240:8011/BVServer";
+    // private static final String BASE_SERVER_URL = "http://10.0.0.5:8011/BVServer";
     private static final String SERVER_DATA_URL = BASE_SERVER_URL + "/mobileReq";
 
     // Data
