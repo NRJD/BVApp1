@@ -36,6 +36,7 @@ public class DataServiceParameters {
     public static String PARAM_CODE = "code";
     public static String PARAM_MSG = "msg";
     // Status ids
+    public static String STATUS_ERROR_DB = "ERROR_DB";
     public static String STATUS_USER_ADD = "USER_ADDED";
     public static String STATUS_ACCT_NOT_VERIFIED = "ACCT_NOT_VERIFIED";
     public static String STATUS_DUPLICATE_EMAIL_ID = "DUPL_EMAILID";
@@ -43,4 +44,9 @@ public class DataServiceParameters {
     public static String STATUS_ACCT_ALREADY_VERIFIED = "ACCT_ALREADY_VERIFIED";
     public static String STATUS_LOGIN_SUCCESS = "LOGIN_SUCCESS";
     public static String STATUS_LOGIN_FAILED_INVALID_CREDENTIALS = "LOGIN_FAILED_INVALID_CREDENTIALS";
+    public static String STATUS_INVALID_PWD = "INVALID_PWD";
+    public static String STATUS_PWD_RESET_ENABLED = "PWD_RESET_ENABLED";
+    public static String STATUS_PWD_RESET_FAILED = "PWD_RESET_FAILED";
+    public static String STATUS_PWD_UPDATED_SUCCESS = "PWD_UPDATED_SUCCESS";
+    public static String STATUS_PWD_UPDATE_FAILED = "PWD_UPDATE_FAILED";
 }

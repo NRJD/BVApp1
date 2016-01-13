@@ -14,10 +14,11 @@ import org.nrjd.bv.app.R;
 public enum ErrorCode {
     // General service errors.
     EC_SERVICE_ERROR_OCCURRED(-2001, R.string.service_error_occurred),
-    EC_SERVICE_ERROR_HTTP_STATUS_CODE_ERROR(-2002, R.string.service_error_http_status_code_error),
-    EC_SERVICE_ERROR_NO_NETWORK_CONNECTION(-2003, R.string.service_error_no_network_connection),
-    EC_SERVICE_ERROR_COULD_NOT_CONNECT_TO_SERVICE(-2004, R.string.service_error_could_not_connect_to_service),
-    EC_SERVICE_ERROR_NETWORK_TIMEOUT_DURING_READ(-2005, R.string.service_error_network_timeout_during_read),
+    EC_SERVICE_ERROR__DB_ERROR(-2002, R.string.service_error__db_error),
+    EC_SERVICE_ERROR__HTTP_STATUS_CODE_ERROR(-2003, R.string.service_error__http_status_code_error),
+    EC_SERVICE_ERROR__NO_NETWORK_CONNECTION(-2004, R.string.service_error__no_network_connection),
+    EC_SERVICE_ERROR__COULD_NOT_CONNECT_TO_SERVICE(-2005, R.string.service_error__could_not_connect_to_service),
+    EC_SERVICE_ERROR__NETWORK_TIMEOUT_DURING_READ(-2006, R.string.service_error__network_timeout_during_read),
     // Login errors.
     EC_LOGIN__EMPTY_EMAIL_ADDRESS(-2101, R.string.service_error_login__empty_email_address),
     EC_LOGIN__INVALID_EMAIL_ADDRESS(-2102, R.string.service_error_login__invalid_email_address),
@@ -38,15 +39,17 @@ public enum ErrorCode {
     EC_RESET_PASSWORD__EMPTY_EMAIL_ADDRESS(-2301, R.string.service_error_reset_password__empty_email_address),
     EC_RESET_PASSWORD__INVALID_EMAIL_ADDRESS(-2302, R.string.service_error_reset_password__invalid_email_address),
     EC_RESET_PASSWORD__EMAIL_ADDRESS_NOT_REGISTERED(-2303, R.string.service_error_reset_password__email_address_not_registered),
+    EC_RESET_PASSWORD__COULD_NOT_RESET_PASSWORD(-2304, R.string.service_error_reset_password__could_not_reset_password),
     // Verify account errors.
-    EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS(-2401, R.string.service_error_verify_account__invalid_email_address),
-    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED(-2402, R.string.service_error_verify_account__email_address_not_registered),
-    EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE(-2403, R.string.service_error_verify_account__invalid_email_address_verification_code),
-    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER(-2404, R.string.service_error_verify_account__invalid_mobile_number),
-    EC_VERIFY_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED(-2405, R.string.service_error_verify_account__mobile_number_not_registered),
-    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE(-2406, R.string.service_error_verify_account__invalid_mobile_number_verification_code),
-    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED(-2407, R.string.service_error_verify_account__email_address_already_verified),
-    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_VERIFIED(-2407, R.string.service_error_verify_account__email_address_not_verified),
+    EC_VERIFY_ACCOUNT__EMPTY_EMAIL_ADDRESS(-2401, R.string.service_error_verify_account__empty_email_address),
+    EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS(-2402, R.string.service_error_verify_account__invalid_email_address),
+    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED(-2403, R.string.service_error_verify_account__email_address_not_registered),
+    EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE(-2404, R.string.service_error_verify_account__invalid_email_address_verification_code),
+    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER(-2405, R.string.service_error_verify_account__invalid_mobile_number),
+    EC_VERIFY_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED(-2406, R.string.service_error_verify_account__mobile_number_not_registered),
+    EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE(-2407, R.string.service_error_verify_account__invalid_mobile_number_verification_code),
+    EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED(-2408, R.string.service_error_verify_account__email_address_already_verified),
+    EC_VERIFY_ACCOUNT__COULD_NOT_VERIFY_EMAIL_ADDRESS(-2409, R.string.service_error_verify_account__could_not_verify_email_address),
     // Change Password errors.
     EC_CHG_PSWD__EMPTY_EMAIL_ADDRESS(-2501, R.string.service_error_chg_pswd__empty_email_address),
     EC_CHG_PSWD__INVALID_EMAIL_ADDRESS(-2502, R.string.service_error_chg_pswd__invalid_email_address),
@@ -54,7 +57,8 @@ public enum ErrorCode {
     EC_CHG_PSWD__EMPTY_OLD_PASSWORD(-2504, R.string.service_error_chg_pswd__empty_old_password),
     EC_CHG_PSWD__INVALID_OLD_PASSWORD(-2505, R.string.service_error_chg_pswd__invalid_old_password),
     EC_CHG_PSWD__EMPTY_NEW_PASSWORD(-2507, R.string.service_error_chg_pswd__empty_new_password),
-    EC_CHG_PSWD__EMAIL_ADDRESS_NOT_VERIFIED(-2506, R.string.service_error_chg_pswd__email_address_not_verified);
+    EC_CHG_PSWD__EMAIL_ADDRESS_NOT_VERIFIED(-2506, R.string.service_error_chg_pswd__email_address_not_verified),
+    EC_CHG_PSWD__COULD_NOT_CHANGE_PASSWORD(-2507, R.string.service_error_chg_pswd__could_not_change_password);
 
     private int serviceErrorCode = 0;
     private int messageId = 0;

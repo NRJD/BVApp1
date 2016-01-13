@@ -467,10 +467,11 @@
 
     <!-- Here put support email address for contacting technical support problems -->
     <string name="service_error_occurred">Service error occurred. Please check your settings and try again, or please contact technical support if the problem persists.</string>
-    <string name="service_error_http_status_code_error">Service error occurred. Please try again after some time, or please contact technical support if the problem persists.</string>
-    <string name="service_error_no_network_connection">Network connection not available. Please check your network settings.</string>
-    <string name="service_error_could_not_connect_to_service">Could not connect to service. Please try again after some time.</string>
-    <string name="service_error_network_timeout_during_read">Connection timed out. Please try again.</string>
+    <string name="service_error__db_error">Database error occurred. Please check your settings and try again, or please contact technical support if the problem persists.</string>
+    <string name="service_error__http_status_code_error">Service error occurred. Please try again after some time, or please contact technical support if the problem persists.</string>
+    <string name="service_error__no_network_connection">Network connection not available. Please check your network settings.</string>
+    <string name="service_error__could_not_connect_to_service">Could not connect to service. Please try again after some time.</string>
+    <string name="service_error__network_timeout_during_read">Connection timed out. Please try again.</string>
 
     <string name="service_error_login__empty_email_address">Could not login. Email address not specified.</string>
     <string name="service_error_login__invalid_email_address">Could not login. Invalid email address.</string>
@@ -491,7 +492,9 @@
     <string name="service_error_reset_password__empty_email_address">Could not reset password. Email address not specified.</string>
     <string name="service_error_reset_password__invalid_email_address">Could not reset password. Invalid email address.</string>
     <string name="service_error_reset_password__email_address_not_registered">Could not reset password. Specified email address is not registered with us.</string>
+    <string name="service_error_reset_password__could_not_reset_password">Could not reset password. Either email address is not registered with us, or some internal error, please try again.</string>
 
+    <string name="service_error_verify_account__empty_email_address">Verification failed. Email address not specified.</string>
     <string name="service_error_verify_account__invalid_email_address">Verification failed. Invalid email address.</string>
     <string name="service_error_verify_account__email_address_not_registered">Verification failed. Specified email address is not registered with us.</string>
     <string name="service_error_verify_account__invalid_email_address_verification_code">Verification failed. Invalid email address verification code.</string>
@@ -499,7 +502,7 @@
     <string name="service_error_verify_account__mobile_number_not_registered">Verification failed. Specified mobile number is not registered with us.</string>
     <string name="service_error_verify_account__invalid_mobile_number_verification_code">Verification failed. Invalid mobile number verification code.</string>
     <string name="service_error_verify_account__email_address_already_verified">Email address already verified. You can login into the application.</string>
-    <string name="service_error_verify_account__email_address_not_verified">Verification failed. Either email address is not registered with us, or invalid verification code.</string>
+    <string name="service_error_verify_account__could_not_verify_email_address">Verification failed. Either email address is not registered with us, or invalid verification code.</string>
 
     <string name="service_error_chg_pswd__empty_email_address">Could not change password. Email address not specified.</string>
     <string name="service_error_chg_pswd__invalid_email_address">Could not change password. Invalid email address.</string>
@@ -508,5 +511,6 @@
     <string name="service_error_chg_pswd__invalid_old_password">Could not change password. Invalid old password.</string>
     <string name="service_error_chg_pswd__empty_new_password">Could not change password. New password not specified.</string>
     <string name="service_error_chg_pswd__email_address_not_verified">Could not change password. Specified email address is not yet verified. Please verify the email address and login again.</string>
+    <string name="service_error_chg_pswd__could_not_change_password">Could not change password. Either specified email address is not registered, or not yet verified, or invalid old password.</string>
     <!-- BVApp strings end -->
 </resources>

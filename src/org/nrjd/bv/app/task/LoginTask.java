@@ -31,7 +31,7 @@ public class LoginTask extends BaseTask {
         try {
             response = getDataServiceProvider().performLogin(this.userId, this.password);
         } catch (Exception e) {
-            LOGGER.debug("Error occurred while doing the user login", e);
+            LOGGER.debug("Error occurred while performing the user login", e);
             response = constructErrorResponse(e);
         }
         return response;

@@ -38,7 +38,7 @@ public class RegisterTask extends BaseTask {
         try {
             response = getDataServiceProvider().performRegistration(this.userId, this.password, this.name, this.mobileCountryCode, this.mobileNumber);
         } catch (Exception e) {
-            LOGGER.debug("Error occurred while doing the user registration", e);
+            LOGGER.debug("Error occurred while performing the user registration", e);
             response = constructErrorResponse(e);
         }
         return response;

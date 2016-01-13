@@ -6,13 +6,15 @@
 package org.nrjd.bv.app.task;
 
 import org.nrjd.bv.app.service.Response;
-import org.nrjd.bv.app.service.StubDataProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * Reset password task.
  */
 public class ResetPasswordTask extends BaseTask {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegisterTask.class);
     private String userId = null;
 
     public ResetPasswordTask(TaskContext taskContext, String userId) {
@@ -23,7 +25,13 @@ public class ResetPasswordTask extends BaseTask {
     @Override
     public Response doInBackground(Void... params) {
         super.doBackgroundWork();
-        StubDataProvider stubDataProvider = StubDataProvider.getInstance();
-        return stubDataProvider.resetPassword(this.userId);
+        Response response = null;
+        try {
+            response = getDataServiceProvider().resetPassword(this.userId);
+        } catch (Exception e) {
+            LOGGER.debug("Error occurred while resetting the user password", e);
+            response = constructErrorResponse(e);
+        }
+        return response;
     }
 }

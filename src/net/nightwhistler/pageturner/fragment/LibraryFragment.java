@@ -405,12 +405,16 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		//// importDialog.setCancelable(true);
 		//// importDialog.setOnCancelListener(importTask);
 
-		// BVApp-Comment: 03/Dec2016: Added explicit cancel button for cancelling the dialog,
-		// because setCancelable(true) will make key press outside the dialog resulting into
-		// dismissing the progress dialog. Same with mobile screen saver or screen display off event
+		// BVApp-Comment: 03/Dec2016: Added explicit cancel button for cancelling the dialog.
+		// Not using setCancelable(true) because it will make key press outside the dialog resulting into
+		// automatically dismissing the progress dialog. Same with mobile screen saver or screen display off event
 		// will result into dismissing the progress dialog.
-		// So adding explicit cancel button and making cancellable to false.
+		// So adding explicit cancel button and making cancellable to false, but however note thet
+		// we are setting the onCancelListener event in case some other system even makes the window to cancel,
+		// then the on onCancelListener event handler will ensure to cancel the background task.
 		importDialog.setCancelable(false);
+		importDialog.setCanceledOnTouchOutside(false);
+		importDialog.setOnCancelListener(importTask);
 		importDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), (dialog, which ) -> {
 			importTask.onCancel(dialog);
 			dialog.dismiss();
