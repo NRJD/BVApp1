@@ -429,7 +429,7 @@
     <string name="progress_title_please_wait">Please wait</string>
     <string name="progress_message_logging_in">Logging in..</string>
     <string name="progress_message_registering">Registering..</string>
-    <string name="progress_message_reset_password">Requesting to reset password..</string>
+    <string name="progress_message_reset_password">Resetting the password..</string>
     <string name="progress_message_email_address">Verifying the email address..</string>
     <string name="progress_message_mobile_number">Verifying the mobile number..</string>
     <string name="progress_message_updating_the_new_password">Updating the new password..</string>
@@ -484,7 +484,8 @@
     <string name="service_error_register__empty_email_address">Could not register. Email address not specified.</string>
     <string name="service_error_register__invalid_email_address">Could not register. Invalid email address.</string>
     <string name="service_error_register__email_address_already_registered">Could not register. Specified email address is already registered with us.</string>
-    <string name="service_error_register__empty_password">Could not register.  Credentials not specified.</string>
+    <string name="service_error_register__email_address_not_activated">Could not register. Specified email address is already registered with us, but not yet activated. Please go through activation process if this email address belongs to you.</string>
+    <string name="service_error_register__empty_password">Could not register. Credentials not specified.</string>
     <string name="service_error_register__empty_name">Could not register. User name not specified.</string>
     <string name="service_error_register__empty_mobile_country_code">Could not register. Mobile country code not specified.</string>
     <string name="service_error_register__empty_mobile_number">Could not register. Mobile number not specified.</string>
@@ -492,25 +493,25 @@
     <string name="service_error_reset_password__empty_email_address">Could not reset password. Email address not specified.</string>
     <string name="service_error_reset_password__invalid_email_address">Could not reset password. Invalid email address.</string>
     <string name="service_error_reset_password__email_address_not_registered">Could not reset password. Specified email address is not registered with us.</string>
-    <string name="service_error_reset_password__could_not_reset_password">Could not reset password. Either email address is not registered with us, or some internal error, please try again.</string>
+    <string name="service_error_reset_password__could_not_reset_password">Could not reset password. Some internal error occurred. Please try again.</string>
 
     <string name="service_error_verify_account__empty_email_address">Verification failed. Email address not specified.</string>
     <string name="service_error_verify_account__invalid_email_address">Verification failed. Invalid email address.</string>
     <string name="service_error_verify_account__email_address_not_registered">Verification failed. Specified email address is not registered with us.</string>
+    <string name="service_error_verify_account__empty_email_address_verification_code">Verification failed. Empty email address verification code.</string>
     <string name="service_error_verify_account__invalid_email_address_verification_code">Verification failed. Invalid email address verification code.</string>
     <string name="service_error_verify_account__invalid_mobile_number">Verification failed. Invalid mobile number.</string>
     <string name="service_error_verify_account__mobile_number_not_registered">Verification failed. Specified mobile number is not registered with us.</string>
     <string name="service_error_verify_account__invalid_mobile_number_verification_code">Verification failed. Invalid mobile number verification code.</string>
     <string name="service_error_verify_account__email_address_already_verified">Email address already verified. You can login into the application.</string>
-    <string name="service_error_verify_account__could_not_verify_email_address">Verification failed. Either email address is not registered with us, or invalid verification code.</string>
 
     <string name="service_error_chg_pswd__empty_email_address">Could not change password. Email address not specified.</string>
     <string name="service_error_chg_pswd__invalid_email_address">Could not change password. Invalid email address.</string>
     <string name="service_error_chg_pswd__email_address_not_registered">Could not change password. Specified email address is not registered with us.</string>
     <string name="service_error_chg_pswd__empty_old_password">Could not change password. Old password not specified.</string>
-    <string name="service_error_chg_pswd__invalid_old_password">Could not change password. Invalid old password.</string>
+    <string name="service_error_chg_pswd__invalid_old_password">Could not change password. Invalid old password. Old password specified does not match with the existing password.</string>
     <string name="service_error_chg_pswd__empty_new_password">Could not change password. New password not specified.</string>
     <string name="service_error_chg_pswd__email_address_not_verified">Could not change password. Specified email address is not yet verified. Please verify the email address and login again.</string>
-    <string name="service_error_chg_pswd__could_not_change_password">Could not change password. Either specified email address is not registered, or not yet verified, or invalid old password.</string>
+    <string name="service_error_chg_pswd__could_not_update_password">Could not change password. Some internal error occurred. Please check your settings and try again.</string>
     <!-- BVApp strings end -->
 </resources>

@@ -38,6 +38,7 @@ public class DataServiceParameters {
     // Status ids
     public static String STATUS_ERROR_DB = "ERROR_DB";
     public static String STATUS_USER_ADD = "USER_ADDED";
+    public static String STATUS_EMAIL_NOT_REGISTERED = "EMAIL_NOT_REGISTERED";
     public static String STATUS_ACCT_NOT_VERIFIED = "ACCT_NOT_VERIFIED";
     public static String STATUS_DUPLICATE_EMAIL_ID = "DUPL_EMAILID";
     public static String STATUS_ACCT_VERIFIED = "ACCT_VERIFIED";

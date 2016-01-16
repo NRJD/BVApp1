@@ -48,8 +48,8 @@ import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_ALREADY_
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_NOT_VERIFIED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ACCT_VERIFIED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_DUPLICATE_EMAIL_ID;
+import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_EMAIL_NOT_REGISTERED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_ERROR_DB;
-import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_INVALID_PWD;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_LOGIN_FAILED_INVALID_CREDENTIALS;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_LOGIN_SUCCESS;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_PWD_RESET_ENABLED;
@@ -66,8 +66,8 @@ public class DataServiceProvider {
     private static final HttpClient HTTP_CLIENT = PageTurnerModule.getSSLHttpClient();
     // Server URL constants
     // TODO: Move them to common location.
-    private static final String BASE_SERVER_URL = "http://52.32.43.240:8011/BVServer";
-    // private static final String BASE_SERVER_URL = "http://10.0.0.2:8011/BVServer";
+    // private static final String BASE_SERVER_URL = "http://52.32.43.240:8011/BVServer";
+    private static final String BASE_SERVER_URL = "http://10.0.0.2:8011/BVServer";
     private static final String SERVER_DATA_URL = BASE_SERVER_URL + "/mobileReq";
 
     // Data
@@ -90,7 +90,7 @@ public class DataServiceProvider {
             return Response.createFailedResponse(ErrorCode.EC_LOGIN__INVALID_EMAIL_ADDRESS);
         }
         if (StringUtils.isNullOrEmpty(password)) {
-            return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMPTY_PASSWORD);
+            return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMPTY_PASSWORD);
         }
         // Construct json data.
         JSONObject jsonRequestData = new JSONObject();
@@ -100,16 +100,17 @@ public class DataServiceProvider {
         JSONObject jsonResponseData = processServerRequest(jsonRequestData);
         // Process response data
         if (jsonResponseData != null) {
-            // TODO: Distinctly show error messages for ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_REGISTERED.
             String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
             if (STATUS_LOGIN_SUCCESS.equalsIgnoreCase(statusId)) {
                 Response response = Response.createSuccessResponse();
                 String resetPasswordEnabled = JsonUtils.getJsonParameter(jsonResponseData, PARAM_RESET_PASSWORD_ENABLED);
                 ResponseDataUtils.setIsTempPassword(response, Boolean.valueOf(resetPasswordEnabled));
                 return response;
+            } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_REGISTERED);
             } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_VERIFIED);
-            } else if (STATUS_INVALID_PWD.equalsIgnoreCase(statusId) || STATUS_LOGIN_FAILED_INVALID_CREDENTIALS.equalsIgnoreCase(statusId)) {
+            } else if (STATUS_LOGIN_FAILED_INVALID_CREDENTIALS.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_LOGIN__INVALID_PASSWORD);
             }
         }
@@ -150,8 +151,10 @@ public class DataServiceProvider {
             String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
             if (STATUS_USER_ADD.equalsIgnoreCase(statusId)) {
                 return Response.createSuccessResponse();
-            } else if (STATUS_DUPLICATE_EMAIL_ID.equalsIgnoreCase(statusId) || STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
+            } else if (STATUS_DUPLICATE_EMAIL_ID.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMAIL_ADDRESS_ALREADY_REGISTERED);
+            } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMAIL_ADDRESS_NOT_ACTIVATED);
             }
         }
         return getServiceErrorResponse(jsonResponseData);
@@ -166,7 +169,7 @@ public class DataServiceProvider {
             return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
         }
         if (StringUtils.isNullOrEmpty(userIdVerificationCode)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMPTY_EMAIL_ADDRESS_VERIFICATION_CODE);
         }
         // Construct json data.
         JSONObject jsonRequestData = new JSONObject();
@@ -176,15 +179,15 @@ public class DataServiceProvider {
         JSONObject jsonResponseData = processServerRequest(jsonRequestData);
         // Process response data
         if (jsonResponseData != null) {
-            // TODO: Distinctly show error messages for ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED
-            // and ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE.
             String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
             if (STATUS_ACCT_VERIFIED.equalsIgnoreCase(statusId)) {
                 return Response.createSuccessResponse();
+            } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED);
             } else if (STATUS_ACCT_ALREADY_VERIFIED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED);
             } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__COULD_NOT_VERIFY_EMAIL_ADDRESS);
+                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
             }
         }
         return getServiceErrorResponse(jsonResponseData);
@@ -213,13 +216,17 @@ public class DataServiceProvider {
         JSONObject jsonResponseData = processServerRequest(jsonRequestData);
         // Process response data
         if (jsonResponseData != null) {
-            // TODO: Distinctly show error message for ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_REGISTERED,
-            // ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_VERIFIED and ErrorCode.EC_CHG_PSWD__INVALID_OLD_PASSWORD.
             String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
             if (STATUS_PWD_UPDATED_SUCCESS.equalsIgnoreCase(statusId)) {
                 return Response.createSuccessResponse();
+            } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_REGISTERED);
+            } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_VERIFIED);
+            } else if (STATUS_LOGIN_FAILED_INVALID_CREDENTIALS.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__INVALID_OLD_PASSWORD);
             } else if (STATUS_PWD_UPDATE_FAILED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__COULD_NOT_CHANGE_PASSWORD);
+                return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__COULD_NOT_UPDATE_PASSWORD);
             }
         }
         return getServiceErrorResponse(jsonResponseData);
@@ -240,10 +247,11 @@ public class DataServiceProvider {
         JSONObject jsonResponseData = processServerRequest(jsonRequestData);
         // Process response data
         if (jsonResponseData != null) {
-            // TODO: Distinctly show error message for ErrorCode.EC_RESET_PASSWORD__EMAIL_ADDRESS_NOT_REGISTERED.
             String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
             if (STATUS_PWD_RESET_ENABLED.equalsIgnoreCase(statusId)) {
                 return Response.createSuccessResponse();
+            } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_RESET_PASSWORD__EMAIL_ADDRESS_NOT_REGISTERED);
             } else if (STATUS_PWD_RESET_FAILED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_RESET_PASSWORD__COULD_NOT_RESET_PASSWORD);
             }
@@ -252,7 +260,7 @@ public class DataServiceProvider {
     }
 
     private Response getServiceErrorResponse(JSONObject jsonResponseData) throws DataServiceException {
-        if(jsonResponseData != null) {
+        if (jsonResponseData != null) {
             String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
             if (STATUS_ERROR_DB.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_SERVICE_ERROR__DB_ERROR);
