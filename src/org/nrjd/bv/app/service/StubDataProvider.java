@@ -107,7 +107,7 @@ public class StubDataProvider {
             return Response.createFailedResponse(ErrorCode.EC_LOGIN__INVALID_PASSWORD);
         }
         if (!VERIFIED_EMAIL_ADDRESSES.contains(userId)) {
-            return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_VERIFIED);
+            return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_ACTIVATED);
         }
         if (!VERIFIED_MOBILE_NUMBERS.contains(userId)) {
             return Response.createFailedResponse(ErrorCode.EC_LOGIN__MOBILE_NUMBER_NOT_VERIFIED);
@@ -156,19 +156,19 @@ public class StubDataProvider {
     public Response verifyEmailAddress(String userId, String userIdVerificationCode) {
         // TODO: More validations
         if (StringUtils.isNullOrEmpty(userId)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_EMAIL_ADDRESS);
         }
         if (!PatternUtils.isValidEmailAddress(userId)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_EMAIL_ADDRESS);
         }
         if (!VALID_USER_IDS.containsKey(userId)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED);
         }
         if (StringUtils.isNullOrEmpty(userIdVerificationCode)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
         }
         if (!EMAIL_VERIFICATION_CODES.contains(userIdVerificationCode)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
         }
         return Response.createSuccessResponse();
     }
@@ -176,16 +176,16 @@ public class StubDataProvider {
     public Response verifyMobileNumber(String mobileNumber, String mobileNumberVerificationCode) {
         // TODO: More validations
         if (StringUtils.isNullOrEmpty(mobileNumber)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_MOBILE_NUMBER);
         }
         if (!MOBILE_NUMBERS.contains(mobileNumber)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__MOBILE_NUMBER_NOT_REGISTERED);
         }
         if (StringUtils.isNullOrEmpty(mobileNumberVerificationCode)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE);
         }
         if (!MOBILE_VERIFICATION_CODES.contains(mobileNumberVerificationCode)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_MOBILE_NUMBER_VERIFICATION_CODE);
         }
         return Response.createSuccessResponse();
     }
@@ -210,7 +210,7 @@ public class StubDataProvider {
             return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMPTY_NEW_PASSWORD);
         }
         if (!VERIFIED_EMAIL_ADDRESSES.contains(userId)) {
-            return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_VERIFIED);
+            return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_ACTIVATED);
         }
         return Response.createSuccessResponse();
     }

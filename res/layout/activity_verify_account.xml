@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/edit_text_margin_bottom"
             android:layout_marginTop="@dimen/edit_text_margin_top"
-            android:text="@string/notes_verify_account_details"
+            android:text="@string/notes_activate_account_details"
             android:textColor="@color/gray" />
 
         <AutoCompleteTextView
@@ -70,7 +70,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:layout_weight="1"
-                android:text="@string/verify" />
+                android:text="@string/activate" />
 
         </LinearLayout>
 
@@ -134,11 +134,13 @@
         -->
 
         <!-- Add gap -->
+        <!--
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:orientation="horizontal" />
+            -->
 
         <Button
             android:id="@+id/loginButton"

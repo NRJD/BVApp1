@@ -23,6 +23,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.nrjd.bv.app.service.DataServiceLocator;
 import org.nrjd.bv.app.util.AppConstants;
 import org.nrjd.bv.app.reg.BookEntry;
 import org.nrjd.bv.app.reg.RegistryData;
@@ -133,7 +134,7 @@ public class NetDownloadTask extends QueueableAsyncTask<File, Long, Void> implem
         }
 
         // Download registry data.
-        RegistryHandler registryHandler = new RegistryHandler();
+        RegistryHandler registryHandler = DataServiceLocator.getRegistryHandler();
         String registryUrl = registryHandler.getRegistryUrl();
         File registryFile = null;
         RegistryData registryData = null;

@@ -186,11 +186,11 @@ public class VerifyAccountActivity extends BaseTaskActivity {
 
     @Override
     public void onTaskComplete(Response response) {
-        if ((response != null) && (response.isSuccess() || (response.getErrorCode() == ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED))) {
+        if ((response != null) && (response.isSuccess() || (response.getErrorCode() == ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED))) {
             if (ResponseDataUtils.isUserIdVerificationTask(response)) {
                 // Show this toast message for long duration for the user to be able to observe this toast message.
-                String message = getString(R.string.info_email_address_verification_successful);
-                if(response.getErrorCode() == ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED) {
+                String message = getString(R.string.info_account_activation_successful);
+                if(response.getErrorCode() == ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED) {
                     message = getString(response.getErrorCode().getMessageId());
                 }
                 showToastAlertInfoMessage(message);

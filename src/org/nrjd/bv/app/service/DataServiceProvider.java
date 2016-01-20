@@ -64,21 +64,12 @@ import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_USER_ADD;
 public class DataServiceProvider {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataServiceProvider.class);
     private static final HttpClient HTTP_CLIENT = PageTurnerModule.getSSLHttpClient();
-    // Server URL constants
-    // TODO: Move them to common location.
-    // private static final String BASE_SERVER_URL = "http://52.32.43.240:8011/BVServer";
-    private static final String BASE_SERVER_URL = "http://10.0.0.2:8011/BVServer";
-    private static final String SERVER_DATA_URL = BASE_SERVER_URL + "/mobileReq";
 
     // Data
     private AppContext appContext = null;
 
     public DataServiceProvider(AppContext appContext) {
         this.appContext = appContext;
-    }
-
-    private static String getServerDataUrl() {
-        return SERVER_DATA_URL;
     }
 
     public Response performLogin(String userId, String password) throws DataServiceException {
@@ -109,7 +100,7 @@ public class DataServiceProvider {
             } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_REGISTERED);
             } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_VERIFIED);
+                return Response.createFailedResponse(ErrorCode.EC_LOGIN__EMAIL_ADDRESS_NOT_ACTIVATED);
             } else if (STATUS_LOGIN_FAILED_INVALID_CREDENTIALS.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_LOGIN__INVALID_PASSWORD);
             }
@@ -163,13 +154,13 @@ public class DataServiceProvider {
     public Response verifyUserId(String userId, String userIdVerificationCode) throws DataServiceException {
         // Validate parameters.
         if (StringUtils.isNullOrEmpty(userId)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMPTY_EMAIL_ADDRESS);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMPTY_EMAIL_ADDRESS);
         }
         if (!PatternUtils.isValidEmailAddress(userId)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_EMAIL_ADDRESS);
         }
         if (StringUtils.isNullOrEmpty(userIdVerificationCode)) {
-            return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMPTY_EMAIL_ADDRESS_VERIFICATION_CODE);
+            return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMPTY_EMAIL_ADDRESS_VERIFICATION_CODE);
         }
         // Construct json data.
         JSONObject jsonRequestData = new JSONObject();
@@ -183,11 +174,11 @@ public class DataServiceProvider {
             if (STATUS_ACCT_VERIFIED.equalsIgnoreCase(statusId)) {
                 return Response.createSuccessResponse();
             } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED);
+                return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED);
             } else if (STATUS_ACCT_ALREADY_VERIFIED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED);
+                return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED);
             } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_VERIFY_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+                return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
             }
         }
         return getServiceErrorResponse(jsonResponseData);
@@ -222,7 +213,7 @@ public class DataServiceProvider {
             } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_REGISTERED);
             } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_VERIFIED);
+                return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__EMAIL_ADDRESS_NOT_ACTIVATED);
             } else if (STATUS_LOGIN_FAILED_INVALID_CREDENTIALS.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_CHG_PSWD__INVALID_OLD_PASSWORD);
             } else if (STATUS_PWD_UPDATE_FAILED.equalsIgnoreCase(statusId)) {
@@ -272,7 +263,7 @@ public class DataServiceProvider {
     private JSONObject processServerRequest(JSONObject jsonObject) throws DataServiceException {
         JSONObject jsonResponseData = null;
         try {
-            HttpPost request = new HttpPost(getServerDataUrl());
+            HttpPost request = new HttpPost(DataServiceLocator.getServerDataUrl());
             String postData = JsonUtils.generateJsonData(jsonObject);
             if (StringUtils.isNotNullOrEmpty(postData)) {
                 StringEntity stringEntity = new StringEntity(postData, HTTP.UTF_8);

@@ -52,7 +52,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="org.nrjd.bv.app.activity.VerifyAccountActivity"
-            android:label="@string/verify_account_details"
+            android:label="@string/account_activation"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="org.nrjd.bv.app.activity.ChangePasswordActivity"
