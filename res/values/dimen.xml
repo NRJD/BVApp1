@@ -14,5 +14,6 @@
 	<dimen name="verified_status_text_size">16dp</dimen>
 	<dimen name="layout_section_gap">24dp</dimen>
 	<dimen name="mobile_country_iso_code_text_size">16dp</dimen>
+	<dimen name="notes_text_margin">5dp</dimen>
 	<!-- BVApp dimensions end -->
 </resources>

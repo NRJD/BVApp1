@@ -65,6 +65,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:text="@string/activate_account" />
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/relativeLoginView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/resetPasswordNotesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/edit_text_margin_bottom"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:background="@drawable/notes_support_email_text_style"
+                android:padding="@dimen/notes_text_margin"
+                android:text="@string/notes_support_email"
+                android:textColor="@color/gray" />
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

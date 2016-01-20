@@ -17,7 +17,6 @@
             android:id="@+id/verifyAccountNotesText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/edit_text_margin_bottom"
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:text="@string/notes_activate_account_details"
             android:textColor="@color/gray" />
@@ -141,6 +140,21 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:orientation="horizontal" />
             -->
+
+        <TextView
+            android:id="@+id/resendAccountActivationDetailsNotesText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:text="@string/notes_resent_account_activation_details"
+            android:textColor="@color/gray" />
+
+        <Button
+            android:id="@+id/resendAccountActivationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:text="@string/resend_activation_details" />
 
         <Button
             android:id="@+id/loginButton"

@@ -381,6 +381,8 @@
     <!-- TODO: Define app website URL here once it is available. -->
     <string name="app_website_url"></string>
     <string name="cancel">Cancel</string>
+    <!-- Support email -->
+    <string name="support_email_link"><a href="mailto:iskcon.nrjd.support@gmail.com">iskcon.nrjd.support@gmail.com</a></string>
     <!-- User Login/Registration screen strings -->
     <string name="login">Login</string>
     <string name="registration">Registration</string>
@@ -389,9 +391,10 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="reset_password">Reset Password</string>
     <string name="change_password">Change Password</string>
-    <string name="activate_account">Activate account</string>
+    <string name="activate_account">Activate Account</string>
     <string name="account_activation">Account Activation</string>
     <string name="activate">Activate</string>
+    <string name="resend_activation_details">Resend Activation Details</string>
     <string name="select">Select</string>
     <string name="user_id_text_label">Login Email Address:\n\t\t%1$s</string>
 
@@ -423,8 +426,10 @@
     <string name="download_failed">Download failed</string>
 
     <!-- Notes messages -->
+    <string name="notes_support_email">For any technical support, questions or feedback, please send email to: <a href="mailto:iskcon.nrjd.support@gmail.com">iskcon.nrjd.support@gmail.com</a></string>
     <string name="notes_activate_account_details">Please enter the login email address and email verification code to activate the account. Please check your email for the email verification code details. \n\nOnce you successfully activated your account, and you will be re-directed back to login screen and you can login into the application.</string>
     <string name="notes_reset_password">Please enter the login email address to reset the password. Once you select the Reset Password, a temporary password will be sent to your email address specified here and you will be re-directed back to login screen. Please check your email for the temporary password and login again.</string>
+    <string name="notes_resent_account_activation_details">In case either you did not receive the email with account activation details or somehow lost that previously sent email, you can request to resend the account activation details.</string>
 
     <!-- Progress messages -->
     <string name="progress_title_please_wait">Please wait</string>
