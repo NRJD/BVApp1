@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- BVApp dimensions start -->
+	<dimen name="main_layout_width">540dp</dimen>
+	<!-- BVApp dimensions end -->
+</resources>

@@ -5,6 +5,7 @@
 	<dimen name="ambilwarna_hueWidth">30dp</dimen>
 	<dimen name="ambilwarna_spacer">8dp</dimen>
 	<!-- BVApp dimensions start -->
+	<dimen name="main_layout_width">320dp</dimen>
 	<dimen name="main_layout_padding">20dp</dimen>
 	<dimen name="edit_text_margin_top">8dp</dimen>
 	<dimen name="edit_text_margin_bottom">8dp</dimen>
