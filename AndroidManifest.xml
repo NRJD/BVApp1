@@ -51,8 +51,12 @@
             android:label="@string/reset_password"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name="org.nrjd.bv.app.activity.ResendAccountActivationActivity"
+            android:label="@string/resend_account_activation_details"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name="org.nrjd.bv.app.activity.VerifyAccountActivity"
-            android:label="@string/account_activation"
+            android:label="@string/activate_account"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="org.nrjd.bv.app.activity.ChangePasswordActivity"

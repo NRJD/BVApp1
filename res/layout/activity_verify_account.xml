@@ -144,11 +144,11 @@
             -->
 
         <TextView
-            android:id="@+id/resendAccountActivationDetailsNotesText"
+            android:id="@+id/requestForResendAccountActivationNotesText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/edit_text_margin_top"
-            android:text="@string/notes_resent_account_activation_details"
+            android:text="@string/notes_request_for_resend_account_activation_details"
             android:textColor="@color/gray" />
 
         <Button
@@ -156,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/edit_text_margin_top"
-            android:text="@string/resend_activation_details" />
+            android:text="@string/resend_account_activation_details" />
 
         <Button
             android:id="@+id/loginButton"

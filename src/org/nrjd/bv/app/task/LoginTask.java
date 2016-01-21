@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * User login task.
  */
 public class LoginTask extends BaseTask {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegisterTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginTask.class);
     private String userId = null;
     private String password = null;
 

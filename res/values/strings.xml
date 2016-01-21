@@ -392,9 +392,9 @@
     <string name="reset_password">Reset Password</string>
     <string name="change_password">Change Password</string>
     <string name="activate_account">Activate Account</string>
-    <string name="account_activation">Account Activation</string>
+    <string name="go_to_activate_account">Go to Activate Account</string>
     <string name="activate">Activate</string>
-    <string name="resend_activation_details">Resend Activation Details</string>
+    <string name="resend_account_activation_details">Resend Account Activation Details</string>
     <string name="select">Select</string>
     <string name="user_id_text_label">Login Email Address:\n\t\t%1$s</string>
 
@@ -429,13 +429,15 @@
     <string name="notes_support_email">For any technical support, questions or feedback, please send email to: <a href="mailto:iskcon.nrjd.support@gmail.com">iskcon.nrjd.support@gmail.com</a></string>
     <string name="notes_activate_account_details">Please enter the login email address and email verification code to activate the account. Please check your email for the email verification code details. Once you successfully activated your account, and you will be re-directed back to login screen and you can login into the application.</string>
     <string name="notes_reset_password">Please enter the login email address to reset the password. Once you select the Reset Password, a temporary password will be sent to your email address specified here and you will be re-directed back to login screen. Please check your email for the temporary password and login again.</string>
-    <string name="notes_resent_account_activation_details">In case either you did not receive the email with account activation details or somehow lost the previously received email, you can request to resend the account activation details.</string>
+    <string name="notes_request_for_resend_account_activation_details">In case either you did not receive the email with account activation details or somehow lost the previously received email, you can request to resend the account activation details.</string>
+    <string name="notes_resend_account_activation_details">Once the account activation details are resent, you will be re-directed back to activate account screen. Please check your email for the email verification code details and activate the account with those details. If the specified email address is already activated, then account activation details will not be resent because the account is already activated.</string>
 
     <!-- Progress messages -->
     <string name="progress_title_please_wait">Please wait</string>
     <string name="progress_message_logging_in">Logging in..</string>
     <string name="progress_message_registering">Registering..</string>
     <string name="progress_message_reset_password">Resetting the password..</string>
+    <string name="progress_message_resend_account_activation_details">Resending account activation details..</string>
     <string name="progress_message_email_address">Verifying the email address..</string>
     <string name="progress_message_mobile_number">Verifying the mobile number..</string>
     <string name="progress_message_updating_the_new_password">Updating the new password..</string>
@@ -446,6 +448,7 @@
     <string name="info_reset_password_successful">Reset password successful. Please check your email for the temporary password and login again.</string>
     <string name="info_account_activation_successful">Successfully activated your account. Please login into the application.</string>
     <string name="info_mobile_number_verification_successful">Successfully verified the mobile number.</string>
+    <string name="info_resend_account_activation_details_successful">Successfully resent the account activation details. Please check your email and activate your account.</string>
     <string name="info_change_password_successful">Password changed successfully. Please login with the new password.</string>
     <string name="info_change_password_due_to_login_with_temp_password">It is found that you have logged in with the temporary password. Please change the password. Once you successfully changed the password, you will be re-directed back to login screen and you can login with the new password.</string>
 
@@ -505,11 +508,17 @@
     <string name="service_error_activate_account__invalid_email_address">Account activation failed. Invalid email address.</string>
     <string name="service_error_activate_account__email_address_not_registered">Account activation failed. Specified email address is not registered with us.</string>
     <string name="service_error_activate_account__empty_email_address_verification_code">Account activation failed. Empty email address verification code.</string>
-    <string name="service_error_activate_account__invalid_email_address_verification_code">Account activation failed. Invalid email address verification code.</string>
+    <string name="service_error_activate_account__invalid_email_address_verification_code">Account activation failed. Invalid email address verification code. Please check your latest account activation email, or request to resend the account activation details.</string>
     <string name="service_error_activate_account__invalid_mobile_number">Account activation failed. Invalid mobile number.</string>
     <string name="service_error_activate_account__mobile_number_not_registered">Account activation failed. Specified mobile number is not registered with us.</string>
     <string name="service_error_activate_account__invalid_mobile_number_verification_code">Account activation failed. Invalid mobile number verification code.</string>
-    <string name="service_error_activate_account__email_address_already_activated">Email address already activated. You can login into the application.</string>
+    <string name="service_error_activate_account__email_address_already_activated">Email address is already activated. You can login into the application.</string>
+
+    <string name="service_error_resend_acc_activation__empty_email_address">Failed to resend account activation details. Email address not specified.</string>
+    <string name="service_error_resend_acc_activation__invalid_email_address">Failed to resend account activation details. Invalid email address.</string>
+    <string name="service_error_resend_acc_activation__email_address_not_registered">Failed to resend account activation details. Specified email address is not registered with us.</string>
+    <string name="service_error_resend_acc_activation__email_address_already_activated">Failed to resend account activation details. Email address is already activated. You can login into the application.</string>
+    <string name="service_error_resend_acc_activation__could_not_resend_acc_activation_details">Failed to resend account activation details. Some internal error occurred. Please try again.</string>
 
     <string name="service_error_chg_pswd__empty_email_address">Could not change password. Email address not specified.</string>
     <string name="service_error_chg_pswd__invalid_email_address">Could not change password. Invalid email address.</string>

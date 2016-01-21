@@ -15,6 +15,7 @@ public class DataServiceParameters {
     public static String CMD_LOG_OFF = "logoff";
     public static String CMD_REGISTER = "register";
     public static String CMD_VERIFY_ACCOUNT = "verifyFromMobile";
+    public static String CMD_RESEND_SUBSCRIPTION_EMAIL = "resendSubscriptionEmail";
     public static String CMD_UPDATE_PASSWORD = "updatePassword";
     public static String CMD_RESET_PASSWORD = "resetPassword";
     public static String CMD_UPDATE_PROFILE = "updateProfile";
@@ -45,7 +46,8 @@ public class DataServiceParameters {
     public static String STATUS_ACCT_ALREADY_VERIFIED = "ACCT_ALREADY_VERIFIED";
     public static String STATUS_LOGIN_SUCCESS = "LOGIN_SUCCESS";
     public static String STATUS_LOGIN_FAILED_INVALID_CREDENTIALS = "LOGIN_FAILED_INVALID_CREDENTIALS";
-    public static String STATUS_INVALID_PWD = "INVALID_PWD";
+    public static String STATUS_RESEND_VERIF_SUCCESS = "RESEND_VERIF_SUCCESS";
+    public static String STATUS_RESEND_VERIF_FAILED = "RESEND_VERIF_FAILED";
     public static String STATUS_PWD_RESET_ENABLED = "PWD_RESET_ENABLED";
     public static String STATUS_PWD_RESET_FAILED = "PWD_RESET_FAILED";
     public static String STATUS_PWD_UPDATED_SUCCESS = "PWD_UPDATED_SUCCESS";

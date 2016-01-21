@@ -11,19 +11,15 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * Change password task.
+ * Resend account activation details task.
  */
-public class ChangePasswordTask extends BaseTask {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ChangePasswordTask.class);
+public class ResendAccountActivationTask extends BaseTask {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResendAccountActivationTask.class);
     private String userId = null;
-    private String oldPassword = null;
-    private String newPassword = null;
 
-    public ChangePasswordTask(TaskContext taskContext, String userId, String oldPassword, String newPassword) {
+    public ResendAccountActivationTask(TaskContext taskContext, String userId) {
         super(taskContext);
         this.userId = userId;
-        this.oldPassword = oldPassword;
-        this.newPassword = newPassword;
     }
 
     @Override
@@ -31,9 +27,9 @@ public class ChangePasswordTask extends BaseTask {
         super.doBackgroundWork();
         Response response = null;
         try {
-            response = getDataServiceProvider().changePassword(this.userId, this.oldPassword, this.newPassword);
+            response = getDataServiceProvider().resendAccountActivationDetails(this.userId);
         } catch (Exception e) {
-            LOGGER.debug("Error occurred while performing the user login", e);
+            LOGGER.debug("Error occurred while resetting the user password", e);
             response = constructErrorResponse(e);
         }
         return response;

@@ -14,11 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.nrjd.bv.app.R;
-
-import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.service.Response;
 import org.nrjd.bv.app.service.ResponseDataUtils;
 import org.nrjd.bv.app.task.UserIdVerificationTask;
+import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
@@ -84,6 +83,9 @@ public class VerifyAccountActivity extends BaseTaskActivity {
         */
         // Initialize fields data with the passed in intent data.
         initializeFieldData();
+        // Initialize resend account activation details handler.
+        Button resendAccountActivationButton = (Button) findViewById(R.id.resendAccountActivationButton);
+        resendAccountActivationButton.setOnClickListener(v -> handleResendAccountActivationDetails());
         // Initialize login handler.
         Button loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> handleLogin());
@@ -120,6 +122,11 @@ public class VerifyAccountActivity extends BaseTaskActivity {
             }
             */
         }
+    }
+
+    private void handleResendAccountActivationDetails() {
+        Bundle accountActivationDataParameters = getAccountActivationDataParameters();
+        ActivityUtils.startResendAccountActivationActivity(this, accountActivationDataParameters);
     }
 
     private void handleLogin() {
@@ -186,11 +193,11 @@ public class VerifyAccountActivity extends BaseTaskActivity {
 
     @Override
     public void onTaskComplete(Response response) {
-        if ((response != null) && (response.isSuccess() || (response.getErrorCode() == ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED))) {
+        if ((response != null) && (response.isSuccess() || (response.getErrorCode() == ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_ACTIVATED))) {
             if (ResponseDataUtils.isUserIdVerificationTask(response)) {
                 // Show this toast message for long duration for the user to be able to observe this toast message.
                 String message = getString(R.string.info_account_activation_successful);
-                if(response.getErrorCode() == ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED) {
+                if (response.getErrorCode() == ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_ACTIVATED) {
                     message = getString(response.getErrorCode().getMessageId());
                 }
                 showToastAlertInfoMessage(message);
@@ -213,5 +220,12 @@ public class VerifyAccountActivity extends BaseTaskActivity {
     @Override
     public void onTaskCancelled() {
         this.progressTrackerDialog.dismissProgressDialog();
+    }
+
+    private Bundle getAccountActivationDataParameters() {
+        String userId = this.userIdTextView.getText().toString().trim();
+        Bundle accountActivationDataParameters = new Bundle();
+        accountActivationDataParameters.putString(ActivityParameters.USER_ID_PARAM, userId);
+        return accountActivationDataParameters;
     }
 }

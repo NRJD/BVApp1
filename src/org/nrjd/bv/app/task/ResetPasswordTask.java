@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * Reset password task.
  */
 public class ResetPasswordTask extends BaseTask {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegisterTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResetPasswordTask.class);
     private String userId = null;
 
     public ResetPasswordTask(TaskContext taskContext, String userId) {

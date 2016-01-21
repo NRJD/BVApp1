@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_LOGIN;
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_REGISTER;
+import static org.nrjd.bv.app.service.DataServiceParameters.CMD_RESEND_SUBSCRIPTION_EMAIL;
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_RESET_PASSWORD;
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_UPDATE_PASSWORD;
 import static org.nrjd.bv.app.service.DataServiceParameters.CMD_VERIFY_ACCOUNT;
@@ -56,6 +57,8 @@ import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_PWD_RESET_ENA
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_PWD_RESET_FAILED;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_PWD_UPDATED_SUCCESS;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_PWD_UPDATE_FAILED;
+import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_RESEND_VERIF_FAILED;
+import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_RESEND_VERIF_SUCCESS;
 import static org.nrjd.bv.app.service.DataServiceParameters.STATUS_USER_ADD;
 
 /**
@@ -176,9 +179,38 @@ public class DataServiceProvider {
             } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_NOT_REGISTERED);
             } else if (STATUS_ACCT_ALREADY_VERIFIED.equalsIgnoreCase(statusId)) {
-                return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_VERIFIED);
+                return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__EMAIL_ADDRESS_ALREADY_ACTIVATED);
             } else if (STATUS_ACCT_NOT_VERIFIED.equalsIgnoreCase(statusId)) {
                 return Response.createFailedResponse(ErrorCode.EC_ACTIVATE_ACCOUNT__INVALID_EMAIL_ADDRESS_VERIFICATION_CODE);
+            }
+        }
+        return getServiceErrorResponse(jsonResponseData);
+    }
+
+    public Response resendAccountActivationDetails(String userId) throws DataServiceException {
+        // Validate parameters.
+        if (StringUtils.isNullOrEmpty(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_RESEND_ACC_ACTIVATION__EMPTY_EMAIL_ADDRESS);
+        }
+        if (!PatternUtils.isValidEmailAddress(userId)) {
+            return Response.createFailedResponse(ErrorCode.EC_RESEND_ACC_ACTIVATION__INVALID_EMAIL_ADDRESS);
+        }
+        // Construct json data.
+        JSONObject jsonRequestData = new JSONObject();
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_CMD, CMD_RESEND_SUBSCRIPTION_EMAIL);
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_EMAIL, userId);
+        JSONObject jsonResponseData = processServerRequest(jsonRequestData);
+        // Process response data
+        if (jsonResponseData != null) {
+            String statusId = JsonUtils.getJsonParameter(jsonResponseData, PARAM_STATUS_ID);
+            if (STATUS_RESEND_VERIF_SUCCESS.equalsIgnoreCase(statusId)) {
+                return Response.createSuccessResponse();
+            } else if (STATUS_EMAIL_NOT_REGISTERED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_RESEND_ACC_ACTIVATION__EMAIL_ADDRESS_NOT_REGISTERED);
+            } else if (STATUS_ACCT_ALREADY_VERIFIED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_RESEND_ACC_ACTIVATION__EMAIL_ADDRESS_ALREADY_ACTIVATED);
+            } else if (STATUS_RESEND_VERIF_FAILED.equalsIgnoreCase(statusId)) {
+                return Response.createFailedResponse(ErrorCode.EC_RESEND_ACC_ACTIVATION__COULD_NOT_RESEND_ACC_ACTIVATION_DETAILS);
             }
         }
         return getServiceErrorResponse(jsonResponseData);

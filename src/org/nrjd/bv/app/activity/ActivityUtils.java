@@ -45,6 +45,10 @@ public class ActivityUtils {
         startActivity(sourceActivity, VerifyAccountActivity.class, parameters);
     }
 
+    public static void startResendAccountActivationActivity(Activity sourceActivity, Bundle parameters) {
+        startActivity(sourceActivity, ResendAccountActivationActivity.class, parameters);
+    }
+
     public static void startChangePasswordActivity(Activity sourceActivity, Bundle parameters) {
         startActivity(sourceActivity, ChangePasswordActivity.class, parameters);
     }
