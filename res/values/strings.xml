@@ -382,7 +382,7 @@
     <string name="app_website_url"></string>
     <string name="cancel">Cancel</string>
     <!-- Support email -->
-    <string name="support_email_link"><a href="mailto:iskcon.nrjd.support@gmail.com">iskcon.nrjd.support@gmail.com</a></string>
+    <string name="support_email_link"><a href="mailto:iskcon.nrjd.help@gmail.com">iskcon.nrjd.help@gmail.com</a></string>
     <!-- User Login/Registration screen strings -->
     <string name="login">Login</string>
     <string name="registration">Registration</string>
@@ -426,7 +426,7 @@
     <string name="download_failed">Download failed</string>
 
     <!-- Notes messages -->
-    <string name="notes_support_email">For any technical support, questions or feedback, please send email to: <a href="mailto:iskcon.nrjd.support@gmail.com">iskcon.nrjd.support@gmail.com</a></string>
+    <string name="notes_support_email">For any technical support, questions or feedback, please send email to: <a href="mailto:iskcon.nrjd.help@gmail.com">iskcon.nrjd.help@gmail.com</a></string>
     <string name="notes_activate_account_details">Please enter the login email address and email verification code to activate the account. Please check your email for the email verification code details. Once you successfully activated your account, and you will be re-directed back to login screen and you can login into the application.</string>
     <string name="notes_reset_password">Please enter the login email address to reset the password. Once you select the Reset Password, a temporary password will be sent to your email address specified here and you will be re-directed back to login screen. Please check your email for the temporary password and login again.</string>
     <string name="notes_request_for_resend_account_activation_details">In case either you did not receive the email with account activation details or somehow lost the previously received email, you can request to resend the account activation details.</string>
@@ -475,11 +475,11 @@
     <string name="input_error_empty_confirm_new_password">Please enter confirm new password.</string>
 
     <!-- Here put support email address for contacting technical support problems -->
-    <string name="service_error_occurred">Service error occurred. Please check your settings and try again, or please contact technical support if the problem persists.</string>
-    <string name="service_error__db_error">Database error occurred. Please check your settings and try again, or please contact technical support if the problem persists.</string>
-    <string name="service_error__http_status_code_error">Service error occurred. Please try again after some time, or please contact technical support if the problem persists.</string>
+    <string name="service_error_occurred">Service error occurred. Please check your settings and try again, or please send email to \"iskcon.nrjd.help@gmail.com\" if the problem persists.</string>
+    <string name="service_error__db_error">Database error occurred. Please check your settings and try again, or please send email to \"iskcon.nrjd.help@gmail.com\" if the problem persists.</string>
+    <string name="service_error__http_status_code_error">Service error occurred. Please try again after some time, or please send email to \"iskcon.nrjd.help@gmail.com\" if the problem persists.</string>
     <string name="service_error__no_network_connection">Network connection not available. Please check your network settings.</string>
-    <string name="service_error__could_not_connect_to_service">Could not connect to service. Please try again after some time.</string>
+    <string name="service_error__could_not_connect_to_service">Could not connect to service. Please try again after some time, or please send email to \"iskcon.nrjd.help@gmail.com\" if the problem persists.</string>
     <string name="service_error__network_timeout_during_read">Connection timed out. Please try again.</string>
 
     <string name="service_error_login__empty_email_address">Could not login. Email address not specified.</string>
