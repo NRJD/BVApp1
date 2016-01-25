@@ -84,6 +84,8 @@ import net.nightwhistler.ui.ActionModeBuilder;
 import net.nightwhistler.ui.DialogFactory;
 import nl.siegmann.epublib.domain.Author;
 import nl.siegmann.epublib.domain.Book;
+
+import org.nrjd.bv.app.activity.MenuActionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import roboguice.inject.InjectView;
@@ -2410,6 +2412,19 @@ public class ReadingFragment extends RoboSherlockFragment implements
 
         // Handle item selection
         switch (item.getItemId()) {
+
+            // BVApp-Comment: 22/jan/2016: Add BV app specific menu handlers
+            case R.id.logout_action:
+                MenuActionHandler.handleLogout(getActivity());
+                return true;
+
+            case R.id.change_password_action:
+                MenuActionHandler.handleChangePassword(getActivity());
+                return true;
+
+            case R.id.technical_support_action:
+                MenuActionHandler.handleTechnicalSupport(getActivity());
+                return true;
 
             case R.id.profile_night:
                 config.setColourProfile(ColourProfile.NIGHT);

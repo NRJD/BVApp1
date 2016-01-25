@@ -4,14 +4,14 @@
     android:layout_height="142dip"    
     >
 
-   
+    <!-- BVApp-Comment: 25/jan/2016: Updated with the BV app icon. -->
     <ImageView
         android:id="@+id/bookCover"
         android:layout_width="fill_parent"        
       	android:layout_height="fill_parent"       
         android:gravity="center"
         android:layout_gravity="bottom"
-        android:src="@drawable/page_turner"
+        android:src="@mipmap/bv_app"
         android:layout_marginTop="12dip" >
     </ImageView>
 

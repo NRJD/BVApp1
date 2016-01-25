@@ -16,7 +16,7 @@
     <string name="show_toc">Show TOC</string>
     <string name="rolling_blind">Auto-scroll</string>
     <string name="about">About Bhakti Vriksha application.</string>
-    <string name="about_gpl">This Bhakti Vriksha application is free software under the GPL v3.</string>
+    <string name="about_gpl">This application provides Bhakthi Vriksha modules for reading.</string>
     <string name="error_open_bk">Error opening book: %s</string>
     <string name="dictionary_lookup">Look up in Dictionary</string>
     <string name="wikipedia_lookup">Search on Wikipedia</string>
@@ -385,6 +385,7 @@
     <string name="support_email_link"><a href="mailto:iskcon.nrjd.help@gmail.com">iskcon.nrjd.help@gmail.com</a></string>
     <!-- User Login/Registration screen strings -->
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="registration">Registration</string>
     <string name="back_to_login">Back to Login</string>
     <string name="sign_up">Sign Up</string>
@@ -393,10 +394,12 @@
     <string name="change_password">Change Password</string>
     <string name="activate_account">Activate Account</string>
     <string name="go_to_activate_account">Go to Activate Account</string>
+    <string name="go_to_book_reading">Go to Book Reading</string>
     <string name="activate">Activate</string>
     <string name="resend_account_activation_details">Resend Account Activation Details</string>
     <string name="select">Select</string>
-    <string name="user_id_text_label">Login Email Address:\n\t\t%1$s</string>
+    <string name="technical_support">Technical Support</string>
+    <string name="contact_technical_support">Contact Technical Support</string>
 
     <string name="prompt_email_address">Enter email address</string>
     <string name="prompt_login_email_address">Enter login email address</string>
@@ -414,6 +417,8 @@
     <string name="prompt_old_password">Enter old password</string>
     <string name="prompt_new_password">Enter new password</string>
     <string name="prompt_confirm_new_password">Enter new password again</string>
+    <string name="user_id_text_label">Login Email Address:\n\t\t%1$s</string>
+    <string name="not_available_msg1">**Not available**</string>
 
     <string name="user_guide_name">Bhakti Vriksha User Guide</string>
     <string name="download_books">Download Books</string>
@@ -424,6 +429,9 @@
     <string name="could_not_download_try_again">Could not download the books. No book updates found. Please try again.</string>
     <string name="no_new_book_updates_found">No new book updates found.</string>
     <string name="download_failed">Download failed</string>
+
+    <!-- Notes messages -->
+    <string name="logout_question">Are you sure you want to logout?</string>
 
     <!-- Notes messages -->
     <string name="notes_support_email">For any technical support, questions or feedback, please send email to: <a href="mailto:iskcon.nrjd.help@gmail.com">iskcon.nrjd.help@gmail.com</a></string>
@@ -450,7 +458,8 @@
     <string name="info_mobile_number_verification_successful">Successfully verified the mobile number.</string>
     <string name="info_resend_account_activation_details_successful">Successfully resent the account activation details. Please check your email and activate your account.</string>
     <string name="info_change_password_successful">Password changed successfully. Please login with the new password.</string>
-    <string name="info_change_password_due_to_login_with_temp_password">It is found that you have logged in with the temporary password. Please change the password. Once you successfully changed the password, you will be re-directed back to login screen and you can login with the new password.</string>
+    <string name="info_change_temp_password">It is found that you have logged in with the temporary password. Please change the password. Once you successfully changed the password, you will be re-directed back to login screen and you can login with the new password.</string>
+    <string name="info_change_normal_password">Once you successfully changed the password, you will be re-directed back to login screen and you can login with the new password.</string>
 
     <!-- Error messages -->
     <string name="input_error_empty_email_address">Please enter email address.</string>

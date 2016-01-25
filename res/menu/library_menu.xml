@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <!-- BVApp-Comment: 24/Jan/2015: Bhakti Vriksha application specific menu items. -->
+    <!-- BVApp menu items start -->
+    <item
+        android:id="@+id/logout_action"
+        android:icon="@drawable/logout"
+        android:title="@string/logout"/>
+
+    <item
+        android:id="@+id/change_password_action"
+        android:icon="@drawable/change_pswd"
+        android:title="@string/change_password"/>
+
+    <item
+        android:id="@+id/technical_support_action"
+        android:icon="@drawable/tech_support"
+        android:title="@string/contact_technical_support"/>
+    <!-- BVApp menu items end -->
+
     <item
         android:id="@+id/shelves_view"
         android:icon="@drawable/shelves"

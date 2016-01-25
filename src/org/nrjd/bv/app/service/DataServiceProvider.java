@@ -356,7 +356,6 @@ public class DataServiceProvider {
             CommonUtils.closeQuietly(inputStream);
         }
         String data = buffer.toString();
-        LOGGER.debug("Got Data: {} characters:\n{}", downloadedSize, data);
         return data;
     }
 }

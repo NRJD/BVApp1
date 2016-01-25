@@ -9,18 +9,24 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import org.nrjd.bv.app.R;
-
-import org.nrjd.bv.app.util.AppConstants;
+import org.nrjd.bv.app.session.UserSessionUtils;
 import org.nrjd.bv.app.util.CommonUtils;
+
+import java.util.Date;
+
+import static org.nrjd.bv.app.util.AppConstants.SPLASH_DISPLAY_TIME;
 
 
 public class StartupActivity extends BaseActivity {
+    private Date startTime = null;
+    private boolean isUserLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         (new StartupTask()).execute();
+        StartupActivity.this.startTime = new Date();
     }
 
     /**
@@ -32,22 +38,35 @@ public class StartupActivity extends BaseActivity {
         return false;
     }
 
+    private long remainingSleepTimeInMillis() {
+        if (this.startTime != null) {
+            Date currentTime = new Date();
+            long diff = Math.abs(currentTime.getTime() - this.startTime.getTime());
+            return ((diff < SPLASH_DISPLAY_TIME) ? SPLASH_DISPLAY_TIME - diff : 0);
+        } else {
+            return SPLASH_DISPLAY_TIME;
+        }
+    }
+
     /**
      * Startup task to do the application startup initialization while splash screen is being shown to the user.
      */
     private class StartupTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         public Boolean doInBackground(Void... params) {
-            // TODO: Implement the startup initialization here and sleep only for the remaining time available from SPLASH_DISPLAY_TIME.
-            CommonUtils.sleep(AppConstants.SPLASH_DISPLAY_TIME);
+            StartupActivity.this.isUserLoggedIn = UserSessionUtils.isUserLoggedIn(StartupActivity.this);
+            CommonUtils.sleep(StartupActivity.this.remainingSleepTimeInMillis());
             return Boolean.TRUE;
         }
 
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            // TODO: Check if not already registered then, go to registration activity, otherwise to login activity.
-            ActivityUtils.startLoginActivity(StartupActivity.this);
+            if (StartupActivity.this.isUserLoggedIn) {
+                ActivityUtils.startReadingActivity(StartupActivity.this);
+            } else {
+                ActivityUtils.startLoginActivity(StartupActivity.this);
+            }
         }
     }
 }

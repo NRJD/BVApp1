@@ -45,6 +45,7 @@ import com.actionbarsherlock.widget.SearchView;
 import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragment;
 import com.google.inject.Inject;
 
+import org.nrjd.bv.app.activity.MenuActionHandler;
 import org.nrjd.bv.app.util.AppUtils;
 import org.nrjd.bv.app.net.NetDownloadTask;
 
@@ -454,6 +455,11 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
             switcher.showNext();
             refreshView();
         };
+
+		// BVApp-Comment: 22/jan/2016: Add BV app specific menu handlers
+		onMenuPress( menu, R.id.logout_action ).thenDo(() -> MenuActionHandler.handleLogout(getActivity()));
+		onMenuPress( menu, R.id.change_password_action ).thenDo(() -> MenuActionHandler.handleChangePassword(getActivity()));
+		onMenuPress( menu, R.id.technical_support_action ).thenDo(() -> MenuActionHandler.handleTechnicalSupport(getActivity()));
 
         onMenuPress( menu, R.id.shelves_view ).thenDo( toggleListener );
         onMenuPress( menu, R.id.list_view ).thenDo( toggleListener );

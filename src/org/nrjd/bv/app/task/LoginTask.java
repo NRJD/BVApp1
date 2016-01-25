@@ -6,6 +6,8 @@
 package org.nrjd.bv.app.task;
 
 import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.service.ResponseDataUtils;
+import org.nrjd.bv.app.session.UserLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +36,7 @@ public class LoginTask extends BaseTask {
             LOGGER.debug("Error occurred while performing the user login", e);
             response = constructErrorResponse(e);
         }
+        ResponseDataUtils.setUserLoginDetails(response, new UserLogin(this.userId, this.password));
         return response;
     }
 }

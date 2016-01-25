@@ -6,10 +6,24 @@
 package org.nrjd.bv.app.service;
 
 
+import org.nrjd.bv.app.session.UserLogin;
+
 /**
  * Response data utils.
  */
 public class ResponseDataUtils {
+    public static UserLogin getUserLoginDetails(Response response) {
+        if (response != null) {
+            return (UserLogin) response.getParameter(ResponseParameters.USER_LOGIN_DETAILS);
+        }
+        return null;
+    }
+
+    public static void setUserLoginDetails(Response response, UserLogin userLogin) {
+        if ((response != null) && (userLogin != null)) {
+            response.addParameter(ResponseParameters.USER_LOGIN_DETAILS, userLogin);
+        }
+    }
 
     public static boolean isUserIdVerificationTask(Response response) {
         return getBooleanValue(response, ResponseParameters.IS_USER_ID_VERIFICATION_TASK);

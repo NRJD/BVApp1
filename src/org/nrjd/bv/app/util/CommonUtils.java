@@ -31,7 +31,7 @@ public class CommonUtils {
         }
     }
 
-    public static void sleep(int milliSecs) {
+    public static void sleep(long milliSecs) {
         sleep(null, milliSecs);
     }
 

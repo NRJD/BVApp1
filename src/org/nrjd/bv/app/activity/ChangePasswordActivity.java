@@ -11,18 +11,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.nrjd.bv.app.R;
-
-import org.nrjd.bv.app.task.ChangePasswordTask;
-import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.service.Response;
+import org.nrjd.bv.app.task.ChangePasswordTask;
+import org.nrjd.bv.app.util.BooleanUtils;
+import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.util.PatternUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
 
 public class ChangePasswordActivity extends BaseTaskActivity {
 
-    private TextView userIdTextView = null;
     private String userId = null;
+    private boolean isChangeTempPassword = false;
+    private TextView userIdTextView = null;
     private EditText oldPasswordTextView = null;
     private EditText newPasswordTextView = null;
     private EditText confirmNewPasswordTextView = null;
@@ -73,29 +74,49 @@ public class ChangePasswordActivity extends BaseTaskActivity {
         this.changePasswordButton = (Button) findViewById(R.id.changePasswordButton);
         // Initialize fields data with the passed in intent data.
         initializeFieldData();
-        // Initialize login handler.
+        // Initialize text views and button handlers.
+        TextView changeTempPasswordNotesTextView = (TextView) findViewById(R.id.changeTempPasswordNotesText);
         Button loginButton = (Button) findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(v -> handleLogin());
+        TextView changeNormalPasswordNotesTextView = (TextView) findViewById(R.id.changeNormalPasswordNotesText);
+        Button bookReadingButton = (Button) findViewById(R.id.bookReadingButton);
+        if (this.isChangeTempPassword) {
+            ViewUtils.removeView(changeNormalPasswordNotesTextView);
+            ViewUtils.removeView(bookReadingButton);
+            loginButton.setOnClickListener(v -> handleLogin());
+        } else {
+            ViewUtils.removeView(changeTempPasswordNotesTextView);
+            ViewUtils.removeView(loginButton);
+            bookReadingButton.setOnClickListener(v -> handleBookReading());
+        }
         // Initialize registration handler.
         this.changePasswordButton.setOnClickListener(v -> handleChangePassword());
     }
 
     private void initializeFieldData() {
+        initializeInputParameters();
         // Reset email address field.
         this.userIdTextView.setText("");
         // Set the email address field data from intent.
+        String userIdDisplayValue = (StringUtils.isNotNullOrEmpty(this.userId) ? this.userId : getString(R.string.not_available_msg1));
+        String userIdTextLabel = String.format(getString(R.string.user_id_text_label), userIdDisplayValue);
+        this.userIdTextView.setText(userIdTextLabel);
+    }
+
+    private void initializeInputParameters() {
+        // Get the email address field data and flags from intent.
         Bundle loginDataParameters = getIntent().getExtras();
         if (loginDataParameters != null) {
             this.userId = loginDataParameters.getString(ActivityParameters.USER_ID_PARAM);
-            if (StringUtils.isNotNullOrEmpty(this.userId)) {
-                String userIdTextLabel = String.format(getString(R.string.user_id_text_label), this.userId);
-                this.userIdTextView.setText(userIdTextLabel);
-            }
+            this.isChangeTempPassword = BooleanUtils.isTrue(loginDataParameters.getString(ActivityParameters.IS_CHANGE_TEMP_PASSWORD));
         }
     }
 
     private void handleLogin() {
         ActivityUtils.startLoginActivity(this);
+    }
+
+    private void handleBookReading() {
+        ActivityUtils.startReadingActivity(this);
     }
 
     private void handleChangePassword() {
@@ -144,8 +165,10 @@ public class ChangePasswordActivity extends BaseTaskActivity {
     @Override
     public void onTaskComplete(Response response) {
         if ((response != null) && response.isSuccess()) {
+            // In both the temporary password change case and normal password change case,
+            // the user will be directed to login screen.
             showToastAlertInfoMessage(getString(R.string.info_change_password_successful));
-            ActivityUtils.startLoginActivity(this);
+            ActivityUtils.logoutAndGoToLoginActivity(this);
         } else {
             ErrorCode errorCode = Response.getErrorCodeOrGenericError(response);
             showToastErrorMessage(getString(errorCode.getMessageId()));

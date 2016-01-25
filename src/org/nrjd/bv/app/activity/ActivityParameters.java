@@ -12,4 +12,5 @@ package org.nrjd.bv.app.activity;
 public class ActivityParameters {
     static String USER_ID_PARAM = "UserId";
     static String MOBILE_NUMBER_PARAM = "MobileNumber";
+    static String IS_CHANGE_TEMP_PASSWORD = "IsChangeTempPswd";
 }

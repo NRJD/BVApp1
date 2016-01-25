@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.nrjd.bv.app.R;
+import org.nrjd.bv.app.session.UserLogin;
+import org.nrjd.bv.app.session.UserSessionUtils;
+import org.nrjd.bv.app.util.BooleanUtils;
 import org.nrjd.bv.app.util.ErrorCode;
 import org.nrjd.bv.app.service.Response;
 import org.nrjd.bv.app.service.ResponseDataUtils;
@@ -134,11 +137,13 @@ public class LoginActivity extends BaseTaskActivity {
     public void onTaskComplete(Response response) {
         if ((response != null) && response.isSuccess()) {
             if (ResponseDataUtils.isTempPassword(response)) {
-                showToastAlertInfoMessage(getString(R.string.info_change_password_due_to_login_with_temp_password));
+                showToastAlertInfoMessage(getString(R.string.info_change_temp_password));
                 Bundle loginDataParameters = getLoginDataParameters();
                 ActivityUtils.startChangePasswordActivity(this, loginDataParameters);
             } else {
                 showToastQuickInfoMessage(getString(R.string.info_login_successful));
+                UserLogin userLogin = ResponseDataUtils.getUserLoginDetails(response);
+                UserSessionUtils.createLoginSession(this, userLogin);
                 ActivityUtils.startReadingActivity(this);
             }
         } else {
@@ -157,6 +162,7 @@ public class LoginActivity extends BaseTaskActivity {
         String userId = this.userIdTextView.getText().toString().trim();
         Bundle loginDataParameters = new Bundle();
         loginDataParameters.putString(ActivityParameters.USER_ID_PARAM, userId);
+        loginDataParameters.putString(ActivityParameters.IS_CHANGE_TEMP_PASSWORD, BooleanUtils.getTrueValue());
         return loginDataParameters;
     }
 }
