@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2015 ISKCON New Rajapur Jagannatha Dham.
  *
- * This file is part of Bhakti Vriksha application.
+ * This file is part of Bhakthi Vriksha application.
  */
 package org.nrjd.bv.app.tools.crypto;
 
@@ -12,9 +12,20 @@ import org.nrjd.bv.app.util.StringUtils;
  * Internal class to hold algo schema.
  */
 class AlgoSchema {
+    // Algo schema mask bytes.
     private static byte ALGO_SCHEMA_MASK_BYTE_1 = 1;
     private static byte ALGO_SCHEMA_MASK_BYTE_2 = 2;
     private static byte[] ALGO_SCHEMA_MASK_BYTES = new byte[] { ALGO_SCHEMA_MASK_BYTE_1, ALGO_SCHEMA_MASK_BYTE_2 };
+    // Algo schema mask byte separator byte sequence.
+    private static byte ALGO_SCHEMA_SEPARATOR_BYTE_1 = 1;
+    private static byte ALGO_SCHEMA_SEPARATOR_BYTE_2 = 2;
+    private static byte ALGO_SCHEMA_SEPARATOR_BYTE_3 = 3;
+    private static byte ALGO_SCHEMA_SEPARATOR_BYTE_4 = 4;
+    private static byte ALGO_SCHEMA_SEPARATOR_BYTE_5 = 5;
+    private static int ALGO_SCHEMA_SEPARATOR_START_MARKER = 1;
+    private static int ALGO_SCHEMA_SEPARATOR_END_MARKER = 5;
+    private static int ALGO_SCHEMA_SEPARATOR_SAFE_END_MARKER = ALGO_SCHEMA_SEPARATOR_END_MARKER + 3;
+    // Algo schema properties.
     private static final String PROP_CRYPTO_ALGO_SCHEMA_ID = "schema";
     private static final String PROP_CRYPTO_RELEASE_VER = "ver";
     private static final String PROPERTY_VALUE_SEPERATOR = "=";
@@ -49,9 +60,11 @@ class AlgoSchema {
 
     public static byte[] generateAlgoSchemaBytes(AlgoSchema algoSchema, int algoSchemaBytesLength) {
         byte[] algoSchemaBytes = new byte[algoSchemaBytesLength];
-        // Fill algo schema bytes with mark bytes
-        fillAlgoSchemaMaskBytes(algoSchemaBytes);
+        // Fill algo schema bytes with random padding data.
+        byte[] randomPaddingData = KeyGenUtils.generatePadding(algoSchemaBytesLength);
+        KeyGenUtils.copyBytes(randomPaddingData, algoSchemaBytes, 0);
         // Add algo schema data.
+        int algoSchemaDataSeparatorIndex = 0;
         if (algoSchema != null) {
             StringBuilder buffer = new StringBuilder(algoSchemaBytesLength);
             buffer.append(PROP_CRYPTO_ALGO_SCHEMA_ID).append(PROPERTY_VALUE_SEPERATOR).append(algoSchema.getSchemaId());
@@ -62,7 +75,17 @@ class AlgoSchema {
             } catch (Exception e) {
                 propertyBytes = null;
             }
-            KeyGenUtils.copyBytes(propertyBytes, algoSchemaBytes, 0);
+            // Copy algo schema properties data.
+            if (propertyBytes != null) {
+                KeyGenUtils.copyBytes(propertyBytes, algoSchemaBytes, 0);
+                algoSchemaDataSeparatorIndex = propertyBytes.length;
+            }
+        }
+        // Add algo schema data separator marker.
+        for (int byteValue = ALGO_SCHEMA_SEPARATOR_START_MARKER;
+             ((byteValue <= ALGO_SCHEMA_SEPARATOR_SAFE_END_MARKER) && (algoSchemaDataSeparatorIndex < algoSchemaBytes.length)); byteValue++) {
+            algoSchemaBytes[algoSchemaDataSeparatorIndex] = (byte)byteValue;
+            algoSchemaDataSeparatorIndex++;
         }
         return algoSchemaBytes;
     }
@@ -70,19 +93,36 @@ class AlgoSchema {
     public static AlgoSchema parseAlgoSchemaFromBytes(byte[] algoSchemaBytes) {
         AlgoSchema algoSchema = null;
         if ((algoSchemaBytes != null) && (algoSchemaBytes.length > 0)) {
-            // Trim algo schema mark bytes
-            int lastIndex = algoSchemaBytes.length - 1;
-            while (isAlgoSchemaMarkByte(algoSchemaBytes[lastIndex])) {
-                lastIndex = lastIndex - 1;
+            // Trim algo schema data at separator marker.
+            int algoSchemaDataSeparatorIndex = 0;
+            for (int index = 0; index < algoSchemaBytes.length; index++) {
+                if (isAlgoSchemaDataSeparator(algoSchemaBytes, index)) {
+                    algoSchemaDataSeparatorIndex = index;
+                    break; // Break from here once algoSchemaDataSeparatorIndex obtained.
+                }
             }
             try {
-                String algoSchemaString = new String(algoSchemaBytes, 0, lastIndex + 1, KeyGenUtils.getCharSet());
+                String algoSchemaString = new String(algoSchemaBytes, 0, algoSchemaDataSeparatorIndex, KeyGenUtils.getCharSet());
                 algoSchema = parseAlgoSchema(algoSchemaString);
             } catch (Exception e) {
                 algoSchema = null;
             }
         }
         return algoSchema;
+    }
+
+    private static boolean isAlgoSchemaDataSeparator(byte[] algoSchemaBytes, int index) {
+        int startSepartorIndex = index;
+        int endSepartorIndex = index + 4;
+        if ((algoSchemaBytes != null) && (algoSchemaBytes[startSepartorIndex] == ALGO_SCHEMA_SEPARATOR_BYTE_1) &&
+            (endSepartorIndex < algoSchemaBytes.length)) {
+            return ((algoSchemaBytes[startSepartorIndex] == ALGO_SCHEMA_SEPARATOR_BYTE_1) &&
+                    (algoSchemaBytes[startSepartorIndex + 1] == ALGO_SCHEMA_SEPARATOR_BYTE_2) &&
+                    (algoSchemaBytes[startSepartorIndex + 2] == ALGO_SCHEMA_SEPARATOR_BYTE_3) &&
+                    (algoSchemaBytes[startSepartorIndex + 3] == ALGO_SCHEMA_SEPARATOR_BYTE_4) &&
+                    (algoSchemaBytes[startSepartorIndex + 4] == ALGO_SCHEMA_SEPARATOR_BYTE_5));
+        }
+        return false;
     }
 
     private static void fillAlgoSchemaMaskBytes(byte[] algoSchemaBytes) {
