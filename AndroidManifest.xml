@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.nrjd.bv.app"
-      android:versionName="1.0"
+      android:versionName="0.9"
       android:versionCode="1"
       android:installLocation="auto">
 
@@ -21,7 +21,7 @@
     <application
         android:name="org.nrjd.bv.app.BhaktiVriksha"
         android:description="@string/app_desc"
-        android:icon="@mipmap/bv_app_with_bg"
+        android:icon="@drawable/bv_cm1"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         

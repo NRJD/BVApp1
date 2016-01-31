@@ -11,7 +11,7 @@
       	android:layout_height="fill_parent"       
         android:gravity="center"
         android:layout_gravity="bottom"
-        android:src="@mipmap/bv_app"
+        android:src="@drawable/bv_cm1"
         android:layout_marginTop="12dip" >
     </ImageView>
 

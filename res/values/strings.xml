@@ -381,6 +381,14 @@
     <!-- TODO: Define app website URL here once it is available. -->
     <string name="app_website_url"></string>
     <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="logout_question">Are you sure you want to logout?</string>
+    <string name="default_downloaded_on_date" translatable="false">Downloaded on: </string>
+    <string name="downloaded_on_date">Downloaded on: %s</string>
+    <string name="book_content_not_available">This book content is currently not available!\nIt will be uploaded soon...</string>
+    <string name="book_content_available">Currently Bhakti Vriksha Shraddhavan module is available for reading.</string>
+    <string name="delete_book">Delete Book</string>
+    <string name="delete_book_question">Are you sure you want to delete the book?</string>
     <!-- Support email -->
     <string name="support_email_link"><a href="mailto:iskcon.nrjd.help@gmail.com">iskcon.nrjd.help@gmail.com</a></string>
     <!-- User Login/Registration screen strings -->
@@ -429,9 +437,6 @@
     <string name="could_not_download_try_again">Could not download the books. No book updates found. Please try again.</string>
     <string name="no_new_book_updates_found">No new book updates found.</string>
     <string name="download_failed">Download failed</string>
-
-    <!-- Notes messages -->
-    <string name="logout_question">Are you sure you want to logout?</string>
 
     <!-- Notes messages -->
     <string name="notes_support_email">For any technical support, questions or feedback, please send email to: <a href="mailto:iskcon.nrjd.help@gmail.com">iskcon.nrjd.help@gmail.com</a></string>

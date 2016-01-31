@@ -16,6 +16,7 @@
         <include layout="@layout/large_book_cover"
                  android:id="@+id/coverImage"/>
 
+        <!-- BVApp-Comment: 31/Jan/2016: Changed text size for title and author fields. -->
         <LinearLayout android:layout_height="wrap_content"
                       android:layout_width="wrap_content"
                       android:orientation="vertical"
@@ -26,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/large_text"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     />
 
             <TextView
@@ -34,12 +35,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/no_author_byline"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
 
     </RelativeLayout>
 
+    <!-- BVApp-Comment: 31/Jan/2016: Commented showing the book file path to the user. -->
+    <!--
     <View style="@style/Divider"/>
 
     <TextView
@@ -47,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/default_filename"/>
-
+    -->
 
         <View style="@style/Divider"/>
 
@@ -55,25 +58,56 @@
             android:id="@+id/lastRead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/default_last_read"/>    
-       
-        
+            android:text="@string/default_last_read"/>
+
+
+        <!-- BVApp-Comment: 31/Jan/2016: Changed the label from "default_added_to_library" to "default_downloaded_on_date". -->
         <TextView
             android:id="@+id/addedToLibrary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/default_added_to_library"/>
+            android:text="@string/default_downloaded_on_date"/>
 
+
+    <!-- BVApp-Comment: 31/Jan/2016: Changes to show/hide book content not available message. -->
+    <LinearLayout
+        android:id="@+id/bookContentNotAvailableViewLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
         <View style="@style/Divider"/>
 
-
-
-    <TextView
-            android:id="@+id/bookDescription"
+        <TextView
+            android:id="@+id/bookContentNotAvailableText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:textColor="@color/brown"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/bookContentAvailableText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <!-- BVApp-Comment: 31/Jan/2016: Changes to show/hide book description. -->
+    <LinearLayout
+        android:id="@+id/bookDescriptionViewLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <View style="@style/Divider"/>
+
+        <TextView
+                android:id="@+id/bookDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""/>
+    </LinearLayout>
 
 </LinearLayout>
 </ScrollView>

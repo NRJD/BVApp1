@@ -87,7 +87,7 @@ public class DialogFactory {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle(R.string.about);
         // BVApp-Comment: 25/jan/2016: Updated with the BV app icon.
-		builder.setIcon(R.mipmap.bv_app);
+		builder.setIcon(R.drawable.bv_cm1);
 
 		String version = "";
 		try {

@@ -46,6 +46,8 @@ import com.github.rtyley.android.sherlock.roboguice.fragment.RoboSherlockFragmen
 import com.google.inject.Inject;
 
 import org.nrjd.bv.app.activity.MenuActionHandler;
+import org.nrjd.bv.app.activity.ViewUtils;
+import org.nrjd.bv.app.reg.BookDataUtils;
 import org.nrjd.bv.app.util.AppUtils;
 import org.nrjd.bv.app.net.NetDownloadTask;
 
@@ -65,6 +67,8 @@ import net.nightwhistler.pageturner.scheduling.QueueableAsyncTask;
 import net.nightwhistler.pageturner.scheduling.TaskQueue;
 import net.nightwhistler.pageturner.view.BookCaseView;
 import net.nightwhistler.pageturner.view.FastBitmapDrawable;
+
+import org.nrjd.bv.app.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import roboguice.inject.InjectView;
@@ -340,15 +344,22 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 		TextView authorView = (TextView) layout.findViewById(R.id.authorField);
 		TextView lastRead = (TextView) layout.findViewById(R.id.lastRead);
 		TextView added = (TextView) layout.findViewById(R.id.addedToLibrary);
+		// BVApp-Comment: 31/Jan/2016: Added processing for book content not available message.
+		ViewGroup bookContentNotAvailableLayout = (ViewGroup) layout.findViewById(R.id.bookContentNotAvailableViewLayout);
+		TextView bookContentNotAvailableTextView = (TextView) layout.findViewById(R.id.bookContentNotAvailableText);
+		TextView bookContentAvailableTextView = (TextView) layout.findViewById(R.id.bookContentAvailableText);
+		ViewGroup bookDescriptionViewLayout = (ViewGroup) layout.findViewById(R.id.bookDescriptionViewLayout);
 		TextView descriptionView = (TextView) layout.findViewById(R.id.bookDescription);
-		TextView fileName = (TextView) layout.findViewById(R.id.fileName);
+		// BVApp-Comment: 31/Jan/2016: Commented out showing the file name.
+		//// TextView fileName = (TextView) layout.findViewById(R.id.fileName);
 		
 		titleView.setText(libraryBook.getTitle());
 		String authorText = String.format( getString(R.string.book_by),
 				 libraryBook.getAuthor().getFirstName() + " " 
 				 + libraryBook.getAuthor().getLastName() );
 		authorView.setText( authorText );
-		fileName.setText( libraryBook.getFileName() );
+		// BVApp-Comment: 31/Jan/2016: Commented out showing the file name.
+		//// fileName.setText( libraryBook.getFileName() );
 
 		if (libraryBook.getLastRead() != null && ! libraryBook.getLastRead().equals(new Date(0))) {
 			String lastReadText = String.format(getString(R.string.last_read),
@@ -359,27 +370,66 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 			lastRead.setText( lastReadText );
 		}
 
-		String addedText = String.format( getString(R.string.added_to_lib),
+		// BVApp-Comment: 31/Jan/2016: Changed the label from "added_to_lib" to "downloaded_on_date".
+		String addedText = String.format( getString(R.string.downloaded_on_date),
 				DATE_FORMAT.format(libraryBook.getAddedToLibrary()));
 		added.setText( addedText );
 
         HtmlSpanner spanner = new HtmlSpanner();
         spanner.unregisterHandler("img" ); //We don't want to render images
 
-		descriptionView.setText(spanner.fromHtml( libraryBook.getDescription()));
+		// BVApp-Comment: 31/Jan/2016: Determining the book content availability.
+		boolean isBookContentAvailable = BookDataUtils.isContentAvailable(libraryBook);
+		if(isBookContentAvailable) {
+			ViewUtils.removeView(bookContentNotAvailableLayout);
+		} else {
+			String bookContentNotAvailableText = getString(R.string.book_content_not_available);
+			String bookContentAvailableText = getString(R.string.book_content_available);
+			bookContentNotAvailableTextView.setText(bookContentNotAvailableText);
+			bookContentAvailableTextView.setText(bookContentAvailableText);
+		}
+
+		// BVApp-Comment: 31/Jan/2016: Dynamic adjustment for the showing book description.
+		String bookDescription = libraryBook.getDescription();
+		if(StringUtils.isNotNullOrEmpty(bookDescription)) {
+			descriptionView.setText(spanner.fromHtml(bookDescription));
+		} else {
+			ViewUtils.removeView(bookDescriptionViewLayout);
+		}
 
         builder.setNeutralButton(R.string.delete, (dialog, which) -> {
-            libraryService.deleteBook( libraryBook.getFileName() );
-            refreshView();
-            dialog.dismiss();
-        });
-		
-		builder.setNegativeButton(android.R.string.cancel, null);
-		builder.setPositiveButton(R.string.read, (dialog, which) -> openBook(libraryBook) );
+			// BVApp-Comment: 31/Jan/2016: Added confirmation for book deletion.
+			//// libraryService.deleteBook(libraryBook.getFileName());
+			//// refreshView();
+			//// dialog.dismiss();
+			handleDelete(libraryBook);
+		});
+
+		if(isBookContentAvailable) {
+			builder.setNegativeButton(android.R.string.cancel, null);
+			builder.setPositiveButton(R.string.read, (dialog, which) -> openBook(libraryBook));
+		} else {
+			builder.setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+		}
 
 		builder.show();
 	}
-	
+
+	public void handleDelete(final LibraryBook libraryBook) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle(R.string.delete_book);
+		builder.setMessage(getString(R.string.delete_book_question));
+		builder.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+			libraryService.deleteBook(libraryBook.getFileName());
+			refreshView();
+			dialog.dismiss();
+		});
+		builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
+			dialog.dismiss();
+		});
+		builder.show();
+	}
+
 	private void openBook(LibraryBook libraryBook) {
 		Intent intent = new Intent(getActivity(), ReadingActivity.class);
         config.setLastActivity( ReadingActivity.class );
@@ -845,9 +895,10 @@ public class LibraryFragment extends RoboSherlockFragment implements ImportCallb
 				progressView.setText( "" + book.getProgress() + "%");
 			} else {
 				progressView.setText("");
-			}			
-			
-			String dateText = String.format(getString(R.string.added_to_lib),
+			}
+
+			// BVApp-Comment: 31/Jan/2016: Changed the label from "added_to_lib" to "downloaded_on_date".
+			String dateText = String.format(getString(R.string.downloaded_on_date),
 					DATE_FORMAT.format(book.getAddedToLibrary()));
 			dateView.setText( dateText );
 			
