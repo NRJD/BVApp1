@@ -5,6 +5,7 @@
  */
 package org.nrjd.bv.app.task;
 
+import org.nrjd.bv.app.metadata.CountryCallingCodeUtils;
 import org.nrjd.bv.app.service.DataServiceProvider;
 import org.nrjd.bv.app.service.Response;
 import org.slf4j.Logger;
@@ -19,10 +20,10 @@ public class RegisterTask extends BaseTask {
     private String userId = null;
     private String password = null;
     private String name = null;
-    private String mobileCountryCode = null;
+    private int mobileCountryCode = CountryCallingCodeUtils.getNoneCallingCode();
     private String mobileNumber = null;
 
-    public RegisterTask(TaskContext taskContext, String userId, String password, String name, String mobileCountryCode, String mobileNumber) {
+    public RegisterTask(TaskContext taskContext, String userId, String password, String name, int mobileCountryCode, String mobileNumber) {
         super(taskContext);
         this.userId = userId;
         this.password = password;

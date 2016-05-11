@@ -4,7 +4,7 @@
 
             android:id="@+id/itemIcon"
             android:src="@drawable/unknown_cover"
-            android:layout_width="125dip"
+            android:layout_width="100dip"
             android:layout_height="125dip"
             android:scaleType="centerInside"
             android:paddingRight="2dp"
@@ -12,6 +12,6 @@
             android:paddingTop="2dp"
             >
 
-    <!-- BVApp-Comment: 31/Jan/2016: Changed the width and height from 175 x 175 to 125 x 125. -->
+    <!-- BVApp-Comment: 31/Jan/2016: Changed the width and height from 175 x 175 to 100 x 125. -->
 
 </ImageView>

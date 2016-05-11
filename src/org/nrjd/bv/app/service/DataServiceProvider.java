@@ -15,6 +15,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 import org.nrjd.bv.app.ctx.AppContext;
+import org.nrjd.bv.app.metadata.CountryCallingCodeUtils;
 import org.nrjd.bv.app.net.NetworkServiceUtils;
 import org.nrjd.bv.app.util.AppConstants;
 import org.nrjd.bv.app.util.CommonUtils;
@@ -111,7 +112,7 @@ public class DataServiceProvider {
         return getServiceErrorResponse(jsonResponseData);
     }
 
-    public Response performRegistration(String userId, String password, String name, String mobileCountryCode, String mobileNumber) throws DataServiceException {
+    public Response performRegistration(String userId, String password, String name, int mobileCountryCode, String mobileNumber) throws DataServiceException {
         // Validate parameters.
         if (StringUtils.isNullOrEmpty(userId)) {
             return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMPTY_EMAIL_ADDRESS);
@@ -125,7 +126,7 @@ public class DataServiceProvider {
         if (StringUtils.isNullOrEmpty(name)) {
             return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMPTY_NAME);
         }
-        if (StringUtils.isNullOrEmpty(mobileCountryCode)) {
+        if (!CountryCallingCodeUtils.isValidCountryCallingCode(mobileCountryCode)) {
             return Response.createFailedResponse(ErrorCode.EC_REGISTER__EMPTY_MOBILE_COUNTRY_CODE);
         }
         if (StringUtils.isNullOrEmpty(mobileNumber)) {
@@ -137,7 +138,7 @@ public class DataServiceProvider {
         JsonUtils.addJsonParameter(jsonRequestData, PARAM_EMAIL, userId);
         JsonUtils.addJsonParameter(jsonRequestData, PARAM_PASSWORD, password);
         JsonUtils.addJsonParameter(jsonRequestData, PARAM_NAME, name);
-        JsonUtils.addJsonParameter(jsonRequestData, PARAM_COUNTRY_CODE, mobileCountryCode);
+        JsonUtils.addJsonParameter(jsonRequestData, PARAM_COUNTRY_CODE, String.valueOf(mobileCountryCode));
         JsonUtils.addJsonParameter(jsonRequestData, PARAM_PHONE_NUMBER, mobileNumber);
         JSONObject jsonResponseData = processServerRequest(jsonRequestData);
         // Process response data

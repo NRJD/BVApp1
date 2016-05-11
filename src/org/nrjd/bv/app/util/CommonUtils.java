@@ -45,4 +45,20 @@ public class CommonUtils {
             e = null; // Ignore the exception.
         }
     }
+
+    public static int compareStringValue(String value1, String value2) {
+        if ((value1 == null) && (value2 == null)) {
+            return 0;
+        } else if (value1 == null) {
+            return -1;
+        } else if (value2 == null) {
+            return 1;
+        } else {
+            return value1.compareTo(value2);
+        }
+    }
+
+    public static int compareIntValue(int value1, int value2) {
+        return (value1 - value2);
+    }
 }

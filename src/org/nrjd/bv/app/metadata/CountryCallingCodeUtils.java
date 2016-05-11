@@ -15,6 +15,12 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class CountryCallingCodeUtils {
+    private static final String BLANK = "";
+    private static final String SPACE = " ";
+    private static final String PLUS = "+";
+    private static final String CALLING_CODE_SPACING_FOR_1_DIGIT = SPACE + SPACE;
+    private static final String CALLING_CODE_SPACING_FOR_2_DIGITS = SPACE;
+
     // TODO: Localize based on the user locale. Reload if user changes the locale.
     private static final List<CountryCallingCode> callingCodes = initializeCallingCodes();
 
@@ -22,12 +28,31 @@ public class CountryCallingCodeUtils {
         return callingCodes;
     }
 
+    public static final int getNoneCallingCode() {
+        return 0;
+    }
+
+    public static boolean isValidCountryCallingCode(int callingCode) {
+        return ((callingCode >= 1) && (callingCode <= 999));
+    }
+
+    public static String getFormattedCallingCode(int callingCode, boolean addSpaces) {
+        String spacing = BLANK;
+        if (callingCode <= 9) {
+            spacing = CALLING_CODE_SPACING_FOR_1_DIGIT;
+        } else if (callingCode <= 99) {
+            spacing = CALLING_CODE_SPACING_FOR_2_DIGITS;
+        }
+        String formattedString = (addSpaces? spacing : BLANK) + PLUS + callingCode;
+        return formattedString;
+    }
+
     public static int getSelectedIndex(String isoCountryCode) {
         int selectedPosition = -1;
-        if(StringUtils.isNotNullOrEmpty(isoCountryCode)) {
+        if (StringUtils.isNotNullOrEmpty(isoCountryCode)) {
             isoCountryCode = isoCountryCode.trim();
-            for(int index=0; index < callingCodes.size(); index++) {
-                if(isoCountryCode.equalsIgnoreCase(callingCodes.get(index).getISOCode())) {
+            for (int index = 0; index < callingCodes.size(); index++) {
+                if (isoCountryCode.equalsIgnoreCase(callingCodes.get(index).getISOCode())) {
                     return index;
                 }
             }
@@ -44,17 +69,8 @@ public class CountryCallingCodeUtils {
 
     private static Set<CountryCallingCode> populateOrderedCallingCodes() {
         Set<CountryCallingCode> orderedCallingCodes = new TreeSet<CountryCallingCode>();
-        orderedCallingCodes.add(new CountryCallingCode("+91", "IN", "India"));
-        orderedCallingCodes.add(new CountryCallingCode("+1", "US", "United States of America"));
-        orderedCallingCodes.add(new CountryCallingCode("+44", "UK", "United Kingdom"));
-        orderedCallingCodes.add(new CountryCallingCode("+86", "CN", "China"));
-        orderedCallingCodes.add(new CountryCallingCode("+801", "81", "Temp country calling code with the medium text"));
-        orderedCallingCodes.add(new CountryCallingCode("+802", "82", "Temp country calling code with a longer text for the country name value"));
-        for (int index = 0; index < 50; index++) {
-            char ch1 = ((index < 25) ? 'Y' : 'Z');
-            char ch2 = (char) (65 + (index % 25));
-            String tempCountryCode = "" + ch1 + ch2;
-            orderedCallingCodes.add(new CountryCallingCode("+9" + index, tempCountryCode, "Temp country " + tempCountryCode));
+        for (CountryCallingCode countryCallingCode : CountryCallingCodeList.CALLING_CODES) {
+            orderedCallingCodes.add(countryCallingCode);
         }
         return orderedCallingCodes;
     }

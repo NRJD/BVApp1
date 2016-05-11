@@ -6,24 +6,28 @@
 package org.nrjd.bv.app.metadata;
 
 
+import org.nrjd.bv.app.util.CommonUtils;
 import org.nrjd.bv.app.util.StringUtils;
 
 import java.util.Comparator;
 
 public class CountryCallingCode implements Comparator<CountryCallingCode>, Comparable<CountryCallingCode> {
-    private String callingCode = null;
+    private int callingCode = CountryCallingCodeUtils.getNoneCallingCode();
     private String isoCode = null;
     private String name = null;
     private String displayString = null;
     private String isoCodeDisplayString = null;
 
-    public CountryCallingCode(String callingCode, String isoCode, String name) {
-        this.callingCode = StringUtils.trim(callingCode);
-        this.isoCode = StringUtils.trim(isoCode);
+    public CountryCallingCode(int callingCode, String isoCode, String name) {
+        this.callingCode = (CountryCallingCodeUtils.isValidCountryCallingCode(callingCode) ? callingCode : CountryCallingCodeUtils.getNoneCallingCode());
+        this.isoCode = isoCode;
         this.name = StringUtils.trim(name);
-        // TODO: Localize based on the user locale.
-        this.displayString = this.name + " " + this.callingCode;
-        this.isoCodeDisplayString = this.isoCode + " " + this.callingCode;
+        // BVApp-Comment: 21/Feb2/2016: TODO: For now showing isoCode for the display string.
+        // But this needs tobe enhanced to use the calling code name.
+        // Also localize the calling code names.
+        //// this.displayString = this.name + " " + this.callingCode;
+        this.displayString = this.isoCode + " " + CountryCallingCodeUtils.getFormattedCallingCode(this.callingCode, true);
+        this.isoCodeDisplayString = this.isoCode + " " + CountryCallingCodeUtils.getFormattedCallingCode(this.callingCode, false);
     }
 
     /**
@@ -31,7 +35,7 @@ public class CountryCallingCode implements Comparator<CountryCallingCode>, Compa
      *
      * @return the country calling code.
      */
-    public String getCallingCode() {
+    public int getCallingCode() {
         return this.callingCode;
     }
 
@@ -62,11 +66,13 @@ public class CountryCallingCode implements Comparator<CountryCallingCode>, Compa
     }
 
     @Override
+    public String toString() {
+        return this.getDisplayString();
+    }
+
+    @Override
     public int hashCode() {
-        int result = (this.getCallingCode() != null) ? this.getCallingCode().hashCode() : 0;
-        result = 31 * result + ((this.getISOCode() != null) ? this.getISOCode().hashCode() : 0);
-        result = 31 * result + ((this.getName() != null) ? this.getName().hashCode() : 0);
-        return result;
+        return this.getCallingCode();
     }
 
     @Override
@@ -78,9 +84,13 @@ public class CountryCallingCode implements Comparator<CountryCallingCode>, Compa
             return false;
         }
         CountryCallingCode that = (CountryCallingCode) object;
-        if (!valueEquals(this.getCallingCode(), that.getCallingCode())) {
+        // Note: We shouldn't compare calling code, because the calling code
+        // might be same for two or more countries.
+        /*
+        if (this.getCallingCode() != that.getCallingCode()) {
             return false;
         }
+        */
         if (!valueEquals(this.getISOCode(), that.getISOCode())) {
             return false;
         }
@@ -104,27 +114,38 @@ public class CountryCallingCode implements Comparator<CountryCallingCode>, Compa
 
     @Override
     public int compare(CountryCallingCode object1, CountryCallingCode object2) {
+        // BVApp-Comment: 21/Feb2/2016: TODO: Currently sorting by calling code and ISO code value.
+        // Once we fix to show the calling code names in the drop down options,
+        // then we have to change this to sort by calling code name values.
+        //// return compareNameValue(object1, object2);
+        int value = compareCallingCodeValue(object1, object2);
+        if(value == 0) {
+            value = compareIsoCodeValue(object1, object2);
+        }
+        return value;
+    }
+
+    private static int compareCallingCodeValue(CountryCallingCode object1, CountryCallingCode object2) {
+        int value1 = ((object1 != null) ? object1.getCallingCode() : CountryCallingCodeUtils.getNoneCallingCode());
+        int value2 = ((object2 != null) ? object2.getCallingCode() : CountryCallingCodeUtils.getNoneCallingCode());
+        return CommonUtils.compareIntValue(value1, value2);
+    }
+
+    private static int compareIsoCodeValue(CountryCallingCode object1, CountryCallingCode object2) {
+        String value1 = ((object1 != null) ? object1.getISOCode() : null);
+        String value2 = ((object2 != null) ? object2.getISOCode() : null);
+        return CommonUtils.compareStringValue(value1, value2);
+    }
+
+    private static int compareNameValue(CountryCallingCode object1, CountryCallingCode object2) {
         String value1 = ((object1 != null) ? object1.getName() : null);
         String value2 = ((object2 != null) ? object2.getName() : null);
-        if ((value1 == null) && (value2 == null)) {
-            return 0;
-        } else if (value1 == null) {
-            return -1;
-        } else if (value2 == null) {
-            return 1;
-        } else {
-            return value1.compareTo(value2);
-        }
+        return CommonUtils.compareStringValue(value1, value2);
     }
 
     @Override
     public int compareTo(CountryCallingCode another) {
         return compare(this, another);
-    }
-
-    @Override
-    public String toString() {
-        return this.getDisplayString();
     }
 
     public String toDebugString() {

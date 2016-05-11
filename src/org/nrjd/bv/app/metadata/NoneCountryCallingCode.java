@@ -7,11 +7,11 @@ package org.nrjd.bv.app.metadata;
 
 
 public class NoneCountryCallingCode extends CountryCallingCode {
-    private static String NONE_CALLING_CODE = "+0";
+    private static int NONE_CALLING_CODE = CountryCallingCodeUtils.getNoneCallingCode();
     private static String NONE_ISO_COUNTRY_CODE = "00";
-    private static String NONE_COUNTRY_NAME = "None";
+    private static String NONE_COUNTRY_NAME = "Select";
     // TODO: Localize this.
-    private static final String localizedDisplayString = "Country Code not available";
+    private static final String localizedDisplayString = "Select Country Code";
     // TODO: Localize this.
     private static final String localizedIsoCodeDisplayString = NONE_COUNTRY_NAME;
 

@@ -126,7 +126,7 @@ public class RegisterActivity extends BaseTaskActivity implements AdapterView.On
         // so that user can press outside of the list popup window to dismiss it.
         int screenWidthPixels = SystemUtils.getScreenWidthPixels(this);
         int screenHeightPixels = SystemUtils.getScreenHeightPixels(this);
-        int popupWindowWidth = ((screenWidthPixels > 0) ? (screenWidthPixels * 75 / 100) : 400);
+        int popupWindowWidth = ((screenWidthPixels > 0) ? (screenWidthPixels * 60 / 100) : 300);
         int popupWindowHeight = ((screenHeightPixels > 0) ? (screenHeightPixels * 60 / 100) : 400);
         this.countryCallingCodeListPopupWindow.setWidth(popupWindowWidth);
         this.countryCallingCodeListPopupWindow.setHeight(popupWindowHeight);
@@ -166,7 +166,7 @@ public class RegisterActivity extends BaseTaskActivity implements AdapterView.On
         String password = this.passwordTextView.getText().toString(); // Don't trim the password value.
         String confirmPassword = this.confirmPasswordTextView.getText().toString(); // Don't trim the password value.
         String userName = this.userNameTextView.getText().toString().trim();
-        String mobileCountryCode = ((this.selectedCountryCallingCode != null) ? this.selectedCountryCallingCode.getCallingCode() : null);
+        int mobileCountryCode = ((this.selectedCountryCallingCode != null) ? this.selectedCountryCallingCode.getCallingCode() : null);
         String mobileNumber = this.mobileNumberTextView.getText().toString().trim();
         // Validate inputs.
         if (StringUtils.isNullOrEmpty(userId)) {
@@ -201,7 +201,7 @@ public class RegisterActivity extends BaseTaskActivity implements AdapterView.On
             showToastErrorMessage(getString(R.string.input_error_insufficient_name_length));
             return; // Return from here
         }
-        if (StringUtils.isNullOrEmpty(mobileCountryCode)) {
+        if (!CountryCallingCodeUtils.isValidCountryCallingCode(mobileCountryCode)) {
             showToastErrorMessage(getString(R.string.input_error_empty_mobile_country_code));
             return; // Return from here
         }
